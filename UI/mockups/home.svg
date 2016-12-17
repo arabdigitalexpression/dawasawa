@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="108.37334mm" height="180.62222mm" viewBox="0 0 384.00001 640" id="svg2" version="1.1" inkscape:version="0.91 r" sodipodi:docname="home.svg">
+  <title id="title4308">دواسوا - الشاشة الأولى</title>
+  <defs id="defs4" />
+  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="1" inkscape:cx="165.57167" inkscape:cy="338.46575" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" />
+  <metadata id="metadata7">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>دواسوا - الشاشة الأولى</dc:title>
+        <dc:date>2016-12-16</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>أحمد غربية Ahmad Gharbeia</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>CC:By-SA</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>ADEF</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:language>ar</dc:language>
+        <dc:description>مُخطّط أوّلي واجهة المستخدم لتطبيق دواسوا، خدمة تبادل الأدوية التعاونية.
+الشاشة الأولى</dc:description>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(1527.5714,-111.79077)">
+    <rect style="opacity:1;fill:#ffd5d5;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:18.6989994;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="rect4136" width="384" height="640" x="-1527.5714" y="111.79077" />
+    <g id="g4183" style="fill:#80005d;fill-opacity:1" transform="translate(-311.25516,-89)">
+      <text sodipodi:linespacing="100%" id="text4138" y="342.36221" x="-1026" style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:60px;line-height:100%;font-family:cairo;-inkscape-font-specification:'cairo, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" xml:space="preserve"><tspan y="342.36221" x="-1026" id="tspan4140" sodipodi:role="line">دواسوا</tspan></text>
+      <flowRoot style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;line-height:100%;font-family:cairo;-inkscape-font-specification:'cairo, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" id="flowRoot4142" xml:space="preserve" transform="translate(-0.40273438,0)"><flowRegion id="flowRegion4144"><rect y="370.36221" x="-1124" height="30" width="200" id="rect4146" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;line-height:100%;font-family:cairo;-inkscape-font-specification:'cairo, Normal';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1" /></flowRegion><flowPara style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;line-height:100%;font-family:cairo;-inkscape-font-specification:'cairo, Normal';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1" id="flowPara4148">دواك عندي و دواي عندك</flowPara></flowRoot>    </g>
+    <flowRoot xml:space="preserve" id="flowRoot4205" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18px;line-height:125%;font-family:Cairo;-inkscape-font-specification:'Cairo Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion id="flowRegion4207"><rect id="rect4209" width="315" height="27" x="-1193" y="879.36218" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Cairo;-inkscape-font-specification:'Cairo Bold'" /></flowRegion><flowPara id="flowPara4211" /></flowRoot>    <text xml:space="preserve" style="font-style:normal;font-weight:bold;font-size:18px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#80005d;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" x="-1335.5226" y="738.6908" id="text4213" sodipodi:linespacing="125%"><tspan sodipodi:role="line" id="tspan4215" x="-1335.5226" y="738.6908" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:cairo;-inkscape-font-specification:cairo;fill:#80005d;fill-opacity:1">شروط الاستخدام • سياسة البيانات</tspan></text>
+    <g id="g4927">
+      <g transform="translate(-299.57141,-167)" id="g4260">
+        <rect style="opacity:1;fill:#f0dcdc;fill-opacity:1;fill-rule:nonzero;stroke:#80005d;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="rect4191" width="214" height="48" x="-1143" y="592.36218" />
+        <flowRoot xml:space="preserve" id="flowRoot4197" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;line-height:100%;font-family:Cairo;-inkscape-font-specification:'Cairo, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;opacity:0.50800003;fill:#80005d;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" transform="translate(-19.114687,7.3643796)"><flowRegion id="flowRegion4199"><rect id="rect4201" width="197" height="25.5" x="-1115" y="600.36218" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;line-height:100%;font-family:Cairo;-inkscape-font-specification:'Cairo, Normal';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1" /></flowRegion><flowPara id="flowPara4203" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;line-height:100%;font-family:Cairo;-inkscape-font-specification:'Cairo, Normal';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1">الاسم الأجنبي للدواء</flowPara></flowRoot>      </g>
+      <text sodipodi:linespacing="100%" id="text4217" y="413.36218" x="-1294.781" style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18px;line-height:100%;font-family:cairo;-inkscape-font-specification:'cairo, Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" xml:space="preserve"><tspan style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18px;line-height:100%;font-family:cairo;-inkscape-font-specification:'cairo, Semi-Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#80005d;fill-opacity:1" y="413.36218" x="-1294.781" id="tspan4219" sodipodi:role="line">ابحث عن دوا شاحح:</tspan></text>
+    </g>
+    <g id="g4254" transform="translate(-299.57141,-167)">
+      <rect ry="17.8125" y="677.36218" x="-1143" height="57" width="214" id="rect4191-2" style="opacity:1;fill:#00bca1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text sodipodi:linespacing="125%" id="text4221" y="698.78821" x="-1035.7706" style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18px;line-height:125%;font-family:cairo;-inkscape-font-specification:'cairo, Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:white;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" xml:space="preserve"><tspan y="698.78821" x="-1035.7706" id="tspan4223" sodipodi:role="line">عندك دوا زايد عن حاجتك؟</tspan><tspan id="tspan4225" y="721.28821" x="-1035.7706" sodipodi:role="line">يمكن غيرك يحتاجه.</tspan></text>
+    </g>
+    <g id="g5007" transform="matrix(-1,0,0,1,-3215.5714,-1.4426433)">
+      <path inkscape:tile-y0="592.28296" inkscape:tile-x0="-731" inkscape:tile-h="4.714045" inkscape:tile-w="32" inkscape:tile-cy="594.63998" inkscape:tile-cx="-715" inkscape:connector-curvature="0" id="path4279" d="m -1730,125.44315 c 32,0 32,0 32,0" style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#80005d;stroke-width:4.41946936;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <use transform="matrix(0.625,0,0,1,-636.75,11.290222)" height="100%" width="100%" style="stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none" id="use4293" xlink:href="#path4279" inkscape:tiled-clone-of="#path4279" y="0" x="0" />
+      <use height="100%" width="100%" style="stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none" id="use4297" transform="matrix(0.8125,0,0,1,-318.375,22.580531)" xlink:href="#path4279" inkscape:tiled-clone-of="#path4279" y="0" x="0" />
+    </g>
+  </g>
+</svg>
