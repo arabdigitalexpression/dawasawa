@@ -26,9 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 require('./routes/api')(app);
-require('./routes/public')(app);
-require('./routes/secure')(app);
-require('./routes/archive')(app);
+
 
 // start the server
 var server = http.createServer(app);

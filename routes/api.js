@@ -1,5 +1,5 @@
-var  Item =  require('../models/methods');
-
+var Item =  require('../models/methods');
+var Tasks = require('../controllers/controller');
 
 module.exports = function(app) {
 
@@ -95,5 +95,12 @@ module.exports = function(app) {
 		});
 	});
 
-
+	// test node mailer
+	app.get('/mail', function(req, res) {
+		Tasks.sendEmail('mohamedgundour@gmail.com', 'hoorrrrrrrooooo').then(function(info) {
+			res.send(info);
+		}, function(err) {
+			res.send(err)
+		});
+	});	
 }
