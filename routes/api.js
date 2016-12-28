@@ -60,6 +60,14 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/expired', function(req, res) {
+		Item.findExpired(req.query.days).then(function(items) {
+			res.send(items);
+		}, function(err) {
+			res.sendStatus(500);
+			console.log(err);
+		});
+	});
 
 	// create test
 	app.post('/add', function(req, res) {

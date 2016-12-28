@@ -31,7 +31,7 @@ module.exports.findArchive = function(){
 
 module.exports.findWithName = function(name) {
 	return new Promise(function(resolve, reject) {
-		Item.find({ "latin_name": name }, function(err, items) {
+		Item.find({ "latin_name": name, "archive": false }, function(err, items) {
 			if(err)
 				reject(err);
 			else {
@@ -70,11 +70,34 @@ module.exports.findWithToken = function(token) {
 	});
 }
 
+module.exports.findExpired = function(days) {
+	console.log(days);
+	var date = new Date();
+	console.log(date);
+	var expireDate = new Date(date.setTime( date.getTime() + days * 86400000 ));
+	console.log(expireDate);
+
+	return new Promise(function(resolve, reject) {
+		Item.find({ expire_date: { $lt : expireDate }}, function(err, items) {
+			if(err) {
+				reject(err);
+				console.log(err);
+			}
+			else
+				resolve(items);
+		});
+	});
+}
 
 /****** 2- create functions *****/
+// 2.1- create new item
 module.exports.addItem = function(body) {
+
+	var now = Date();
+
 	return new Promise(function(resolve, reject) {
 		var item = new Item(body);
+		item.submission_date = now;
 		item.save(function(err) {
 			if(err)
 				reject(err);
@@ -84,6 +107,7 @@ module.exports.addItem = function(body) {
 	});
 }
 
+// 2.2- create new tokens for existing items
 module.exports.generateTokens = function(items) {
 	return new Promise(function(resolve, reject) {
 		for (item of items) {
@@ -101,6 +125,7 @@ module.exports.generateTokens = function(items) {
 }
 
 /****** 3- update functions *****/
+// 3.1- update an item
 module.exports.updateItem = function(body) {
 	return new Promise(function(resolve, reject) {
 		Item.findOne({ _id: body.id }, function(err, item) {
@@ -122,6 +147,21 @@ module.exports.updateItem = function(body) {
 	});
 }
 
+// 3.2- update archive with expired items
+module.exports.updateArchives = function(items) {
+	return new Promise(function(resolve, reject) {
+		for(item of items) {
+			item.archive = ture;
+			item.save(function(err) {
+				if(err)
+					reject(err);
+			});
+		}
+		resolve();
+	});
+}
+
+// 3.3- save an updated item
 module.exports.saveItem = function(item) {
 	return new Promise(function(resolve, reject) {
 		item.save(function(err) {
@@ -133,6 +173,7 @@ module.exports.saveItem = function(item) {
 	});
 }
 
+// 3.4- save updated items
 module.exports.saveItems = function(items) {
 	return new Promise(function(resolve, reject) {
 		for(item of items) {
