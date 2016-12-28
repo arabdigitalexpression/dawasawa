@@ -36,5 +36,3 @@ module.exports.sendEmail = function(email, data) {
 	});
 }
 
-
-/* 2- check for expired items*/

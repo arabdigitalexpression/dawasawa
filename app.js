@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+var reaper = require('./controllers/reaper');
+
 //  config
 var app_port = (process.env.PORT || 3000);
 var database_uri = 'mongodb://localhost:27017/dawasawa';
@@ -28,8 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('./routes/api')(app);
 
 
+
 // start the server
 var server = http.createServer(app);
 server.listen(app_port, function() {
+	reaper.startReaper();
 	console.log('server is running on port: ' + app_port);
 });

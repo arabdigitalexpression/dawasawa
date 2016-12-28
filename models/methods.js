@@ -151,7 +151,7 @@ module.exports.updateItem = function(body) {
 module.exports.updateArchives = function(items) {
 	return new Promise(function(resolve, reject) {
 		for(item of items) {
-			item.archive = ture;
+			item.archive = true;
 			item.save(function(err) {
 				if(err)
 					reject(err);
