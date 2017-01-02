@@ -5,18 +5,18 @@ var Schema = mongoose.Schema;
 var itemSchema =  new Schema({
 	latin_name: { type: String, required:  true, index: true},
 	arabic_name: String,
-	city: { type: String, required: true },
+	governorate: { type: String, required: true },
 	submission_date: Date,
 	expire_date: { type: Date, required: true },
-	state: { type: String, required: true },
-	info: String,
+	package_state: { type: String, required: true },
+	description: String,
 	pic_link: String,
-	owner: {
+	contact: {
 		name: { type: String, required: true },
-		email: { type: String, required: true, index: true },
-		contact: String
+		email_address: { type: String, required: true, index: true },
+		phone_number: String
 	},
-	confirmed: { type: Boolean, default: false },
+	instated: { type: Boolean, default: false },
 	archive: { type: Boolean, default: false },
 	token: {
 		type: Schema.Types.ObjectId,
