@@ -1,7 +1,7 @@
 {
   "name": "dawasawa",
   "version": "1.0.0",
-  "description": "",
+  "description": "منصة لتسهيل تبادل الأدوية بين الناس وصف النظام موجود في https://arabdigitalexpression.org/wiki/تصميم:دواسوا",
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
@@ -16,9 +16,16 @@
     "express": "^4.14.0",
     "mongoose": "^4.7.2",
     "nodemailer": "^2.7.0",
+    "nodemon": "^1.11.0",
     "rand-token": "^0.3.0"
   },
-  "devDependencies": {
-    "nodemon": "^1.11.0"
-  }
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arabdigitalexpression/dawasawa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arabdigitalexpression/dawasawa/issues"
+  },
+  "homepage": "https://github.com/arabdigitalexpression/dawasawa#readme"
 }

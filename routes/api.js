@@ -3,10 +3,6 @@ var Tasks = require('../controllers/controller');
 
 module.exports = function(app) {
 
-	app.get('/', function(req, res) {
-		res.send('Welcome to DawaSawa API');
-	});
-
 	// find test
 	app.get('/all', function(req, res) {
 		Item.findAll().then(function(items) {
