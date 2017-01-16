@@ -4,13 +4,14 @@
 
 var Item = require('../models/methods');
 var nodemailer = require('nodemailer');
+require('../config/secrets.js');
 
 /* 1- Send mail */
 var transporter = nodemailer.createTransport({
 	service: 'Gmail',
 	auth: {
-		user: 'gundourtesting@gmail.com',
-		pass: 'gundour1234'
+		user: username,
+		pass: password
 	}
 });
 
