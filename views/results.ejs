@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="A platform for exchanging medicine in Egypt for free">
+	<title>دواسوا</title>
+	<link href="https://fonts.googleapis.com/css?family=Cairo:400,700&amp;subset=arabic" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="../public/css/styles.css">
+</head>
+
+<body>
+	<div class="header">
+		<div class="row">
+			<div class="col s2">
+				<img class="header-logo" src="../public/assets/dawasawa_logo.png">
+			</div>
+			<div class="right-align">
+				<div class="waves-effect btn offer">اعرض دواء</div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="search-area">
+			<form action="/search" method="get">
+				<div class="search-field">
+					<label>
+						<i class="material-icons">search</i>
+						<input class="right-align" id="search" type="search" required>
+					</label>
+				</div>
+			</form>
+			<div class="filter">
+				<div id="filter-trigger" class="selected-section">
+					<span class="selected-text">جميع المحافظات</span>
+					<i class="material-icons">&#xE313;</i>
+				</div>
+				<ul id="filter-list" class="gov-filter invisible hide">
+					<li>
+						<span>القاهرة</span>
+					</li>
+					<li>
+						<span>الاسكندرية</span>
+					</li>
+					<li>
+						<span>اسيوط</span>
+					</li>
+					<li>
+						<span>سوهاج</span>
+					</li>
+					<li>
+						<span>الاقصر</span>
+					</li>
+					<li>
+						<span>القاهرة</span>
+					</li>
+					<li>
+						<span>الاسكندرية</span>
+					</li>
+					<li>
+						<span>اسيوط</span>
+					</li>
+					<li>
+						<span>سوهاج</span>
+					</li>
+					<li>
+						<span>الاقصر</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="results">
+			<div class="medicine-data">
+				<div class="row">
+					<div class="col l2 m3 s12">
+						<div class="pic-container">
+							<img src="../public/images/placeholder.jpg">
+						</div>
+					</div>
+					<div class="col l10 m9 s12 right-align">
+						<h1 class="name">Augmentin - اوجمنتين</h1>
+						
+						<p class="date">تاريخ انتهاء الصلاحية : 8 - 2017</p>
+							
+						<p class="state">حالة العبوه : سليمه</p>
+						<p class="description">الوصف : أى كلام أى كلام أى كلام أى كلام أى  أى كلام أى  أى كلام أى كلام</p>
+						<p class="gov">القاهره</p>
+					</div>
+				</div>
+			</div>
+			<div class="medicine-data">
+				<div class="row">
+					<div class="col l2 m3 s12">
+						<div class="pic-container">
+							<img src="../public/images/placeholder.jpg">
+						</div>
+					</div>
+					<div class="col l10 m9 s12 right-align">
+						<h1 class="name">Augmentin - اوجمنتين</h1>
+						
+						<p class="date">تاريخ انتهاء الصلاحية : 8 - 2017</p>
+							
+						<p class="state">حالة العبوه : سليمه</p>
+						<p class="description">الوصف : أى كلام أى كلام أى كلام أى كلام أى  أى كلام أى  أى كلام أى كلام</p>
+						<p class="gov">القاهره</p>
+					</div>
+				</div>
+			</div>
+			<div class="medicine-data">
+				<div class="row">
+					<div class="col l2 m3 s12">
+						<div class="pic-container">
+							<img src="../public/images/placeholder.jpg">
+						</div>
+					</div>
+					<div class="col l10 m9 s12 right-align">
+						<h1 class="name">Augmentin - اوجمنتين</h1>
+						
+						<p class="date">تاريخ انتهاء الصلاحية : 8 - 2017</p>
+							
+						<p class="state">حالة العبوه : سليمه</p>
+						<p class="description">الوصف : أى كلام أى كلام أى كلام أى كلام أى  أى كلام أى  أى كلام أى كلام</p>
+						<p class="gov">القاهره</p>
+					</div>
+				</div>
+			</div>
+			<div class="medicine-data">
+				<div class="row">
+					<div class="col l2 m3 s12">
+						<div class="pic-container">
+							<img src="../public/images/placeholder.jpg">
+						</div>
+					</div>
+					<div class="col l10 m9 s12 right-align">
+						<h1 class="name">Augmentin - اوجمنتين</h1>
+						
+						<p class="date">تاريخ انتهاء الصلاحية : 8 - 2017</p>
+							
+						<p class="state">حالة العبوه : سليمه</p>
+						<p class="description">الوصف : أى كلام أى كلام أى كلام أى كلام أى  أى كلام أى  أى كلام أى كلام</p>
+						<p class="gov">القاهره</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="pagination">
+			<ul class="pagination">
+				<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+				<li class="active"><a href="#!">1</a></li>
+				<li class="waves-effect"><a href="#!">2</a></li>
+				<li class="waves-effect"><a href="#!">3</a></li>
+				<li class="waves-effect"><a href="#!">4</a></li>
+				<li class="waves-effect"><a href="#!">5</a></li>
+				<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer">
+		<p class="right-align"><a class="link" href="#">قائمتى</a></p>
+		<ul>
+			<li><a class="link" href="#">كيفية الإستخدام</a></li>
+			<li><a class="link" href="#">عن دوا سوا</a></li>
+			<li><a class="link" href="#">شروط الإستخدام</a></li>
+		</ul>
+	</div>
+
+
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+	<script type="text/javascript" src="../public/js/main.js"></script>
+</body>
+</html>
