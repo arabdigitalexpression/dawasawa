@@ -30,6 +30,12 @@ app.use("/node_modules", express.static(path.join(__dirname, 'node_modules')));
 app.get('/', function(req, res) {
 		res.render('./index.ejs');
 	});
+app.get('/results', function(req, res) {
+		res.render('./results.ejs');
+	});
+app.get('/single', function(req, res) {
+		res.render('./single.ejs');
+	});
 
 require('./routes/api')(app);
 
