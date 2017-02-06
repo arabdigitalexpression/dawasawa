@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<!-- Include doc_head -->
+<% include ./partials/doc_head %>
+
+<!-- Include site header -->
+<% include ./templates/header %>
+
+<div class="content">
+	<div class="wide-container">
+		<div class="page-content">
+			<div class="all-results expanded row">
+				<div class="small-12 meduim-8 large-6 columns">	
+					<div class="search-result padded-text">
+						<div class="expanded row">
+							<div class="small-12 columns">
+
+								<h5 class="name"><%= result.latin_name %> - <%= result.arabic_name %> </h5>
+								<p class="governorate"><%= result.governorate %></p>
+								<p class="expire-date">تاريخ انتهاء الصلاحية : <%= result.expire_year %>/<%= result.expire_month %></p>
+								<p class="package_state" style="color: #000">حالة العبوة : <%= result.package_state %></p>
+								<p class="description" style="color: #000">وصف الدواء : <%= result.description %></p>
+
+								<form id="view_contact" class="has-captcha">
+									<div id="result_id" class="hide"><%= result.id %></div>
+									<div class="captcha-container small-6">
+										<label for="captcha_data">إنسان أم روبوت :)
+											<div class="captcha-img small-4"></div>
+											<input class="small-12" type="text" id="captcha_data" name="captcha_data">
+											<div class="button " id="renew-captcha">إطلب كلمة تحقق أخرى</div>
+										</label>
+										<button class="button small-12" id="show-contact-info" type="submit" form="view_contact">عرض بيانات الإتصال</button>
+									</div>
+								</form>
+								<div id="contact_info" class="hide">
+									<h5>بيانات الاتصال</h5>
+									<p class="contact-name"></p>
+									<p class="contact-email"></p>
+									<p class="contact-number"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Include message modal-->
+<% include ./templates/message_modal %>
+		
+
+
+<div class="indicator-container">
+	<div id="loading">
+		<span id="bubblingG_1">
+		</span>
+		<span id="bubblingG_2">
+		</span>
+		<span id="bubblingG_3">
+		</span>
+	</div>
+</div>
+
+
+
+<!-- Include site Footer -->
+<% include ./templates/footer %>
+
+
+<!-- Include doc_tail -->
+<% include ./partials/doc_tail %>

@@ -1,0 +1,24 @@
+<!-- Home page search form -->
+
+<h3>ابحث عن دواء</h3>
+<form id="search-form" action="search" method="get">
+	<br>
+	<input class="search-term" type="text" name="term" placeholder="اكتب اسم الدواء بالأحرف اللاتينية">
+	<p class="help-text" id="">انقل اسم الدواء من العبوة مع مراعاة الدقة، مثال: (Augmentine)</p>
+	<br>
+	<label>ترشيح بالمحافظة :
+		<select name="governorate">
+			<option value="" disabled selected>اختر محافظة</option>
+			<option value="كلّ المحافظات">كلّ المحافظات</option>
+			
+			<!-- render governorates -->
+			<% governorates.forEach((gov) => { %>
+				<option value="<%= gov %>"><%= gov %></option>
+			<% }) %>
+		
+		
+		</select>
+	</label>
+	<br><br>
+	<button class="button hollow" type="submit" form="search-form" value="ابحث">ابحث</button>
+</form>

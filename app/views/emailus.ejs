@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<!-- Include doc_head -->
+<% include ./partials/doc_head %>
+
+
+<!-- Include site header -->
+<% include ./templates/header %>
+
+<div id="page-name" class="callus"></div>
+<div class="content">
+	<div class="container">
+		<div class="page-content expanded row">
+			<div class="submit-col meduim-12 large-8 columns">
+				
+				<!-- Include contactus form-->
+				<h3 class="page-name">راسلنا</h3>
+				<form id="emailus-form" class="has-captcha">
+					<div class="expanded row">
+						<div class="large-8 medium-8 small-12 columns">
+							<label>الاسم*
+								<span id="user_name_error" class="error-msg">برجاء إدخال الإسم الشخصي للتواصل</span>
+								<input type="text" id="user_name" name="user_name" placeholder="اسم الشخصي للتواصل">
+							</label>
+						</div>
+					</div>
+					<div class="expanded row">
+						<div class="large-8 medium-8 small-12 columns">
+							<label>عنوان البريد الإلكترونى*
+								<span id="email_error" class="error-msg">برجاء إدخال عنوان البريد الإلكترونى</span>
+								<span id="email_value_error" class="error-msg">صيغة البريد الإلكترونى (example@example.com)</span>
+								<input type="email" id="user_email" name="user_email" placeholder="عنوان البريد الإلكترونى">
+							</label>
+						</div>
+					</div>
+					<div class="expanded row">
+						<div class="large-8 medium-8 small-12 columns">
+							<label>الرسالة
+								<textarea id="email_message" name="message" style="min-height: 100px;"></textarea>
+							</label>
+						</div>
+					</div>
+					<div class="expanded row">
+						<div class="large-8 medium-8 small-12 columns">
+							<div class="captcha-container">
+								<label for="captcha_data">إنسان أم روبوت :)
+									<div class="captcha-img small-6"></div>
+									<input class="small-6" type="text" id="captcha_data" name="captcha_data">
+									<div class="button" id="renew-captcha">إطلب كلمة تحقق أخرى</div>
+								</label>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="expanded row">
+						<div class="large-3 medium-3 small-12 columns">
+							<button class="button hollow" type="submit" form="emailus-form" value="أرسل">أرسل</button>
+						</div>
+					</div>		
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Include message modal-->
+<% include ./templates/message_modal %>
+
+<div class="indicator-container">
+	<div id="loading">
+		<span id="bubblingG_1">
+		</span>
+		<span id="bubblingG_2">
+		</span>
+		<span id="bubblingG_3">
+		</span>
+	</div>
+</div>
+
+<!-- Include site Footer -->
+<% include ./templates/footer %>
+
+
+<!-- Include doc_tail -->
+<% include ./partials/doc_tail %>
