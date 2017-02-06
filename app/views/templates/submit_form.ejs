@@ -1,13 +1,13 @@
 <!-- Home page submit form -->
 
-<h3 class="page-name">اعرض دواءً</h3>
+<h3 class="page-name">أدرج دواءً</h3>
 <form id="submit-form" class="has-captcha" method="post" action="submit">
 	<br>
 	<h4>بيانات الدواء</h4>
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
-			<label>الاسم باللاتينية*
-				<span id="latin_name_error" class="error-msg">برجاء إدخال إسم الدواء باللاتينية</span>
+			<label>الاسم بالأحرف اللاتينية *
+				<span id="latin_name_error" class="error-msg">برجاء إدخال اسم الدواء بالأحرف اللاتينية</span>
 				<input id="latin_name" type="text" name="latin_name" placeholder="بدقّة كما على العبوّة">
 			</label>
 		</div>
@@ -15,14 +15,14 @@
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
 			<label>الاسم بالعربية
-				<input id="arabic_name" type="text" name="arabic_name" placeholder=".للتوضيح لكن لا يُستخدم في البحث">
+				<input id="arabic_name" type="text" name="arabic_name" placeholder=".للتوضيح لكنه لا يُستخدم في البحث">
 			</label>
 		</div>
 	</div>
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
-			<label>تاريخ انتهاء الصلاحية*
-			<span id="expire_date_error" class="error-msg">( برجاء إدخال الشهر و السنة )</span>
+			<label>تاريخ انتهاء الصلاحية *
+			<span id="expire_date_error" class="error-msg">صلاحية الدواء أهمّ من الدواء!</span>
 				<div class="expanded row">
 					<select id="expire_month" name="month">
 						<option value="" selected disabled>الشهر</option>
@@ -42,8 +42,8 @@
 	</div>
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
-			<label>حالة العبوة*
-				<span id="package_state_error" class="error-msg">( برجاء إدخال حالة العبوة )</span>
+			<label>حالة العبوة *
+				<span id="package_state_error" class="error-msg">توضيح حالة العبّوة يساعد من يطلب الدواء</span>
 				<select id="package_state" name="package_state">
 					<option value="" selected disabled>حالة العبوة</option>
 					<% packageState.forEach((stat) => { %>
@@ -55,10 +55,10 @@
 	</div>
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
-			<label>المحافظة*
-				<span id="gov_error" class="error-msg">( برجاء إدخال المحافظة )</span>
+			<label>المحافظة *
+				<span id="gov_error" class="error-msg">المحافظة الموجود فيها الدواء المُدرج</span>
 				<select id="governorate" name="governorate">	
-					<option value="" selected disabled>إختر المحافظة</option>
+					<option value="" selected disabled>اختر المحافظة</option>
 					<% governorates.forEach((gov) => { %>
 						<option value="<%= gov %>"><%= gov %></option>
 					<% }) %>
@@ -78,19 +78,19 @@
 
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
-			<label>الاسم*
-				<span id="user_name_error" class="error-msg">برجاء إدخال الإسم الشخصي للتواصل</span>
-				<input type="text" id="user_name" name="user_name" placeholder="اسم الشخصي للتواصل">
+			<label>الاسم *
+				<span id="user_name_error" class="error-msg">كيف تحبّ أن يخاطبك من يتواصل مع بشأن إدراجك؟</span>
+				<input type="text" id="user_name" name="user_name" placeholder="اسمك ليتواصل به معك من يطلب الدواء">
 			</label>
 		</div>
 	</div>
 
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
-			<label>عنوان البريد الإلكترونى*
-				<span id="email_error" class="error-msg">برجاء إدخال عنوان البريد الإلكترونى</span>
-				<span id="email_value_error" class="error-msg">صيغة البريد الإلكترونى (example@example.com)</span>
-				<input type="email" id="user_email" name="user_email" placeholder="عنوان البريد الإلكترونى">
+			<label>عنوان البريد الإلكترونى *
+				<span id="email_error" class="error-msg">عنوان بريدك الإلكتروني وسيلة تواصل الخدمة معك!</span>
+				<span id="email_value_error" class="error-msg">صيغة البريد الإلكترونى (aliase@example.com)</span>
+				<input type="email" id="user_email" name="user_email" placeholder="بدون عنوان بريد صحيح لن يظهر إدراجك">
 			</label>
 		</div>
 	</div>
@@ -98,7 +98,7 @@
 	<div class="expanded row">
 		<div class="large-12 meduim-12 small-12">
 			<input id="email_private" type="checkbox" name="email_private">
-			<label for="email-private">لا تظهر عنوان بريدي مع بيانات الدواء و سأضع رقم هاتف </label>
+			<label for="email-private">لا أرغب في ظهور عنوان بريدي مع بيانات الإدراج و&nbsp;سأضع رقم هاتف </label>
 		</div>
 	</div>
 
@@ -107,9 +107,9 @@
 		<div class="large-8 meduim-8 small-12">
 			<label id="contact-number-label">رقم الهاتف
 				<span id="required-indicator">*</span>				
-				<span id="phone_error" class="error-msg">برجاء إدخال رقم هاتف</span>
-				<span id="number_error" class="error-msg">برجاء إدخال رقم سليم</span>
-				<input type="text" id="user_phone" name="user_phone" placeholder="رقم هاتف لتنسيق التبادل">
+				<span id="phone_error" class="error-msg">إذا اخترت عدم إظهار عنوان بريدك الإلكتروني فيتعيّن عليك إدخال رقم هاتف</span>
+				<span id="number_error" class="error-msg">برجاء إدخال رقم صحيح</span>
+				<input type="text" id="user_phone" name="user_phone" placeholder="رقم هاتف ليتواصل معك عبره من يطلب الدواء">
 			</label>
 		</div>
 	</div>
@@ -120,7 +120,7 @@
 				<label for="captcha_data">إنسان أم روبوت :)
 					<div class="captcha-img small-6"></div>
 					<input class="small-6" type="text" id="captcha_data" name="captcha_data">
-					<div class="button" id="renew-captcha">إطلب كلمة تحقق أخرى</div>
+					<div class="button" id="renew-captcha">صعبة! أظهر غيرها</div>
 				</label>
 			</div>
 		</div>
