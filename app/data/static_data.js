@@ -4,7 +4,7 @@
    This data will not change dynamically, changes must be hard
    coded.
 */
-var years_count = 20;
+var years_count = 7;
 var date = new Date();
 var current_year = date.getFullYear();
 var year = current_year;
@@ -14,7 +14,6 @@ for (year = current_year; year <= current_year + years_count; year++) {
 }
 
 module.exports = {
-
 	// A list of all governorates.
 	governorates : [
 	'الإسكندرية', 
@@ -102,27 +101,5 @@ module.exports = {
 	],
 
 	years: years_arr
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

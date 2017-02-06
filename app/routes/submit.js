@@ -1,23 +1,27 @@
-var express = require('express');
-var static_data = require('../data/static_data');
-var Methods =  require('../data/methods');
-var Emailsender = require('../controllers/emailsender');
+const express = require('express');
+const static_data = require('../data/static_data');
+const Methods =  require('../data/methods');
+const Emailsender = require('../controllers/emailsender');
+const app_config = require('../config/config');
 
-// load the config file
-var app_config = require('../config/config');
-var app_url;
+var site_url = app_config.site_url;
+
+/* debugging control moved to ../config/config.js for better modularity
+now setting DAWASAWA_DEBUG to TRUE will set the server properly.
+	BURN AFTER READING
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV == 'development') {
 	app_url = app_config.development.url;
 } else if (process.env.NODE_ENV == 'production') {
 	app_url = app_config.production.url;
 }
-
+*/
 var governorates = static_data.governorates;
 var package_state = static_data.package_state;
 var months = static_data.months;
 var years = static_data.years;
-
+var insertion_confirmation_grace = static_data.insertion_confirmation_grace;
+var domain_name = static_data.domain_name;
 
 
 var router = express.Router();
@@ -69,16 +73,16 @@ router.post('/', ensureCaptcha, function(req, res) {
 		var email_data = {
 			html : '<div align="right">'
 					+ '<p align="right">أهلاً ' + req.body.user_name + '</p>'
-					+ '<p align="right"> <span style="float: right"> شكرًا لوضعك طلب إدراج في </span> <span> dawasawa.online</span> </p>'
+					+ '<p align="right"> <span style="float: right"> شكرًا لوضعك طلب إدراج في دواسوا </p>'
 					+ '<p align="right">بيانات الإدراج الذي وضعته هي:</p>'
 					+ '<p align="right"><span style="float: right">اسم الدواء: </span>'+ req.body.latin_name +'</p>'
 					+ '<p align="right"><span style="float: right">انتهاء الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
 					+ '<p align="right"><span style="float: right"> المحافظة: </span>'+ req.body.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
-					+ app_url+'/verify/' + id
-					+ '<p align="right">يجب إتمام هذا الإجراء في غضون 24 ساعة، و إلا فسيُحذف الطّلب</p>'
+					+ site_url+'/verify/' + id
+					+ '<p align="right">يجب إتمام هذا الإجراء في غضون ' + insertion_confirmation_grace + ' ساعة، و إلا فسيُحذف الطّلب</p>'
 					+ '<p align="right">إذا لم تكن قد وضعت هذا الطّلب فتجاهل هذه الرسالة و لن تسمع منّا بعد الآن</p>'
-					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span> https://dawasawa.online'
+					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span> ' + site_url
 					+ '</div>'
 		}
 		return Emailsender.sendEmail(req.body.user_email, 'verify entry', email_data);
