@@ -15,6 +15,6 @@ module.exports = {
 	},
 
 	// email configuration
-	email_user: 'gundourtesting@gmail.com',
-	email_pass: 'gundour1234'
+	email_user: '',
+	email_pass: ''
 }

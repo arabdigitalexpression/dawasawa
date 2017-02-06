@@ -1,9 +1,7 @@
 var randomstring = require('randomstring');
-var md5 = require('md5');
 var Item = require('./schema').Item;
 var Token = require('./schema').Token;
 var Captcha = require('./schema').Captcha;
-
 
 /********************************************************************************************/
 /************************************* CRUD METHODS **************************************/
@@ -146,6 +144,21 @@ module.exports.addItem = function(body) {
 	});
 }
 
+// 2.2- create new tokens for existing items
+module.exports.saveToken = function(user_email, value) {
+	return new Promise(function(resolve, reject) {
+		var token = new Token();
+		var str = value.replace(/[^\w\s]/gi, '');
+		token.value = str;
+		token.user_email = user_email;
+		token.save(function(err) {
+			if(err)
+				reject(err);
+			resolve(token);
+		});
+	});
+}
+
 module.exports.addCaptcha = function(session_id, value) {
 	return new Promise(function(resolve, reject) {
 		var cap = new Captcha();
@@ -160,35 +173,7 @@ module.exports.addCaptcha = function(session_id, value) {
 	});
 }
 
-// 2.2- create new tokens for existing items
-module.exports.generateTokens = function(user_email) {
-	var now = Date();
-	var value = md5(user_email + now);
-	return new Promise(function(resolve, reject) {
-		var token = new Token();
-		token.value= value;
-		token.user_email = user_email;
-		token.save(function(err) {
-			if(err)
-				reject(err);
-			resolve(token);
-		});
-	});
 
-}
-
-module.exports.verifyEntry = function(id) {
-	return new Promise(function(resolve, reject) {
-		Item.findOne({ "_id": id }, function(err, item) {
-			if(err)
-				reject(err);
-			else {
-				item.instated = true;
-				resolve(item);
-			}
-		});
-	});
-}
 /****** 3- update functions *****/
 // 3.1- update an item
 module.exports.updateItem = function(body) {
@@ -206,6 +191,19 @@ module.exports.updateItem = function(body) {
 				item.pic_link = body.pic_link;
 				item.owner.name = body.owner.name;
 				item.owner.contact = body.owner.contact;
+				resolve(item);
+			}
+		});
+	});
+}
+
+module.exports.verifyEntry = function(id) {
+	return new Promise(function(resolve, reject) {
+		Item.findOne({ "_id": id }, function(err, item) {
+			if(err)
+				reject(err);
+			else {
+				item.instated = true;
 				resolve(item);
 			}
 		});
