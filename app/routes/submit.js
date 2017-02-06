@@ -3,10 +3,22 @@ var static_data = require('../data/static_data');
 var Methods =  require('../data/methods');
 var Emailsender = require('../controllers/emailsender');
 
+// load the config file
+var app_config = require('../config/config');
+var app_url;
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV == 'development') {
+	app_url = app_config.development.url;
+} else if (process.env.NODE_ENV == 'production') {
+	app_url = app_config.production.url;
+}
+
 var governorates = static_data.governorates;
 var package_state = static_data.package_state;
 var months = static_data.months;
 var years = static_data.years;
+
+
 
 var router = express.Router();
 
@@ -63,13 +75,13 @@ router.post('/', ensureCaptcha, function(req, res) {
 					+ '<p align="right"><span style="float: right">انتهاء الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
 					+ '<p align="right"><span style="float: right"> المحافظة: </span>'+ req.body.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
-					+ 'http://localhost:3002/verify/' + id
+					+ app_url+'/verify/' + id
 					+ '<p align="right">يجب إتمام هذا الإجراء في غضون 24 ساعة، و إلا فسيُحذف الطّلب</p>'
 					+ '<p align="right">إذا لم تكن قد وضعت هذا الطّلب فتجاهل هذه الرسالة و لن تسمع منّا بعد الآن</p>'
 					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span> https://dawasawa.online'
 					+ '</div>'
 		}
-		return Emailsender.sendEmail(req.body.user_email, email_data);
+		return Emailsender.sendEmail(req.body.user_email, 'verify entry', email_data);
 	}).then(function() {
 		res.sendStatus(200);
 	}).catch(function(err) {

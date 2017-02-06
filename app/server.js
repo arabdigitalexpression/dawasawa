@@ -8,6 +8,18 @@ var mongoose = require('mongoose');
 // load the config file
 var app_config = require('./config/config');
 
+
+// define the environment
+process.env.NODE_ENV = 'development';
+
+// Connect to mongodb
+if(process.env.NODE_ENV == 'development') {
+	var db = mongoose.connect(app_config.development.database_uri);
+} else if (process.env.NODE_ENV == 'production') {
+	var db = mongoose.connect(app_config.production.database_uri);
+}
+
+
 // load local dependencies
 var index = require('./routes/index');
 var submit = require('./routes/submit');
@@ -23,16 +35,6 @@ var mylist = require('./routes/mylist');
 var search = require('./routes/search');
 var single = require('./routes/single');
 
-
-// define the environment
-process.env.NODE_ENV = 'development';
-
-// Connect to mongodb
-if(process.env.NODE_ENV == 'development') {
-	var db = mongoose.connect(app_config.development.database_uri);
-} else if (process.env.NODE_ENV == 'production') {
-	var db = mongoose.connect(app_config.production.database_uri);
-}
 
 
 // start the app

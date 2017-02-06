@@ -1,24 +1,28 @@
 var nodemailer = require('nodemailer');
 
-
-
-	var transporter = nodemailer.createTransport({
-		service: 'Gmail',
-		auth: {
-			user: '',
-			pass: ''
-		}
-	});
+// load the config file
+var app_config = require('../config/config');
 
 
 
-module.exports.sendEmail = function(email, data) {
+
+var transporter = nodemailer.createTransport({
+	service: 'Gmail',
+	auth: {
+		user: app_config.email_user,
+		pass: app_config.email_pass
+	}
+});
+
+
+
+module.exports.sendEmail = function(email, subject, data) {
 	console.log('sending.....');
 	return new Promise(function(resolve, reject) {
 		var mailOptions = {
-			from: '',
+			from: app_config.email_user,
 			to: email,
-			subject: 'verify entry',
+			subject: subject,
 			html: data.html
 		}
 
@@ -37,7 +41,7 @@ module.exports.receiveEmail = function(body) {
 	return new Promise(function(resolve, reject) {
 		var mailOptions = {
 			from: body.name + '&lt;' + body.email + '&gt;' ,
-			to: '',
+			to: app_config.email_user,
 			subject: 'dawasawa contact',
 			html: '<div align="right">'
 					+ '<p align="right">بيانات المرسل</p>'

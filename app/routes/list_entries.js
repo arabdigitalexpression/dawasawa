@@ -2,6 +2,16 @@ var express = require('express');
 var Methods =  require('../data/methods');
 var Emailsender = require('../controllers/emailsender');
 
+// load the config file
+var app_config = require('../config/config');
+var app_url;
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV == 'development') {
+	app_url = app_config.development.url;
+} else if (process.env.NODE_ENV == 'production') {
+	app_url = app_config.production.url;
+}
+
 var status;
 
 var router = express.Router();
@@ -42,10 +52,10 @@ router.post('/',ensureCaptcha, function(req, res) {
 						+'أهلا!'
 						+ '<p align="right"> <span style="float: right"> شخص ما قد طلب معاينة قائمة الإدراجات المرتبكة بعنوان البريد هذا في </span> <span> dawasawa.online</span> </p>'
 						+ '<p align="right">لمعاينة إدراجاتك اتبع الرابط التالي، وإلا فتجاهل هذه الرّسالة.</p>'
-						+ 'http://localhost:3002/mylist/' + token.value
+						+ app_url + '/mylist/' + token.value
 						+ '</div>'
 			}
-			return Emailsender.sendEmail(req.body.user_email, email_data);
+			return Emailsender.sendEmail(req.body.user_email, 'Listing request', email_data);
 		} else {
 			status = 404;
 		}
