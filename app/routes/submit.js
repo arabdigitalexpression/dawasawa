@@ -85,7 +85,7 @@ router.post('/', ensureCaptcha, function(req, res) {
 					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span> ' + site_url
 					+ '</div>'
 		}
-		return Emailsender.sendEmail(req.body.user_email, 'verify entry', email_data);
+		return Emailsender.sendEmail(req.body.user_email, 'دواسوا: توكيد طلب إدراج', email_data);
 	}).then(function() {
 		res.sendStatus(200);
 	}).catch(function(err) {

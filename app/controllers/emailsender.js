@@ -4,8 +4,6 @@ var nodemailer = require('nodemailer');
 var app_config = require('../config/config');
 
 
-
-
 var transporter = nodemailer.createTransport({
 	service: 'Gmail',
 	auth: {
@@ -42,7 +40,7 @@ module.exports.receiveEmail = function(body) {
 		var mailOptions = {
 			from: body.name + '&lt;' + body.email + '&gt;' ,
 			to: app_config.email_user,
-			subject: 'dawasawa contact',
+			subject: 'استمارة الاتّصال',
 			html: '<div align="right">'
 					+ '<p align="right">بيانات المرسل</p>'
 					+ '<p align="right">' + body.user_name + '&lt;' + body.user_email + '&gt;' + '</p>'
