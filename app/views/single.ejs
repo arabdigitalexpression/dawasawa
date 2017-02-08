@@ -17,9 +17,9 @@
 
 								<h5 class="name"><%= result.latin_name %> - <%= result.arabic_name %> </h5>
 								<p class="governorate"><%= result.governorate %></p>
-								<p class="expire-date">تاريخ انتهاء الصلاحية : <%= result.expire_year %>/<%= result.expire_month %></p>
-								<p class="package_state" style="color: #000">حالة العبوة : <%= result.package_state %></p>
-								<p class="description" style="color: #000">وصف الدواء : <%= result.description %></p>
+								<p class="expire-date">تاريخ انتهاء الصلاحية: <%= result.expire_year %>/<%= result.expire_month %></p>
+								<p class="package_state" style="color: #000">حالة العبوة: <%= result.package_state %></p>
+								<p class="description" style="color: #000">ملاحظات: <%= result.description %></p>
 
 								<form id="view_contact" class="has-captcha">
 									<div id="result_id" class="hide"><%= result.id %></div>
@@ -27,9 +27,9 @@
 										<label for="captcha_data">إنسان أم روبوت :)
 											<div class="captcha-img small-4"></div>
 											<input class="small-12" type="text" id="captcha_data" name="captcha_data">
-											<div class="button " id="renew-captcha">إطلب كلمة تحقق أخرى</div>
+											<div class="button " id="renew-captcha">صعبة! أظهر غيرها أخرى</div>
 										</label>
-										<button class="button small-12" id="show-contact-info" type="submit" form="view_contact">عرض بيانات الإتصال</button>
+										<button class="button small-12" id="show-contact-info" type="submit" form="view_contact">أظهر بيانات الاتصال</button>
 									</div>
 								</form>
 								<div id="contact_info" class="hide">
