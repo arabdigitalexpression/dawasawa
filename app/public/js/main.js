@@ -40,10 +40,13 @@ $('#modal_close').click(function() {
 // ######### remove button ###########
 // ###################################
 
-$('.remove-btn').click(function() {
+$('.remove-btn').bind('click', function(e) {
+	e.preventDefault();
+	var self = this;
 	$('#loading').addClass('bubblingG');
+	console.log($(self).attr('href'));
 	axios.post('/mylist/delete', {
-		id: $('.result_id').html()
+		token: $(self).attr('href')
 	}).then(function(res) {
 		location.reload(true);
 	}).catch(function(err) {
@@ -54,10 +57,6 @@ $('.remove-btn').click(function() {
 				});
 	});
 })
-
-
-
-
 
 
 

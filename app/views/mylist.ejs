@@ -15,18 +15,17 @@
 				<div class="small-12 meduim-8 large-6 columns">
 					<% results.forEach((result) => { %>
 						<!-- loop over the returned results and render them -->
-							<div class="result_id hide"><%= result.id %></div>
 							<div class="search-result">
 								<div class="expanded row">
 									<div class="small-12 columns">
-										<h5 class="name"><%= result.latin_name %> - <%= result.arabic_name %> </h5>
+										<h5 class="name"><%= result.latin_name %> <%= result.arabic_name %> </h5>
 										<p class="governorate"><%= result.governorate %></p>
-										<p class="expire-date">تاريخ انتهاء الصلاحية : <%= result.expire_year %>/<%= result.expire_month %></p>
-										<p class="submission-date">تاريخ الإدراج : <%= result.submission_year %>/<%= result.submission_month %></p>
+										<p class="expire-date" style="color: #000">تاريخ انتهاء الصلاحية : <%= result.expire_year %>/<%= result.expire_month %></p>
+										<p class="submission-date" style="color: #000">تاريخ الإدراج : <%= result.submission_year %>/<%= result.submission_month %></p>
 										<p class="package_state" style="color: #000">حالة العبوة : <%= result.package_state %></p>
 									</div>
 								</div>
-								<span class="button remove-btn">مسح</span>
+								<a class="button remove-btn" href="<%= result.delete_token %>">مسح</a>
 							</div>
 					<% }) %>
 				</div>

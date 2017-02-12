@@ -2,27 +2,16 @@ const express = require('express');
 const static_data = require('../data/static_data');
 const Methods =  require('../data/methods');
 const Emailsender = require('../controllers/emailsender');
+const Encrypter = require('../controllers/encrypter');
 const app_config = require('../config/config');
 
 var site_url = app_config.site_url;
 
-/* debugging control moved to ../config/config.js for better modularity
-now setting DAWASAWA_DEBUG to TRUE will set the server properly.
-	BURN AFTER READING
-console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV == 'development') {
-	app_url = app_config.development.url;
-} else if (process.env.NODE_ENV == 'production') {
-	app_url = app_config.production.url;
-}
-*/
 var governorates = static_data.governorates;
 var package_state = static_data.package_state;
 var months = static_data.months;
 var years = static_data.years;
-var insertion_confirmation_grace = static_data.insertion_confirmation_grace;
-var domain_name = static_data.domain_name;
-
+var insertion_confirmation_grace = app_config.insertion_confirmation_grace;
 
 var router = express.Router();
 
@@ -53,23 +42,28 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', ensureCaptcha, function(req, res) {
-	var body = {};
+	var item = {};
 	var expire_date = req.body.expire_year + '-' + req.body.expire_month;
-	body.latin_name = req.body.latin_name;
-	body.arabic_name = req.body.arabic_name;
-	body.governorate = req.body.governorate;
-	body.expire_date = ( Date.parse(expire_date) + 1 * 86400000 );
-	body.package_state = req.body.package_state;
-	body.notes = req.body.notes;
-	body.contact = {};
-	body.contact.name = req.body.user_name;
-	body.contact.email_address = req.body.user_email;
+	item.latin_name = req.body.latin_name;
+	item.arabic_name = req.body.arabic_name;
+	item.governorate = req.body.governorate;
+	item.expire_date = ( Date.parse(expire_date) + 1 * 86400000 );
+	item.package_state = req.body.package_state;
+	item.notes = req.body.notes;
+	item.contact = {};
+	item.contact.name = req.body.user_name;
+	item.contact.email_address = req.body.user_email;
 	if(req.body.email_private == 'on') {
-		body.contact.email_invisible = true;
+		item.contact.email_invisible = true;
 	}
-	body.contact.phone = req.body.user_phone;
-
-	Methods.addItem(body).then(function(id) {
+	item.contact.phone = req.body.user_phone;
+	Methods.addItem(item).then(function(id) {
+		var params = {
+			id: id,
+			submission_date: Date()
+		};
+		return Encrypter.encrypt(JSON.stringify(params));
+	}).then(function(encrypted) {
 		var email_data = {
 			html : '<div align="right">'
 					+ '<p align="right">أهلاً ' + req.body.user_name + '</p>'
@@ -79,7 +73,7 @@ router.post('/', ensureCaptcha, function(req, res) {
 					+ '<p align="right"><span style="float: right">انتهاء الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
 					+ '<p align="right"><span style="float: right"> المحافظة: </span>'+ req.body.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
-					+ site_url+'/verify/' + id
+					+ site_url+'/verify/' + encrypted
 					+ '<p align="right">يجب إتمام هذا الإجراء في غضون ' + insertion_confirmation_grace + ' ساعة، و إلا فسيُحذف الطّلب</p>'
 					+ '<p align="right">إذا لم تكن قد وضعت هذا الطّلب فتجاهل هذه الرسالة و لن تسمع منّا بعد الآن</p>'
 					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span> ' + site_url
@@ -93,5 +87,6 @@ router.post('/', ensureCaptcha, function(req, res) {
 		res.sendStatus(500);
 	});
 });
+
 
 module.exports = router;

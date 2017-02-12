@@ -5,19 +5,14 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
+// define the environment
+process.env.NODE_ENV = 'Development';
+
 // load the config file
 var app_config = require('./config/config');
 
-
-// define the environment
-process.env.NODE_ENV = 'development';
-
 // Connect to mongodb
-if(process.env.NODE_ENV == 'development') {
-	var db = mongoose.connect(app_config.development.database_uri);
-} else if (process.env.NODE_ENV == 'production') {
-	var db = mongoose.connect(app_config.production.database_uri);
-}
+var db = mongoose.connect(app_config.database_uri);
 
 
 // load local dependencies
@@ -76,5 +71,5 @@ app.use('/medicine', single);
 // start the server
 var server = http.createServer(app);
 server.listen(app_config.app_port, function() {
-	console.log('server is running on port: ' + app_config.app_port);
+	console.log('server is running on port: %s in %s mode', app_config.app_port, process.env.NODE_ENV);
 });

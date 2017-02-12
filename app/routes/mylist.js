@@ -1,20 +1,53 @@
 var express = require('express');
 var router = express.Router();
 var Methods =  require('../data/methods');
+var Encrypter = require('../controllers/encrypter');
+const app_config = require('../config/config');
+var insertion_confirmation_grace = app_config.insertion_confirmation_grace;
 
+
+function authenticateEmail(req, res, next) {
+	Encrypter.decrypt(req.params.token).then(function(decrypted) {
+		var params = JSON.parse(decrypted);
+		var date = new Date();
+		var max_confirmation_date = new Date( date.setTime( 
+				date.getTime() + max_confirmation_date * ( 60 * 60 * 86400000 )
+			));
+		if( params.submission_date > max_confirmation_date )
+			res.sendStatus(403);
+		req.email = params.email;
+		next();
+	}).catch(function(err) {
+		res.sendStatus(403);
+		console.log(err);
+	});
+}
+
+function authenticateId(req, res, next) {
+	console.log('requested: ' + req.body.token);
+	Encrypter.decrypt(req.body.token).then(function(decrypted) {
+		console.log('decripted: ' + decrypted);
+		var params = JSON.parse(decrypted);
+		var date = new Date();
+		var max_confirmation_date = new Date( date.setTime( 
+				date.getTime() + max_confirmation_date * ( 60 * 60 * 86400000 )
+			));
+		if( params.request_date > max_confirmation_date )
+			res.sendStatus(403);
+		req.item_id = params.id;
+		next();
+	}).catch(function(err) {
+		res.sendStatus(403);
+		console.log(err);
+	});
+}
 
 router.get('/', function(req, res) {
 	res.sendStatus(404);
 });
 // render the home page
-router.get('/:token', function(req, res) {
-	Methods.findEmailWithToken(req.params.token).then(function(token) {
-		if(token.length != 0){
-			return Methods.findWithEmail(token[0].user_email);
-		} else {
-			return res.sendStatus(404);
-		}
-	}).then(function(items) {
+router.get('/:token', authenticateEmail, function(req, res) {
+	Methods.findWithEmail(req.email).then(function(items){
 		if(items.length != 0) {
 			items.forEach((item) => {
 				var expireDate = new Date(item.expire_date);
@@ -27,23 +60,33 @@ router.get('/:token', function(req, res) {
 				item.expire_year = e_y;
 				item.submission_month = s_m;
 				item.submission_year = s_y;
+				var params = {
+					id: item._id,
+					request_date: Date()
+				}
+				Encrypter.encrypt(JSON.stringify(params)).then(function(encrypted) {
+					item.delete_token = encrypted;
+				}).catch(function() {
+					res.sendStatus(500);
+				});
 			});
-			res.render('mylist', {
-				results: items 
-			});
+			setTimeout(function() {
+				res.render('mylist', {
+					results: items 
+				});
+			}, 100);
 		} else {
 			res.sendStatus(404);
 		}
-		
-	 }).catch(function(err) {
+	}).catch(function(err) {
 		res.sendStatus(500);
 	});
 });
 
 
 
-router.post('/delete', function(req, res) {
-	Methods.removeItem(req.body.id).then(function() {
+router.post('/delete', authenticateId, function(req, res) {
+	Methods.removeItem(req.item_id).then(function() {
 		res.sendStatus(200);
 	}).catch(function(err) {
 		console.log(err);

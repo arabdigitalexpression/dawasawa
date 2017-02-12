@@ -198,6 +198,7 @@ module.exports.updateItem = function(body) {
 }
 
 module.exports.verifyEntry = function(id) {
+	console.log(id);
 	return new Promise(function(resolve, reject) {
 		Item.findOne({ "_id": id }, function(err, item) {
 			if(err)

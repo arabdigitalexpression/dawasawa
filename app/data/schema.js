@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var app_config = require('../config/config');
+
 mongoose.Promise = global.Promise; 
 var Schema = mongoose.Schema;
 
@@ -21,22 +23,6 @@ var itemSchema =  new Schema({
 	instated: { type: Boolean, default: false },
 });
 
-var tokenSchema = mongoose.Schema({
-	value: {
-		type: String,
-		index: true
-	},
-	user_email: {
-		type: String,
-		required: true
-	},
-	expireAt: {
-		type: Date,
-		expires: '1h',
-		default: Date.now
-	}
-});
-
 var captchaSchema = mongoose.Schema({
 	value: {
 		type: String,
@@ -53,8 +39,7 @@ var captchaSchema = mongoose.Schema({
 });
 
 var Item = mongoose.model('Item', itemSchema);
-var Token = mongoose.model('Token', tokenSchema);
 var Captcha = mongoose.model('Captcha', captchaSchema);
-var Models = { Item: Item, Token: Token, Captcha: Captcha };
+var Models = { Item: Item, Captcha: Captcha };
 
 module.exports = Models;

@@ -5,10 +5,12 @@ var app_config = require('../config/config');
 
 
 var transporter = nodemailer.createTransport({
-	service: 'Gmail',
+	// host: '',
+	// port: ,
+	// secure: ,
 	auth: {
-		user: app_config.email_user,
-		pass: app_config.email_pass
+		user: app_config.email_address_from,
+		pass: ''
 	}
 });
 
@@ -18,7 +20,7 @@ module.exports.sendEmail = function(email, subject, data) {
 	console.log('sending.....');
 	return new Promise(function(resolve, reject) {
 		var mailOptions = {
-			from: app_config.email_user,
+			from: app_config.email_address_from,
 			to: email,
 			subject: subject,
 			html: data.html
@@ -39,7 +41,7 @@ module.exports.receiveEmail = function(body) {
 	return new Promise(function(resolve, reject) {
 		var mailOptions = {
 			from: body.name + '&lt;' + body.email + '&gt;' ,
-			to: app_config.email_user,
+			to: app_config.email_address_writeus,
 			subject: 'استمارة الاتّصال',
 			html: '<div align="right">'
 					+ '<p align="right">بيانات المرسل</p>'
