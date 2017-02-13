@@ -73,10 +73,18 @@ alert-color: #D22E2C;
 	font-weight: 700;
 }
 
-.info-msg {
+.success-msg {
 	text-align: center;
 	margin: 0 auto;
 	margin-top: 48px;
+	color: #0b9444;
+}
+
+.Fail-msg {
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 48px;
+	color: #FF9494;
 }
 
 /* home styles */

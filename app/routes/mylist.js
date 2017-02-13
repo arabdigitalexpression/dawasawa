@@ -14,11 +14,11 @@ function authenticateEmail(req, res, next) {
 				date.getTime() + max_confirmation_date * ( 60 * 60 * 86400000 )
 			));
 		if( params.submission_date > max_confirmation_date )
-			res.sendStatus(403);
+			res.redirect('/404');
 		req.email = params.email;
 		next();
 	}).catch(function(err) {
-		res.sendStatus(403);
+		res.redirect('/404');
 		console.log(err);
 	});
 }
@@ -33,17 +33,17 @@ function authenticateId(req, res, next) {
 				date.getTime() + max_confirmation_date * ( 60 * 60 * 86400000 )
 			));
 		if( params.request_date > max_confirmation_date )
-			res.sendStatus(403);
+			res.redirect('/404');
 		req.item_id = params.id;
 		next();
 	}).catch(function(err) {
-		res.sendStatus(403);
+		res.redirect('/404');
 		console.log(err);
 	});
 }
 
 router.get('/', function(req, res) {
-	res.sendStatus(404);
+	res.redirect('/404');
 });
 // render the home page
 router.get('/:token', authenticateEmail, function(req, res) {
@@ -76,7 +76,7 @@ router.get('/:token', authenticateEmail, function(req, res) {
 				});
 			}, 100);
 		} else {
-			res.sendStatus(404);
+			res.redirect('/404');
 		}
 	}).catch(function(err) {
 		res.sendStatus(500);

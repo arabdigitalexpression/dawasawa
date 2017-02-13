@@ -14,24 +14,31 @@ function authenticate(req, res, next) {
 				date.getTime() + max_confirmation_date * ( 60 * 60 * 86400000 )
 			));
 		if( params.submission_date > max_confirmation_date )
-			res.sendStatus(403);
+			res.redirect('/404');
 		req.item_id = params.id;
 		next();
 	}).catch(function(err) {
-		res.sendStatus(403);
+		res.redirect('/404');
 		console.log(err);
 	});
 }
 
-// render the home page
 router.get('/:token', authenticate, function(req, res) {
-	Methods.verifyEntry(req.item_id).then(function(item) {
-		return Methods.saveItem(item);
-	}).then(function() {
-		res.render('./verified');
-	}).catch(function(err) {
-		res.sendStatus(500);
+	Methods.findWithId(req.item_id).then(function(item){
+		if(item) {
+			Methods.verifyEntry(req.item_id).then(function(item) {
+				return Methods.saveItem(item);
+			}).then(function() {
+				res.render('./verified');
+			}).catch(function(err) {
+				res.sendStatus(500);
+			});
+		}
+		else {
+			res.redirect('./404');
+		}
 	});
+	
 });
 
 module.exports = router;
