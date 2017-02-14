@@ -4,7 +4,7 @@ module.exports.encrypt = (value) => {
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
 			reject();
-		const cipher = crypto.createCipher('aes192', 'secret');
+		const cipher = crypto.createCipher('id-aes128-GCM', config.token_secret_key);
 
 		let encrypted = '';
 
@@ -23,11 +23,12 @@ module.exports.encrypt = (value) => {
 	})
 }
 
+
 module.exports.decrypt = (value) => {
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
 			reject();
-		const decipher = crypto.createDecipher('aes192', 'secret');
+		const decipher = crypto.createDecipher('id-aes128-GCM', config.token_secret_key);
 
 		let decrypted = '';
 		decipher.on('readable', () => {

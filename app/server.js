@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
 // define the environment
-process.env.NODE_ENV = 'Development';
+process.env.NODE_ENV = 'Production';
 
 // load the config file
 var app_config = require('./config/config');

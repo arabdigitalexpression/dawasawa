@@ -75,7 +75,7 @@ router.post('/', ensureCaptcha, function(req, res) {
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
 					+ site_url+'/verify/' + encrypted
 					+ '<p align="right">يجب إتمام هذا الإجراء في غضون ' + insertion_confirmation_grace + ' ساعة، و إلا فسيُحذف الطّلب</p>'
-					+ '<p align="right">إذا لم تكن قد وضعت هذا الطّلب فتجاهل هذه الرسالة و لن تسمع منّا بعد الآن</p>'
+					+ '<p align="right">إذا لم تكن قد وضعت هذا الطّلب فتجاهل هذه الرسالة و&nbsp;لن تسمع منّا بعد الآن</p>'
 					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span> ' + site_url
 					+ '</div>'
 		}

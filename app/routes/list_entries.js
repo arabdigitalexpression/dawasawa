@@ -58,7 +58,7 @@ router.post('/',ensureCaptcha, ensureEntries, function(req, res) {
 		var email_data = {
 			html :  '<div align="right">'
 					+'أهلا!'
-					+ '<p align="right"> <span style="float: right"> شخص ما قد طلب معاينة قائمة الإدراجات المرتبكة بعنوان البريد هذا في </span> <span> dawasawa.online</span> </p>'
+					+ '<p align="right"> <span style="float: right"> شخص ما قد طلب معاينة قائمة الإدراجات المرتبطة بعنوان البريد هذا في </span> <span> dawasawa.online</span> </p>'
 					+ '<p align="right">لمعاينة إدراجاتك اتبع الرابط التالي، وإلا فتجاهل هذه الرّسالة.</p>'
 					+ app_url + '/mylist/' + encrypted
 					+ '</div>'
