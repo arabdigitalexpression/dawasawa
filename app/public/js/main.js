@@ -44,7 +44,6 @@ $('.remove-btn').bind('click', function(e) {
 	e.preventDefault();
 	var self = this;
 	$('#loading').addClass('bubblingG');
-	console.log($(self).attr('href'));
 	axios.post('/mylist/delete', {
 		token: $(self).attr('href')
 	}).then(function(res) {

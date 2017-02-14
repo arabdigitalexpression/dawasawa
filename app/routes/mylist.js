@@ -19,14 +19,11 @@ function authenticateEmail(req, res, next) {
 		next();
 	}).catch(function(err) {
 		res.redirect('/404');
-		console.log(err);
 	});
 }
 
 function authenticateId(req, res, next) {
-	console.log('requested: ' + req.body.token);
 	Encrypter.decrypt(req.body.token).then(function(decrypted) {
-		console.log('decripted: ' + decrypted);
 		var params = JSON.parse(decrypted);
 		var date = new Date();
 		var max_confirmation_date = new Date( date.setTime( 
@@ -38,7 +35,6 @@ function authenticateId(req, res, next) {
 		next();
 	}).catch(function(err) {
 		res.redirect('/404');
-		console.log(err);
 	});
 }
 
@@ -89,7 +85,6 @@ router.post('/delete', authenticateId, function(req, res) {
 	Methods.removeItem(req.item_id).then(function() {
 		res.sendStatus(200);
 	}).catch(function(err) {
-		console.log(err);
 		res.sendStatus(500);
 	});
 });

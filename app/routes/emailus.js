@@ -31,7 +31,6 @@ router.post('/', ensureCaptcha, function(req, res) {
 	Emailsender.receiveEmail(req.body).then(function(info) {
 		res.sendStatus(200);
 	}).catch(function(err) {
-		console.log(err);
 		res.sendStatus(500);
 	});
 });

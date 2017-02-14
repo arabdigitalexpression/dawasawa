@@ -19,7 +19,6 @@ function authenticate(req, res, next) {
 		next();
 	}).catch(function(err) {
 		res.redirect('/404');
-		console.log(err);
 	});
 }
 

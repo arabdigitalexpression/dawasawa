@@ -83,7 +83,6 @@ router.post('/', ensureCaptcha, function(req, res) {
 	}).then(function() {
 		res.sendStatus(200);
 	}).catch(function(err) {
-		console.log(err);
 		res.sendStatus(500);
 	});
 });

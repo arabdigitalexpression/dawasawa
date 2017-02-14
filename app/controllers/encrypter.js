@@ -23,28 +23,7 @@ module.exports.encrypt = (value) => {
 	})
 }
 
-module.exports.encryptSync = (value) => {
-
-	const cipher = crypto.createCipher('aes192', 'secret');
-
-	let encrypted = '';
-
-	cipher.on('readable', () => {
-		const data = cipher.read();
-		if (data)
-			encrypted += data.toString('hex');
-	});
-
-	cipher.on('end', () => {
-		return encrypted;
-	});
-	
-	cipher.write(value);
-	cipher.end();
-}
-
 module.exports.decrypt = (value) => {
-	console.log('to decript: ' + value);
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
 			reject();

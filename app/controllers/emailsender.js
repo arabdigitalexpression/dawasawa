@@ -5,9 +5,7 @@ var app_config = require('../config/config');
 
 
 var transporter = nodemailer.createTransport({
-	// host: '',
-	// port: ,
-	// secure: ,
+	service: "Gmail",
 	auth: {
 		user: app_config.email_address_from,
 		pass: ''
@@ -17,7 +15,6 @@ var transporter = nodemailer.createTransport({
 
 
 module.exports.sendEmail = function(email, subject, data) {
-	console.log('sending.....');
 	return new Promise(function(resolve, reject) {
 		var mailOptions = {
 			from: app_config.email_address_from,
@@ -58,7 +55,6 @@ module.exports.receiveEmail = function(body) {
 			}
 			else {
 				resolve(info);
-				console.log(info);
 			}
 		})
 	});

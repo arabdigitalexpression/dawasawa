@@ -81,17 +81,15 @@ module.exports.findEmailWithToken = function(value) {
 }
 
 module.exports.findExpired = function(days) {
-	console.log(days);
 	var date = new Date();
-	console.log(date);
+	// console.log(date);
 	var expireDate = new Date(date.setTime( date.getTime() + days * 86400000 ));
-	console.log(expireDate);
+	// console.log(expireDate);
 
 	return new Promise(function(resolve, reject) {
 		Item.find({ expire_date: { $lt : expireDate }}, function(err, items) {
 			if(err) {
 				reject(err);
-				console.log(err);
 			}
 			else
 				resolve(items);
@@ -198,7 +196,6 @@ module.exports.updateItem = function(body) {
 }
 
 module.exports.verifyEntry = function(id) {
-	console.log(id);
 	return new Promise(function(resolve, reject) {
 		Item.findOne({ "_id": id }, function(err, item) {
 			if(err)
