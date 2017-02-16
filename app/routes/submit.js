@@ -16,18 +16,21 @@ var insertion_confirmation_grace = app_config.insertion_confirmation_grace;
 var router = express.Router();
 
 function ensureCaptcha(req, res, next) {
+	console.log('captcha entered : ' +  req.body.captcha_data);
 	Methods.findCaptcha(req.body.captcha_data).then(function(cap) {
-
 		if(cap != null) {
 			if(req.body.session_id == cap.session_id) {
 				next();
 			} else {
-				res.send('renew captcha').status(404);
+				console.log('captcha not found');
+				res.sendStatus(404);
 			}
 		} else {
-			res.send('renew captcha').status(404);
+			console.log('captcha not found');
+			res.sendStatus(404);
 		}
 	}, function(err) {
+		console.log(err);
 		res.sendStatus(500);
 	});
 }
@@ -42,6 +45,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', ensureCaptcha, function(req, res) {
+	console.log('request : ' + req.body.email_private);
 	var item = {};
 	var expire_date = req.body.expire_year + '-' + req.body.expire_month;
 	item.latin_name = req.body.latin_name;
@@ -53,25 +57,27 @@ router.post('/', ensureCaptcha, function(req, res) {
 	item.contact = {};
 	item.contact.name = req.body.user_name;
 	item.contact.email_address = req.body.user_email;
-	if(req.body.email_private == 'on') {
+	if(req.body.email_private == true) {
 		item.contact.email_invisible = true;
 	}
 	item.contact.phone = req.body.user_phone;
 	Methods.addItem(item).then(function(id) {
+		console.log('item added : ' + id);
 		var params = {
 			id: id,
 			submission_date: Date()
 		};
 		return Encrypter.encrypt(JSON.stringify(params));
 	}).then(function(encrypted) {
+		console.log('encrypted : ' + encrypted);
 		var email_data = {
 			html : '<div align="right">'
 					+ '<p align="right">أهلاً ' + req.body.user_name + '</p>'
 					+ '<p align="right"> <span style="float: right"> شكرًا لوضعك طلب إدراج في دواسوا </p>'
 					+ '<p align="right">بيانات الإدراج الذي وضعته هي:</p>'
-					+ '<p align="right"><span style="float: right">اسم الدواء: </span>'+ req.body.latin_name +'</p>'
-					+ '<p align="right"><span style="float: right">انتهاء الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
-					+ '<p align="right"><span style="float: right"> المحافظة: </span>'+ req.body.governorate +'</p>'
+					+ '<p align="right"><span style="float: right">اسم الدواء : </span>'+ req.body.latin_name +'</p>'
+					+ '<p align="right"><span style="float: right">انتهاء الصلاحية : </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
+					+ '<p align="right"><span style="float: right"> المحافظة : </span>'+ req.body.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
 					+ site_url+'/verify/' + encrypted
 					+ '<p align="right">يجب إتمام هذا الإجراء في غضون ' + insertion_confirmation_grace + ' ساعة، و إلا فسيُحذف الطّلب</p>'
@@ -81,9 +87,11 @@ router.post('/', ensureCaptcha, function(req, res) {
 		}
 		return Emailsender.sendEmail(req.body.user_email, 'دواسوا: توكيد طلب إدراج', email_data);
 	}).then(function() {
+		console.log('email sent');
 		res.sendStatus(200);
 	}).catch(function(err) {
 		res.sendStatus(500);
+		console.log(err);
 	});
 });
 

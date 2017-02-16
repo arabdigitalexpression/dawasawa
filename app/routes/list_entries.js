@@ -13,18 +13,22 @@ var router = express.Router();
 
 
 function ensureCaptcha(req, res, next) {
+	console.log('captcha entered : ' +  req.body.captcha_data);
 	Methods.findCaptcha(req.body.captcha_data).then(function(cap) {
 
 		if(cap != null) {
 			if(req.body.session_id == cap.session_id) {
 				next();
 			} else {
-				res.status(404).send('renew captcha');
+				console.log('captcha not found');
+				res.sendStatus(404);
 			}
 		} else {
-			res.status(404).send('renew captcha');
+			console.log('captcha not found');
+			res.sendStatus(404);
 		}
 	}, function(err) {
+		console.log(err);
 		res.sendStatus(500);
 	});
 }
@@ -34,9 +38,11 @@ function ensureEntries(req, res, next) {
 		if(items.length != 0) {
 			return next();
 		} else {
+			console.log('email not found');
 			res.sendStatus(404);
 		}
-	}).catch(function(err) {	
+	}).catch(function(err) {
+		console.log(err);
 		res.sendStatus(500);
 	});
 }
@@ -49,12 +55,14 @@ router.get('/', function(req, res) {
 
 
 router.post('/',ensureCaptcha, ensureEntries, function(req, res) {
+	console.log("request body : " + req.body);
 	var params = {
 		email: req.body.user_email,
 		submission_date: Date()
 	};
 
 	Encrypter.encrypt( JSON.stringify(params) ).then(function(encrypted) {
+		console.log('encrypted : ' + encrypted);
 		var email_data = {
 			html :  '<div align="right">'
 					+'أهلا!'
@@ -65,8 +73,10 @@ router.post('/',ensureCaptcha, ensureEntries, function(req, res) {
 			}
 		return Emailsender.sendEmail(req.body.user_email, 'Listing request', email_data);
 	}).then(function() {
+		console.log('email sent');
 		res.sendStatus(200);
 	}).catch(function(err) {
+		console.log(err);
 		res.sendStatus(500);
 	});
 });

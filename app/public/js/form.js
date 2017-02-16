@@ -206,7 +206,7 @@ $('textarea').focus(function() {
 // 1- submit page form
 $('#submit-form').submit(function() {
 	
-	$('#loading').addClass('bubblingG');
+	
 
 	latin_name_error = false;
 	expire_error = false;
@@ -228,13 +228,14 @@ $('#submit-form').submit(function() {
 	if( $('#email_private:checkbox').is(':checked') ) {
 		checkPhone();
 	}
+	console.log( $('#email_private').is(':checked') );
 
 	if( latin_name_error == false && expire_error == false 
 		&& package_state_error == false && gov_error == false 
 		&& user_name_error == false && email_error == false 
 		&& email_value_error == false && phone_error == false 
 		&& number_error == false ) {
-
+		$('#loading').addClass('bubblingG');
 		axios.post('/submit', {
 			latin_name: $('#latin_name').val(),
 			arabic_name: $('#arabic_name').val(),
@@ -247,19 +248,18 @@ $('#submit-form').submit(function() {
 			user_name: $('#user_name').val(),
 			user_email: $('#user_email').val(),
 			user_phone: $('#user_phone').val(),
-			email_private: $('#email_private').val(),
+			email_private: $('#email_private').is(':checked'),
 			captcha_data: $('#captcha_data').val(),
 			terms_agreed: $('#terms_agreed').val(),
 			session_id: sessionStorage.getItem('s_id')
 		}).then(function(res) {
+			$('#loading').removeClass('bubblingG');
 			if(res.status == 200) {
-				$('#loading').removeClass('bubblingG');
 				renderMessage({
 					status: 'success',
 					content: '<p>تم الإدراج بنجاح</p> <p>سوف تصلك رسالة لتأكيد الإدراج على بريدك الإلكترونى</p>'
 				});
 			} else if(res.status == 500 || res.status == 404) {
-				$('#loading').removeClass('bubblingG');
 				renderMessage({
 					status: 'fail',
 					content: 'عفواً حدث خطأ فى الإدراج'
@@ -282,27 +282,26 @@ $('#submit-form').submit(function() {
 
 $('#entries-form').submit(function() {
 
-	$('#loading').addClass('bubblingG');
+	
 
 	email_error = false;
 	email_value_error = false;
 
 	checkEmail();
-
+	$('#loading').addClass('bubblingG');
 	if(email_error == false && email_value_error == false) {
 		axios.post('/list_entries', {
 			user_email: $('#user_email').val(),
 			captcha_data: $('#captcha_data').val(),
 			session_id: sessionStorage.getItem('s_id')
 		}).then(function(res) {
+			$('#loading').removeClass('bubblingG');
 			if(res.status == 200) {
-				$('#loading').removeClass('bubblingG');
 				renderMessage({
 					status: 'success',
 					content: 'تم إرسال الرسالة لبريدك الإلكترونى بنجاح'
 				});
 			} else {
-				$('#loading').removeClass('bubblingG');
 				renderMessage({
 					status: 'fail',
 					content: 'عفواً حدث خطأ فى الإدراج'
@@ -321,8 +320,6 @@ $('#entries-form').submit(function() {
 
 $('#emailus-form').submit(function() {
 
-	$('#loading').addClass('bubblingG');
-
 	user_name_error = false;
 	email_error = false;
 	email_value_error = false;
@@ -334,6 +331,8 @@ $('#emailus-form').submit(function() {
 
 	if( user_name_error == false && email_error == false 
 		&& email_value_error == false && message_error == false ) {
+
+		$('#loading').addClass('bubblingG');
 
 		axios.post('/emailus', {
 			user_name: $('#user_name').val(),
@@ -349,7 +348,6 @@ $('#emailus-form').submit(function() {
 					content: 'تم إرسال الرسالة بنجاح'
 				});
 			} else {
-				$('#loading').removeClass('bubblingG');
 				renderMessage({
 					status: 'fail',
 					content: 'عفواً حدث خطأ فى الإرسال'
@@ -376,6 +374,7 @@ $('#view_contact').submit(function() {
 		session_id: sessionStorage.getItem('s_id'),
 		medicine_id: $('#result_id').html()
 	}).then(function(res) {
+		console.log(res.data.contact);
 		$('#loading').removeClass('bubblingG');
 			if(res.status == 200) {
 				$('#contact_info').removeClass('hide');
@@ -385,7 +384,6 @@ $('#view_contact').submit(function() {
 				}
 				$('.contact-number').html('رقم الهاتف: ' + res.data.contact.phone);
 			} else {
-				$('#loading').removeClass('bubblingG');
 				renderMessage({
 					status: 'fail',
 					content: 'عفواً حدث خطأ فى الإرسال'

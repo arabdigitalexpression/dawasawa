@@ -1,21 +1,25 @@
 const crypto = require('crypto');
 
+var app_config = require('../config/config');
+
 module.exports.encrypt = (value) => {
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
 			reject();
-		const cipher = crypto.createCipher('id-aes128-GCM', config.token_secret_key);
+
+		const cipher = crypto.createCipher('aes192', app_config.token_secret_key);
 
 		let encrypted = '';
 
 		cipher.on('readable', () => {
 			const data = cipher.read();
-			if (data)
+			if (data) {
 				encrypted += data.toString('hex');
+			}
 		});
 
 		cipher.on('end', () => {
-			resolve(encrypted);
+			resolve(encrypted);	
 		});
 		
 		cipher.write(value);
@@ -28,7 +32,7 @@ module.exports.decrypt = (value) => {
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
 			reject();
-		const decipher = crypto.createDecipher('id-aes128-GCM', config.token_secret_key);
+		const decipher = crypto.createDecipher('aes192', app_config.token_secret_key);
 
 		let decrypted = '';
 		decipher.on('readable', () => {
@@ -43,7 +47,6 @@ module.exports.decrypt = (value) => {
 
 		decipher.write(value, 'hex');
 		decipher.end();
-
 	})
 }
 

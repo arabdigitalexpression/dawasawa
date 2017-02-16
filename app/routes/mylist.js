@@ -8,6 +8,7 @@ var insertion_confirmation_grace = app_config.insertion_confirmation_grace;
 
 function authenticateEmail(req, res, next) {
 	Encrypter.decrypt(req.params.token).then(function(decrypted) {
+		console.log('decrypted : ' + decrypted);
 		var params = JSON.parse(decrypted);
 		var date = new Date();
 		var max_confirmation_date = new Date( date.setTime( 
@@ -18,12 +19,14 @@ function authenticateEmail(req, res, next) {
 		req.email = params.email;
 		next();
 	}).catch(function(err) {
+		console.log(err);
 		res.redirect('/404');
 	});
 }
 
 function authenticateId(req, res, next) {
 	Encrypter.decrypt(req.body.token).then(function(decrypted) {
+		console.log('decrypted : ' + decrypted);
 		var params = JSON.parse(decrypted);
 		var date = new Date();
 		var max_confirmation_date = new Date( date.setTime( 
@@ -34,6 +37,7 @@ function authenticateId(req, res, next) {
 		req.item_id = params.id;
 		next();
 	}).catch(function(err) {
+		console.log(err);
 		res.redirect('/404');
 	});
 }
@@ -43,8 +47,10 @@ router.get('/', function(req, res) {
 });
 // render the home page
 router.get('/:token', authenticateEmail, function(req, res) {
+
 	Methods.findWithEmail(req.email).then(function(items){
 		if(items.length != 0) {
+			console.log('items found');
 			items.forEach((item) => {
 				var expireDate = new Date(item.expire_date);
 				var submissionDate = new Date(item.submission_date);
@@ -72,9 +78,11 @@ router.get('/:token', authenticateEmail, function(req, res) {
 				});
 			}, 100);
 		} else {
+			console.log('items not found');
 			res.redirect('/404');
 		}
 	}).catch(function(err) {
+		console.log(err);
 		res.sendStatus(500);
 	});
 });
@@ -83,8 +91,10 @@ router.get('/:token', authenticateEmail, function(req, res) {
 
 router.post('/delete', authenticateId, function(req, res) {
 	Methods.removeItem(req.item_id).then(function() {
+		console.log('removed');
 		res.sendStatus(200);
 	}).catch(function(err) {
+		console.log(err);
 		res.sendStatus(500);
 	});
 });

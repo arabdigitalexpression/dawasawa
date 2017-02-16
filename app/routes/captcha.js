@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
 		res.set('Content-Type', 'image/svg');
     	res.status(200).send(captcha.data);
 	}, function(err) {
+		console.log(err);
 		res.send('error getting captcha');
 	});
 });

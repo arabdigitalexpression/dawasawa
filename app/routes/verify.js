@@ -8,6 +8,7 @@ var router = express.Router();
 
 function authenticate(req, res, next) {
 	Encrypter.decrypt(req.params.token).then(function(decrypted) {
+		console.log("the token : " + req.params.token );
 		var params = JSON.parse(decrypted);
 		var date = new Date();
 		var max_confirmation_date = new Date( date.setTime( 
@@ -19,6 +20,7 @@ function authenticate(req, res, next) {
 		next();
 	}).catch(function(err) {
 		res.redirect('/404');
+		console.log(err);
 	});
 }
 
@@ -31,6 +33,7 @@ router.get('/:token', authenticate, function(req, res) {
 				res.render('./verified');
 			}).catch(function(err) {
 				res.sendStatus(500);
+				console.log(err);
 			});
 		}
 		else {
