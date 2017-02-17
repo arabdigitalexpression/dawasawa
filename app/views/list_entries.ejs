@@ -21,14 +21,7 @@
 						<span id="email_error" class="error-msg">برجاء إدخال عنوان البريد الإلكترونى</span>
 						<span id="email_value_error" class="error-msg">صيغة البريد الإلكترونى (alias@example.com)</span>
 						<input type="email" id="user_email" name="user_email" placeholder="عنوان البريد الإلكترونى">
-						<div class="captcha-container">
-							<label for="captcha_data">إنسان أم روبوت :)
-								<div class="captcha-img small-6"></div>
-								<input class="small-6" type="text" id="captcha_data" name="captcha_data">
-								<div class="button" id="renew-captcha">إطلب كلمة تحقق أخرى</div>
-							</label>
-						</div>
-
+				<% include ./templates/captcha_block %>
 						<div class="row">
 							<input type="submit" class="spacing button small-12 medium-2 " value="أرسل">
 						</div>
@@ -39,8 +32,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 <!-- Include message modal-->
 <% include ./templates/message_modal %>
@@ -56,11 +47,8 @@
 	</div>
 </div>
 
-
-
 <!-- Include site Footer -->
 <% include ./templates/footer %>
-
 
 <!-- Include doc_tail -->
 <% include ./partials/doc_tail %>
