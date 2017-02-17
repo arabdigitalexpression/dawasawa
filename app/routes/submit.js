@@ -75,9 +75,9 @@ router.post('/', ensureCaptcha, function(req, res) {
 					+ '<p align="right">أهلاً ' + req.body.user_name + '</p>'
 					+ '<p align="right"> <span style="float: right"> شكرًا لوضعك طلب إدراج في دواسوا </p>'
 					+ '<p align="right">بيانات الإدراج الذي وضعته هي:</p>'
-					+ '<p align="right"><span style="float: right">اسم الدواء : </span>'+ req.body.latin_name +'</p>'
-					+ '<p align="right"><span style="float: right">انتهاء الصلاحية : </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
-					+ '<p align="right"><span style="float: right"> المحافظة : </span>'+ req.body.governorate +'</p>'
+					+ '<p align="right"><span style="float: right">اسم الدواء: </span>'+ req.body.latin_name +'</p>'
+					+ '<p align="right"><span style="float: right">انتهاء الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
+					+ '<p align="right"><span style="float: right"> المحافظة: </span>'+ req.body.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
 					+ site_url+'/verify/' + encrypted
 					+ '<p align="right">يجب إتمام هذا الإجراء في غضون ' + insertion_confirmation_grace + ' ساعة، و إلا فسيُحذف الطّلب</p>'
