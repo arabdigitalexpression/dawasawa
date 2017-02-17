@@ -1,19 +1,9 @@
 var config = {};
 
-if (process.env.NODE_ENV != 'Development' ) {
-//		production
-		config.database_uri = 'mongodb://172.17.0.2:27017/dawasawa';
-		config.site_url = 'http://dawasawa.online';
-		config.email_address_from = 'robot@dawasawa.online';
-		config.email_address_writeus = 'webmaster@dawasawa.online';
-}
-else {
-//		development
-		config.database_uri = 'mongodb://localhost:27017/dawasawa';
-		config.site_url = 'http://localhost:3000';
-		config.email_address_from = 'gundourtesting@gmail.com';
-		config.email_address_writeus = 'gundourtesting@gmail.com'
-}
+config.database_uri = 'mongodb://172.17.0.2:27017/dawasawa';
+config.site_url = 'https://dawasawa.online';
+config.email_address_from = 'robot@dawasawa.online';
+config.email_address_writeus = 'webmaster@dawasawa.online';
 
 // app config
 config.app_name = 'دواسوا';
@@ -27,3 +17,10 @@ config.token_secret_key = '** CHANGE ON PRODUCTION SERVER **';		//a long rando s
 
 module.exports = config;
 
+if (process.env.NODE_ENV == 'Development' ) {
+//		development overriding settings
+		config.database_uri = 'mongodb://localhost:27017/dawasawa';
+		config.site_url = 'http://localhost:3000';
+		config.email_address_from = 'gundourtesting@gmail.com';
+		config.email_address_writeus = 'gundourtesting@gmail.com'
+}
