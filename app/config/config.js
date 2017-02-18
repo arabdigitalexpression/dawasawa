@@ -15,7 +15,6 @@ config.expiry_acceptance_threshold = 60;	// (Days) no listig can be accepted if 
 config.expiry_removal_threshold = 30;		// (Days)listings are removed from our index when there remains this number of days until they expire
 config.token_secret_key = '** CHANGE ON PRODUCTION SERVER **';		//a long rando string
 
-module.exports = config;
 
 if (process.env.NODE_ENV == 'Development' ) {
 //		development overriding settings
@@ -24,3 +23,6 @@ if (process.env.NODE_ENV == 'Development' ) {
 		config.email_address_from = 'gundourtesting@gmail.com';
 		config.email_address_writeus = 'gundourtesting@gmail.com'
 }
+
+module.exports = config;
+
