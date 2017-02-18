@@ -64,9 +64,18 @@ function checkLatinName() {
 		$('#latin_name').addClass('error-field');
 		latin_name_error = true;
 	} else {
-		$('#latin_name_error').hide();
-		$('#latin_name').removeClass('error-field');
-		latin_name_error = false;
+		var arregex = /[\u0600-\u06FF]/;
+		var matched = arregex.test( $('#latin_name').val() );
+		if (matched == true) {
+			$('#latin_name_error').show();
+			$('#latin_name').addClass('error-field');
+			latin_name_error = true;
+		}
+		else {
+			$('#latin_name_error').hide();
+			$('#latin_name').removeClass('error-field');
+			latin_name_error = false;
+		}
 	}
 }
 function checkExpireDate() {
