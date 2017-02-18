@@ -7,8 +7,8 @@ var app_config = require('../config/config');
 // var transporter = nodemailer.createTransport({
 // 		service: 'Gmail',
 // 		auth: {
-// 			user: app_config_address_form,
-// 			pass: 'gundour1234'
+// 			user: app_config.email_address_from,
+// 			pass: ''
 // 		}
 // 	});
 
