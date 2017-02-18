@@ -237,7 +237,6 @@ $('#submit-form').submit(function() {
 	if( $('#email_private:checkbox').is(':checked') ) {
 		checkPhone();
 	}
-	console.log( $('#email_private').is(':checked') );
 
 	if( latin_name_error == false && expire_error == false 
 		&& package_state_error == false && gov_error == false 
@@ -383,7 +382,6 @@ $('#view_contact').submit(function() {
 		session_id: sessionStorage.getItem('s_id'),
 		medicine_id: $('#result_id').html()
 	}).then(function(res) {
-		console.log(res.data.contact);
 		$('#loading').removeClass('bubblingG');
 			if(res.status == 200) {
 				$('#contact_info').removeClass('hide');
