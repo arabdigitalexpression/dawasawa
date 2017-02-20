@@ -1,21 +1,19 @@
-var BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-var BASE16 = '0123456789ABCDEF';
+const app_config = require('../config/config');
+const BaseX = require('base-x-bytearray');
+const crypto = require('crypto');
 
-var BaseX = require('base-x-bytearray');
+const BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const BASE16 = '0123456789ABCDEF';
 
 var bs62 = BaseX(BASE62);
 var bs16 = BaseX(BASE16);
-
-const crypto = require('crypto');
-
-var app_config = require('../config/config');
 
 module.exports.encrypt = (value) => {
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
 			reject();
 
-		const cipher = crypto.createCipher('id-aes128-GCM', app_config.token_secret_key);
+		const cipher = crypto.createCipher(app_config.encryption_cipher, app_config.token_secret_key);
 
 		let encrypted = '';
 
@@ -27,11 +25,8 @@ module.exports.encrypt = (value) => {
 		});
 
 		cipher.on('end', () => {
-			console.log('1- base 16 : ' + encrypted);
 			var a = bs16.decode(encrypted);
-			console.log('2- base16 decoded : ' + a);
 			var b = bs62.encode(a);
-			console.log('3- base 62 : ' + b);	
 			resolve(b);
 		});
 		
@@ -43,15 +38,12 @@ module.exports.encrypt = (value) => {
 
 module.exports.decrypt = (value) => {
 	var c = bs62.decode(value);
-	console.log('4- base62 decoded : ' + c);
-
 	var d = bs16.encode(c);
-	console.log('5- base 16 : ' + d);
 
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
 			reject();
-		const decipher = crypto.createDecipher('id-aes128-GCM', app_config.token_secret_key);
+		const decipher = crypto.createDecipher(app_config.encryption_cipher, app_config.token_secret_key);
 
 		let decrypted = '';
 		decipher.on('readable', () => {
