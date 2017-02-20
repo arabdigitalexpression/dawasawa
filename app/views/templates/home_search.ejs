@@ -1,8 +1,6 @@
-<!-- Home page search form -->
-
-<h3>البحث عن دواء</h3>
+<h3><%= pageTitle %></h3>
+<br>
 <form id="search-form" action="search" method="get">
-	<br>
 	<input class="search-term" type="text" name="term" placeholder="اسم الدواء بالأحرف اللاتينية">
 	<p class="help-text" id="">نقلا عن العبوة أو الوصفة مع مراعاة الدقة، مثال: Augmentine</p>
 	<br>
@@ -11,14 +9,11 @@
 			<option value="" disabled selected>اختر محافظة</option>
 			<option value="كلّ المحافظات">كلّ المحافظات</option>
 			
-			<!-- render governorates -->
 			<% governorates.forEach((gov) => { %>
 				<option value="<%= gov %>"><%= gov %></option>
 			<% }) %>
-		
-		
-		</select>
-	</label>
-	<br><br>
+		</label>
+	<br>
 	<button class="button hollow" type="submit" form="search-form" value="ابحث">ابحث</button>
 </form>
+

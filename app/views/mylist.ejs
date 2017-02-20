@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-
-<!-- Include doc_head -->
-<% include ./partials/doc_head %>
-
-<!-- Include site header -->
+<% const pageTitle = "قائمة إدراجاتي" %>
 <% include ./templates/header %>
-
 
 <div class="content">
 	<div class="wide-container">
 		<div class="page-content">
-			<h3 class="page-name">إدراجاتى</h3>
+			<h3 class="page-name"><%= pageTitle %></h3>
 			<div class="all-results expanded row">
 				<div class="small-12 meduim-8 large-6 columns">
 					<% results.forEach((result) => { %>
@@ -20,12 +14,12 @@
 									<div class="small-12 columns">
 										<h5 class="name"><%= result.latin_name %> <%= result.arabic_name %> </h5>
 										<p class="governorate"><%= result.governorate %></p>
-										<p class="expire-date" style="color: #000">تاريخ انتهاء الصلاحية : <%= result.expire_year %>/<%= result.expire_month %></p>
-										<p class="submission-date" style="color: #000">تاريخ الإدراج : <%= result.submission_year %>/<%= result.submission_month %></p>
-										<p class="package_state" style="color: #000">حالة العبوة : <%= result.package_state %></p>
+										<p class="expire-date" style="color: #000">تاريخ انتهاء الصلاحية: <%= result.expire_year %>/<%= result.expire_month %></p>
+										<p class="submission-date" style="color: #000">تاريخ الإدراج: <%= result.submission_year %>/<%= result.submission_month %></p>
+										<p class="package_state" style="color: #000">حالة العبوة: <%= result.package_state %></p>
 									</div>
 								</div>
-								<a class="button remove-btn" href="<%= result.delete_token %>">مسح</a>
+								<a class="button remove-btn" href="<%= result.delete_token %>">احذف</a>
 							</div>
 					<% }) %>
 				</div>
@@ -34,10 +28,7 @@
 	</div>
 </div>
 
-
-<!-- Include message modal-->
 <% include ./templates/message_modal %>
-
 		
 <div class="indicator-container">
 	<div id="loading">
@@ -50,13 +41,5 @@
 	</div>
 </div>
 
-
-
-
-
-<!-- Include site Footer -->
 <% include ./templates/footer %>
 
-
-<!-- Include doc_tail -->
-<% include ./partials/doc_tail %>

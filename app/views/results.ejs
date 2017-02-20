@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-
-<!-- Include doc_head -->
-<% include ./partials/doc_head %>
-
-<!-- Include site header -->
+<% const pageTitle = "نتائج البحث" %>
 <% include ./templates/header %>
 
-
 <div class="content">
-	<!-- Include search section -->
 	<% include ./templates/search_section %>
 	<div class="wide-container">
 		<div class="page-content">
-			<h3 class="page-name">نتائج البحث</h3>
+			<h3 class="page-name"><%= pageTitle %></h3>
 			<p class="results-length">(<%= length %>)</p>
 			<div class="all-results expanded row">
 				<div class="small-12 meduim-8 large-6 columns">
@@ -42,11 +35,5 @@
 	</div>
 </div>
 
-
-
-<!-- Include site Footer -->
 <% include ./templates/footer %>
 
-
-<!-- Include doc_tail -->
-<% include ./partials/doc_tail %>

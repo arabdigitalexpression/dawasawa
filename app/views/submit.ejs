@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-
-<!-- Include doc_head -->
-<% include ./partials/doc_head %>
-
-<!-- Include site header -->
+<% const pageTitle = "إدراج دواء" %>
 <% include ./templates/header %>
 
 <div class="content">
 	<div class="container">
 		<div class="page-content expanded row">
 			<div class="submit-col meduim-12 large-6 columns">
-				<!-- Include home page submit form-->
 				<% include ./templates/submit_form %>
 			</div>
 		</div>
 	</div>
 </div>
 
-
-<!-- Include message modal-->
 <% include ./templates/message_modal %>
 
 <div class="indicator-container">
@@ -32,10 +24,5 @@
 	</div>
 </div>
 
-
-<!-- Include site Footer -->
 <% include ./templates/footer %>
 
-
-<!-- Include doc_tail -->
-<% include ./partials/doc_tail %>

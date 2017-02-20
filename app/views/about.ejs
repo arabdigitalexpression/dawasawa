@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-
-<% include ./partials/doc_head %>
-
+<% const pageTitle = "عن الخدمة" %>
 <% include ./templates/header %>
 
 <div class="content">
 	<div class="container">
 		<div class="page-content expanded row">
 			<div class="submit-col meduim-12 large-6 columns">
-				<h3 class="page-name">عن الخدمة</h3>
+				<h3 class="page-name"><%= pageTitle %></h3>
 				<div id="about" class="padded-text">
 					<p>هذه الخدمة مُقدَّمة بغرض تيسير التّعاون بين النّاس بتسهيل إيجاد الأدوية غير المتوافرة في محيط بعضهم أو هي أغلى من قدرتهم الماديّة بطريق التّوصيل ما بين من لديهم فائض من أدوية يرغبون في التّبرُّع بها و من يطلبون تلك الأدوية.</p>
 					<p>هذه الخدمة مجّانية لا يُدفع مقابل عينيّ و لا مادّي لاستخدامها، و لا تقدِّم مشورة صيدليّة، و لا يُقصد بها الاتّجار في الأدوية. و استخدامها يُعدُّ موافقة ضمنيّة على <a href="/terms">شروط الخدمة</a>.</p>
@@ -30,4 +27,3 @@
 
 <% include ./templates/footer %>
 
-<% include ./partials/doc_tail %>

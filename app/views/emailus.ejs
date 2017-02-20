@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-
-<!-- Include doc_head -->
-<% include ./partials/doc_head %>
-
-
-<!-- Include site header -->
+<% const pageTitle = "راسلنا" %>
 <% include ./templates/header %>
 
 <div id="page-name" class="callus"></div>
@@ -13,8 +7,7 @@
 		<div class="page-content expanded row">
 			<div class="submit-col meduim-12 large-8 columns">
 				
-				<!-- Include contactus form-->
-				<h3 class="page-name">راسلنا</h3>
+				<h3 class="page-name"><%= pageTitle %></h3>
 				<form id="emailus-form" class="has-captcha">
 					<div class="expanded row">
 						<div class="large-8 medium-8 small-12 columns">
@@ -57,7 +50,6 @@
 	</div>
 </div>
 
-<!-- Include message modal-->
 <% include ./templates/message_modal %>
 
 <div class="indicator-container">
@@ -71,8 +63,5 @@
 	</div>
 </div>
 
-<!-- Include site Footer -->
 <% include ./templates/footer %>
 
-<!-- Include doc_tail -->
-<% include ./partials/doc_tail %>
