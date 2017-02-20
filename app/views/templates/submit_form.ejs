@@ -1,13 +1,11 @@
-<!-- Home page submit form -->
-
-<h3 class="page-name">أدرج دواءً</h3>
-<form id="submit-form" class="has-captcha" method="post" action="submit">
+<h3 class="page-name"><%= pageTitle %></h3>
 	<br>
+<form id="submit-form" class="has-captcha" method="post" action="submit">
 	<h4>بيانات الدّواء</h4>
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
 			<label>الاسم بالأحرف اللاتينية *
-				<span id="latin_name_error" class="error-msg">برجاء إدخال اسم الدواء بالأحرف اللاتينية</span>
+				<span id="latin_name_error" class="error-msg">الرجاء إدخال اسم الدواء بالأحرف اللاتينية</span>
 				<input id="latin_name" type="text" name="latin_name" placeholder="بدقّة كما على العبوّة">
 			</label>
 		</div>
@@ -21,7 +19,7 @@
 	</div>
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
-			<label>تاريخ انتهاء الصلاحية *
+م			<label>تاريخ انتهاء الصلاحية * (ليس أقرب من <%=app_config.expiry_acceptance_threshold %> يومًا)
 			<span id="expire_date_error" class="error-msg">صلاحية الدواء أهمّ من الدواء!</span>
 				<div class="expanded row">
 					<select id="expire_month" name="month">
