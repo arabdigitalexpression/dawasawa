@@ -42,11 +42,11 @@ router.get('/', function(req, res) {
 
 router.post('/', ensureCaptcha, function(req, res) {
 	var item = {};
-	var expire_date = req.body.expire_year + '-' + req.body.expire_month;
+	var expiry_date = req.body.expiry_year + '-' + req.body.expiry_month;
 	item.latin_name = req.body.latin_name;
 	item.arabic_name = req.body.arabic_name;
 	item.governorate = req.body.governorate;
-	item.expire_date = ( Date.parse(expire_date) + 1 * 86400000 );
+	item.expiry_date = ( Date.parse(expiry_date) + 1 * 86400000 );
 	item.package_state = req.body.package_state;
 	item.notes = req.body.notes;
 	item.contact = {};
@@ -69,7 +69,7 @@ router.post('/', ensureCaptcha, function(req, res) {
 					+ '<p align="right">شكرًا لوضعك طلب إدراج في دواسوا </p>'
 					+ '<p align="right">بيانات الإدراج الذي وضعته هي:</p>'
 					+ '<p align="right"><span style="float: right">اسم الدواء: </span>'+ req.body.latin_name +'</p>'
-					+ '<p align="right"><span style="float: right">نهاية الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
+					+ '<p align="right"><span style="float: right">نهاية الصلاحية: </span>'+ req.body.expiry_month + ' - ' + req.body.expiry_year +'</p>'
 					+ '<p align="right"><span style="float: right"> المحافظة: </span>'+ req.body.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
 					+ '<a href="' + site_url + '/verify/' + encrypted + '">' + site_url + '/verify/' + encrypted + '</a>'

@@ -18,15 +18,15 @@
 	<div class="expanded row">
 		<div class="large-8 meduim-8 small-12">
 م			<label>تاريخ انتهاء الصلاحية * (ليس أقرب من <%=app_config.expiry_acceptance_threshold %> يومًا)
-			<span id="expire_date_error" class="error-msg">صلاحية الدواء أهمّ من الدواء!</span>
+			<span id="expiry_date_error" class="error-msg">صلاحية الدواء أهمّ من الدواء!</span>
 				<div class="expanded row">
-					<select id="expire_month" name="month">
+					<select id="expiry_month" name="month">
 						<option value="" selected disabled>الشهر</option>
 						<% months.forEach((month) => { %>
 							<option value="<%= month.value %>"><%= month.text %></option>
 						<% }) %>
 					</select>
-					<select id="expire_year" name="year">
+					<select id="expiry_year" name="year">
 						<option value="" selected disabled>السنة</option>
 						<% years.forEach((year) => { %>
 							<option value="<%= year %>"><%= year %></option>

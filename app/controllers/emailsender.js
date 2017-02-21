@@ -9,11 +9,11 @@ const sendmail = require('sendmail') ({
 
 
 // Sends token ladden email messages to confrm actions
-module.exports.sendEmail = function(email, subject, data) {
+module.exports.sendEmail = function(toAddress, subject, data) {
 	return new Promise(function(resolve, reject) {
 		sendmail({
 			from: app_config.email_address_from,
-			to: email,
+			to: toAddress,
 			subject: subject,
 			html: data.html
 		}, function(err, reply) {
@@ -28,10 +28,10 @@ module.exports.sendEmail = function(email, subject, data) {
 
 // Sends email through /emailus form to a specified address
 module.exports.receiveEmail = function(body) {
-	console.log('user email' + body.user_email);
 	return new Promise(function(resolve, reject) {
 		sendmail({
-			from: app_config.email_address_writeus, 
+			from: app_config.email_address_writeus,
+			sender: app_config.email_address_writeus,
 			to: app_config.email_address_writeus,
 			subject: 'استمارة الاتّصال',
 			html: '<div align="right">'

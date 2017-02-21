@@ -9,7 +9,8 @@ config.email_address_writeus = 'webmaster@dawasawa.online';
 config.app_name = 'دواسوا';
 config.app_port = '3000';
 
-config.insertion_challenge_grace = 48;	// (hours) the entry is removed from the system if not confirmed by this period 
+config.insertion_challenge_grace = 48;		// (hours) the entry is removed from the system if not confirmed by this period 
+config.listings_challenge_grace = 48;		// (hours) the entry is removed from the system if not confirmed by this period 
 config.expiry_acceptance_threshold = 60;	// (days) no listig can be accepted if it expires sooner than this number of days
 config.expiry_removal_threshold = 30;		// (days) listings are removed from our index when there remains this number of days until they expire
 

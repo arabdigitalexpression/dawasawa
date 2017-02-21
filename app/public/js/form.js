@@ -1,6 +1,6 @@
 // Handling all the forms validation tasks
 var latin_name_error = false;
-var expire_error = false;
+var expiry_error = false;
 var package_state_error  = false;
 var gov_error = false;
 var user_name_error = false;
@@ -16,12 +16,12 @@ function validateForm() {
 		checkLatinName();
 	});
 
-	$('#expire_month').focusout(function() {
-		checkExpireDate();
+	$('#expiry_month').focusout(function() {
+		checkExpiryDate();
 	});
 
-	$('#expire_year').focusout(function() {
-		checkExpireDate();
+	$('#expiry_year').focusout(function() {
+		checkExpiryDate();
 	});
 
 	$('#package_state').focusout(function() {
@@ -78,15 +78,15 @@ function checkLatinName() {
 		}
 	}
 }
-function checkExpireDate() {
-	var month = $('#expire_month').val();
-	var year = $('#expire_year').val();
+function checkExpiryDate() {
+	var month = $('#expiry_month').val();
+	var year = $('#expiry_year').val();
 	if(month == null || year == null) {
-		$('#expire_date_error').show();
-		expire_error = true;
+		$('#expiry_date_error').show();
+		expiry_error = true;
 	} else {
-		$('#expire_date_error').hide();
-		expire_error = false;
+		$('#expiry_date_error').hide();
+		expiry_error = false;
 	}
 }
 
@@ -218,7 +218,7 @@ $('#submit-form').submit(function() {
 	
 
 	latin_name_error = false;
-	expire_error = false;
+	expiry_error = false;
 	package_state_error  = false;
 	gov_error = false;
 	user_name_error = false;
@@ -228,7 +228,7 @@ $('#submit-form').submit(function() {
 	number_error = false;
 
 	checkLatinName();
-	checkExpireDate();
+	checkExpiryDate();
 	checkPackageState();
 	checkGovernorate();
 	checkUsername();
@@ -238,7 +238,7 @@ $('#submit-form').submit(function() {
 		checkPhone();
 	}
 
-	if( latin_name_error == false && expire_error == false 
+	if( latin_name_error == false && expiry_error == false 
 		&& package_state_error == false && gov_error == false 
 		&& user_name_error == false && email_error == false 
 		&& email_value_error == false && phone_error == false 
@@ -249,8 +249,8 @@ $('#submit-form').submit(function() {
 			arabic_name: $('#arabic_name').val(),
 			governorate: $('#governorate').val(),
 			submission_date: $('#submission_date').val(),
-			expire_month: $('#expire_month').val(),
-			expire_year: $('#expire_year').val(),
+			expiry_month: $('#expiry_month').val(),
+			expiry_year: $('#expiry_year').val(),
 			package_state: $('#package_state').val(),
 			notes: $('#notes').val(),
 			user_name: $('#user_name').val(),
@@ -409,7 +409,7 @@ $('#view_contact').submit(function() {
 $(document).ready(function() {
 
 	$('#latin_name_error').hide();
-	$('#expire_date_error').hide();
+	$('#expiry_date_error').hide();
 	$('#package_state_error').hide();
 	$('#gov_error').hide();
 	$('#user_name_error').hide();

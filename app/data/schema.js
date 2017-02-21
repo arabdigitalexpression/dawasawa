@@ -10,7 +10,7 @@ var itemSchema =  new Schema({
 	arabic_name: String,
 	governorate: { type: String, required: true },
 	submission_date: Date,
-	expire_date: { type: Date, required: true },
+	expiry_date: { type: Date, required: true },
 	package_state: { type: String, required: true },
 	notes: String,
 	pic_link: String,

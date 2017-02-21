@@ -1,6 +1,6 @@
-var express = require('express');
-var Methods =  require('../data/methods');
-var Encrypter = require('../controllers/encrypter');
+const express = require('express');
+const Methods =  require('../data/methods');
+const Encrypter = require('../controllers/encrypter');
 const app_config = require('../config/config');
 var insertion_challenge_grace = app_config.insertion_challenge_grace;
 var router = express.Router();
@@ -8,7 +8,6 @@ var router = express.Router();
 
 function authenticate(req, res, next) {
 	Encrypter.decrypt(req.params.token).then(function(decrypted) {
-		console.log("the token : " + req.params.token );
 		var params = JSON.parse(decrypted);
 		var date = new Date();
 		var max_confirmation_date = new Date( date.setTime( 
@@ -20,7 +19,6 @@ function authenticate(req, res, next) {
 		next();
 	}).catch(function(err) {
 		res.redirect('/404');
-		console.log(err);
 	});
 }
 
@@ -33,7 +31,6 @@ router.get('/:token', authenticate, function(req, res) {
 				res.render('./verified');
 			}).catch(function(err) {
 				res.sendStatus(500);
-				console.log(err);
 			});
 		}
 		else {
