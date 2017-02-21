@@ -2,7 +2,7 @@ var express = require('express');
 var Methods =  require('../data/methods');
 var Encrypter = require('../controllers/encrypter');
 const app_config = require('../config/config');
-var insertion_confirmation_grace = app_config.insertion_confirmation_grace;
+var insertion_challenge_grace = app_config.insertion_challenge_grace;
 var router = express.Router();
 
 

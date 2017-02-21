@@ -11,26 +11,22 @@ var governorates = static_data.governorates;
 var package_state = static_data.package_state;
 var months = static_data.months;
 var years = static_data.years;
-var insertion_confirmation_grace = app_config.insertion_confirmation_grace;
+var insertion_challenge_grace = app_config.insertion_challenge_grace;
 
 var router = express.Router();
 
 function ensureCaptcha(req, res, next) {
-	console.log('captcha entered : ' +  req.body.captcha_data);
 	Methods.findCaptcha(req.body.captcha_data).then(function(cap) {
 		if(cap != null) {
 			if(req.body.session_id == cap.session_id) {
 				next();
 			} else {
-				console.log('captcha not found');
 				res.sendStatus(404);
 			}
 		} else {
-			console.log('captcha not found');
 			res.sendStatus(404);
 		}
 	}, function(err) {
-		console.log(err);
 		res.sendStatus(500);
 	});
 }
@@ -45,7 +41,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', ensureCaptcha, function(req, res) {
-	console.log('request : ' + req.body.email_private);
 	var item = {};
 	var expire_date = req.body.expire_year + '-' + req.body.expire_month;
 	item.latin_name = req.body.latin_name;
@@ -62,36 +57,32 @@ router.post('/', ensureCaptcha, function(req, res) {
 	}
 	item.contact.phone = req.body.user_phone;
 	Methods.addItem(item).then(function(id) {
-		console.log('item added : ' + id);
 		var params = {
 			id: id,
 			submission_date: Date()
 		};
 		return Encrypter.encrypt(JSON.stringify(params));
 	}).then(function(encrypted) {
-		console.log('encrypted : ' + encrypted);
 		var email_data = {
 			html : '<div align="right">'
 					+ '<p align="right">أهلاً ' + req.body.user_name + '</p>'
-					+ '<p align="right"> <span style="float: right"> شكرًا لوضعك طلب إدراج في دواسوا </p>'
+					+ '<p align="right">شكرًا لوضعك طلب إدراج في دواسوا </p>'
 					+ '<p align="right">بيانات الإدراج الذي وضعته هي:</p>'
 					+ '<p align="right"><span style="float: right">اسم الدواء: </span>'+ req.body.latin_name +'</p>'
-					+ '<p align="right"><span style="float: right">انتهاء الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
+					+ '<p align="right"><span style="float: right">نهاية الصلاحية: </span>'+ req.body.expire_month + ' - ' + req.body.expire_year +'</p>'
 					+ '<p align="right"><span style="float: right"> المحافظة: </span>'+ req.body.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
-					+ site_url+'/verify/' + encrypted
+					+ '<a href="' + site_url + '/verify/' + encrypted + '">' + site_url + '/verify/' + encrypted + '</a>'
 					+ '<p align="right">يجب إتمام هذا الإجراء في غضون ' + insertion_confirmation_grace + ' ساعة، و إلا فسيُحذف الطّلب</p>'
 					+ '<p align="right">إذا لم تكن قد وضعت هذا الطّلب فتجاهل هذه الرسالة و&nbsp;لن تسمع منّا بعد الآن</p>'
-					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span> ' + site_url
+					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span><a href="' + site_url + '">' + site_url + '</a>'
 					+ '</div>'
 		}
 		return Emailsender.sendEmail(req.body.user_email, 'دواسوا: توكيد طلب إدراج', email_data);
 	}).then(function() {
-		console.log('email sent');
 		res.sendStatus(200);
 	}).catch(function(err) {
 		res.sendStatus(500);
-		console.log(err);
 	});
 });
 

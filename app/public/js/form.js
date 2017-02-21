@@ -265,7 +265,7 @@ $('#submit-form').submit(function() {
 			if(res.status == 200) {
 				renderMessage({
 					status: 'success',
-					content: '<p>تم الإدراج بنجاح</p> <p>سوف تصلك رسالة لتأكيد الإدراج على بريدك الإلكترونى</p>'
+					content: '<p>تم بنجاح وضع طلب الإدراج</p><p>سوف تصلك رسالة بريد إلكتروني تحوي إرشادات إلى كيفية توكيد طلب الإدراج</p>'
 				});
 			} else if(res.status == 500 || res.status == 404) {
 				renderMessage({
@@ -307,7 +307,7 @@ $('#entries-form').submit(function() {
 			if(res.status == 200) {
 				renderMessage({
 					status: 'success',
-					content: 'تم إرسال الرسالة لبريدك الإلكترونى بنجاح'
+					content: '<p>تم بنجاح إرسال الرسالة إلى عنوان البريد الإلكتروني.</p><p>الرسالة تحوي إرشادات إلى كيفية مطالعة قائمة إدراجاتك</p>'
 				});
 			} else {
 				renderMessage({
@@ -385,9 +385,9 @@ $('#view_contact').submit(function() {
 		$('#loading').removeClass('bubblingG');
 			if(res.status == 200) {
 				$('#contact_info').removeClass('hide');
-				$('.contact-name').html('الإسم: ' + res.data.contact.name);
+				$('.contact-name').html('الاسم: ' + res.data.contact.name);
 				if(res.data.contact.email_invisible == false) {
-					$('.contact-email').html('البريد الإلكترونى: ' + res.data.contact.email_address);
+					$('.contact-email').html('عنوان البريد الإلكتروني: ' + res.data.contact.email_address);
 				}
 				$('.contact-number').html('رقم الهاتف: ' + res.data.contact.phone);
 			} else {
@@ -466,9 +466,4 @@ function renderMessage(msg) {
 	}
 	
 }
-
-
-
-
-
 
