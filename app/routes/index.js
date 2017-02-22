@@ -4,7 +4,10 @@ var static_data = require('../data/static_data');
 var governorates = static_data.governorates;
 
 router.get('/',function(req, res) {
-	res.send(200).send('welcome to dawasawa API for more info visit https://github.com/arabdigitalexpression/dawasawa');
+	res.status(200).json({
+		"message" : "welcome to Dawasawa API",
+		"Documentation" : "https://github.com/arabdigitalexpression/dawasawa"
+	});
 });
 
 module.exports = router;

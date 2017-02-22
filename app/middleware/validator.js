@@ -42,7 +42,7 @@ Validator.validateMedicineObject = (req, res, next) => {
 	 */
 	Joi.validate(req.body, medicineSchema, (err, value) => {
 		if(err) {
-			return res.status(403).json({
+			return res.status(400).json({
 				"error": err.name,
 				"details": err.details 
 			})
@@ -57,7 +57,7 @@ Validator.validateId = (req, res, next) => {
 	 */
 	Joi.validate(req.body, idSchema, (err, value) => {
 		if(err) {
-			return res.status(403).json({
+			return res.status(400).json({
 				"error": err.name,
 				"details": err.details 
 			})
@@ -72,7 +72,7 @@ Validator.validateEmail = (req, res, next) => {
 	 */
 	Joi.validate(req.body, email_address, (err, value) => {
 		if(err) {
-			return res.status(403).json({
+			return res.status(400).json({
 				"error": err.name,
 				"details": err.details 
 			})
@@ -88,7 +88,7 @@ Validator.validateContactSchema = (req, res, next) => {
 	 */
 	Joi.validate(req.body, contactSchema, (err, value) => {
 		if(err) {
-			return res.status(403).json({
+			return res.status(400).json({
 				"error": err.name,
 				"details": err.details 
 			})

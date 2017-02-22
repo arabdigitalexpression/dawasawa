@@ -89,45 +89,21 @@
 
 // module.exports = router;
 
-const express = require('express')
+const express = require('express'),
+	  MedicineCtrl = require('../controllers/medicine_ctrl')
+	  Validator = require('../middleware/validator')
 
 
 let router = express.Router()
 
 
+router.post('/', Validator.validateMedicineObject, (req, res) => {
+	MedicineCtrl.add(req.body).then((med) => {
+		res.send(med)
+	}).catch((err) => {
+		console.log(err)
+		res.status(400).send(err)
+	})
+})
+
 module.exports = router
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

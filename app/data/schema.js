@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var app_config = require('../config/config');
+const mongoose = require('mongoose');
+const app_config = require('../config/config');
 
 mongoose.Promise = global.Promise; 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var medicineSchema =  new Schema({
+const medicineSchema =  new Schema({
 	latin_name: { type: String, required:  true, index: true},
 	arabic_name: String,
 	governorate: { type: String, required: true },
@@ -37,7 +37,7 @@ var medicineSchema =  new Schema({
 // 	}
 // });
 
-var Medicine = mongoose.model('Medicine', medicineSchema);
+const Medicine = mongoose.model('Medicine', medicineSchema);
 // var Captcha = mongoose.model('Captcha', captchaSchema);
 // var Models = { Medicine: Medicine, Captcha: Captcha };
 
