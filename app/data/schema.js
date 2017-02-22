@@ -4,8 +4,7 @@ var app_config = require('../config/config');
 mongoose.Promise = global.Promise; 
 var Schema = mongoose.Schema;
 
-var itemSchema =  new Schema({
-	_id: { type: String, required:  true, index: true},
+var medicineSchema =  new Schema({
 	latin_name: { type: String, required:  true, index: true},
 	arabic_name: String,
 	governorate: { type: String, required: true },
@@ -18,28 +17,28 @@ var itemSchema =  new Schema({
 		name: { type: String, required: true },
 		email_address: { type: String, required: true, index: true },
 		phone: String,
-		email_invisible: { type: Boolean, default: false }
+		email_visible: { type: Boolean, default: true }
 	},
 	instated: { type: Boolean, default: false },
 });
 
-var captchaSchema = mongoose.Schema({
-	value: {
-		type: String,
-		index: true
-	},
-	session_id : {
-		type: String
-	},
-	expireAt: {
-		type: Date,
-		expires: 120,
-		default: Date.now
-	}
-});
+// var captchaSchema = mongoose.Schema({
+// 	value: {
+// 		type: String,
+// 		index: true
+// 	},
+// 	session_id : {
+// 		type: String
+// 	},
+// 	expireAt: {
+// 		type: Date,
+// 		expires: 120,
+// 		default: Date.now
+// 	}
+// });
 
-var Item = mongoose.model('Item', itemSchema);
-var Captcha = mongoose.model('Captcha', captchaSchema);
-var Models = { Item: Item, Captcha: Captcha };
+var Medicine = mongoose.model('Medicine', medicineSchema);
+// var Captcha = mongoose.model('Captcha', captchaSchema);
+// var Models = { Medicine: Medicine, Captcha: Captcha };
 
-module.exports = Models;
+module.exports = Medicine;

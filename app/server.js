@@ -18,18 +18,12 @@ var db = mongoose.connect(app_config.database_uri);
 // load local dependencies
 var index = require('./routes/index');
 var submit = require('./routes/submit');
-var captcha = require('./routes/captcha');
-var list_entries = require('./routes/list_entries');
-var emailus = require('./routes/emailus');
-var about = require('./routes/about');
-var terms = require('./routes/terms');
-var data_policy = require('./routes/data_policy');
-var disclaimer = require('./routes/disclaimer');
-var verify = require('./routes/verify');
-var mylist = require('./routes/mylist');
-var search = require('./routes/search');
-var single = require('./routes/single');
-var error = require('./routes/error');
+// var list_entries = require('./routes/list_entries');
+// var emailus = require('./routes/emailus');
+// var verify = require('./routes/verify');
+// var mylist = require('./routes/mylist');
+// var search = require('./routes/search');
+// var single = require('./routes/single');
 
 
 
@@ -51,18 +45,11 @@ app.use("/public", express.static(path.join(__dirname, 'public')));
 // application routes
 app.use('/', index);
 app.use('/submit', submit);
-app.use('/captcha', captcha);
-app.use('/list_entries', list_entries);
-app.use('/emailus', emailus);
-app.use('/about',about);
-app.use('/terms',terms);
-app.use('/data_policy',data_policy);
-app.use('/disclaimer',disclaimer);
-app.use('/verify', verify);
-app.use('/mylist', mylist);
-app.use('/search', search);
-app.use('/medicine', single);
-app.use('/404', error);
+// app.use('/list_entries', list_entries);
+// app.use('/verify', verify);
+// app.use('/mylist', mylist);
+// app.use('/search', search);
+// app.use('/medicine', single);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -3,16 +3,8 @@ var router = express.Router();
 var static_data = require('../data/static_data');
 var governorates = static_data.governorates;
 
-// render the home page
-router.get('/', function(req, res) {
-	res.render('index', {
-		governorates: governorates
-	});
-});
-router.get('/home',function(req, res) {
-	res.render('index', {
-		governorates: governorates
-	});
+router.get('/',function(req, res) {
+	res.send(200).send('welcome to dawasawa API for more info visit https://github.com/arabdigitalexpression/dawasawa');
 });
 
 module.exports = router;
