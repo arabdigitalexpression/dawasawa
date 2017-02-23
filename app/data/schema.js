@@ -19,7 +19,7 @@ const medicineSchema =  new Schema({
 		phone: String,
 		email_visible: { type: Boolean, default: true }
 	},
-	instated: { type: Boolean, default: false },
+	instated: { type: Boolean, default: false }
 });
 
 // var captchaSchema = mongoose.Schema({

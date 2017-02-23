@@ -36,6 +36,8 @@ const contactSchema = Joi.object().max(8).keys({
 	message: Joi.string().required()
 })
 
+const token = Joi.string().max(108).required()
+
 Validator.validateMedicineObject = (req, res, next) => {
 	/*
 	 * validate the submitted medicine object
@@ -70,7 +72,7 @@ Validator.validateEmail = (req, res, next) => {
 	/*
 	 * validate the submitted ID
 	 */
-	Joi.validate(req.body, email_address, (err, value) => {
+	Joi.validate(req.body.email_address, email_address, (err, value) => {
 		if(err) {
 			return res.status(400).json({
 				"error": err.name,
@@ -97,5 +99,20 @@ Validator.validateContactSchema = (req, res, next) => {
 	})
 }
 
+Validator.validateToken = (req, res, next) => {
+	/*
+	 * validate the submitted token
+	 */
+	 console.log(req.params)
+	Joi.validate(req.params.token, token, (err, value) => {
+		if(err) {
+			return res.status(400).json({
+				"error": err.name,
+				"details": err.details 
+			})
+		}
+		return next()
+	})
+}
 
 module.exports = Validator

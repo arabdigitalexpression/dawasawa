@@ -1,62 +1,65 @@
-const app_config = require('../config/config');
-const BaseX = require('base-x-bytearray');
-const crypto = require('crypto');
+const Config = require('../config/config')
+const BaseX = require('base-x-bytearray')
+const crypto = require('crypto')
 
-const BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const BASE16 = '0123456789ABCDEF';
+const BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const BASE16 = '0123456789ABCDEF'
 
-var bs62 = BaseX(BASE62);
-var bs16 = BaseX(BASE16);
+let bs62 = BaseX(BASE62)
+let bs16 = BaseX(BASE16)
 
 module.exports.encrypt = (value) => {
 	return new Promise ((resolve, reject) => {
 		if(value == undefined)
-			reject();
+			reject()
 
-		const cipher = crypto.createCipher(app_config.encryption_cipher, app_config.token_secret_key);
+		const cipher = crypto.createCipher(Config.encryption_cipher, Config.token_secret_key)
 
-		let encrypted = '';
+		let encrypted = ''
 
 		cipher.on('readable', () => {
-			const data = cipher.read();
+			const data = cipher.read()
 			if (data) {
-				encrypted += bs16.encode(data);
+				encrypted += bs16.encode(data)
 			}
-		});
+		})
 
 		cipher.on('end', () => {
-			var a = bs16.decode(encrypted);
-			var b = bs62.encode(a);
-			resolve(b);
-		});
+			let binaryData = bs16.decode(encrypted)
+			let base62Data = bs62.encode(binaryData)
+			resolve(base62Data)
+		})
 		
-		cipher.write(value);
-		cipher.end();
+		cipher.write(value)
+		cipher.end()
 	})
 }
 
+// decrypt is a middleware function
+module.exports.decrypt = (req, res, next) => {
+	let binaryData = bs62.decode(req.params.token)
+	let base16Data = bs16.encode(binaryData)
 
-module.exports.decrypt = (value) => {
-	var c = bs62.decode(value);
-	var d = bs16.encode(c);
-
-	return new Promise ((resolve, reject) => {
-		if(value == undefined)
-			reject();
-		const decipher = crypto.createDecipher(app_config.encryption_cipher, app_config.token_secret_key);
-
-		let decrypted = '';
+	if(req.params.token == undefined){
+		res.status(404)
+	} else {
+		const decipher = crypto.createDecipher(Config.encryption_cipher, Config.token_secret_key)
+		let decrypted = ''
 		decipher.on('readable', () => {
-		  const data = decipher.read();
+		  const data = decipher.read()
 		  if (data)
-		    decrypted += data.toString('utf8');
-		});
+		    decrypted += data.toString('utf8')
+		})
 
 		decipher.on('end', () => {
-			resolve(decrypted);
-		});
+			let token = JSON.parse(decrypted)
+			req.token = token
+			next()
+		})
 
-		decipher.write(d, 'hex');
-		decipher.end();
-	})
+		decipher.write(base16Data, 'hex')
+		decipher.end()
+	}
+		
+	
 }

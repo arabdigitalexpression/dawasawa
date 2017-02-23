@@ -18,14 +18,12 @@ var db = mongoose.connect(app_config.database_uri);
 // load local dependencies
 var index = require('./routes/index');
 var submit = require('./routes/submit');
-// var list_entries = require('./routes/list_entries');
-// var emailus = require('./routes/emailus');
-// var verify = require('./routes/verify');
-// var mylist = require('./routes/mylist');
+var instate = require('./routes/instate');
+var list_entries = require('./routes/list_entries');
+var mylist = require('./routes/mylist');
+var remove = require('./routes/remove');
 // var search = require('./routes/search');
 // var single = require('./routes/single');
-
-
 
 // start the app
 var app = express();
@@ -41,15 +39,16 @@ app.use("/public", express.static(path.join(__dirname, 'public')));
 
 
 
-
 // application routes
 app.use('/', index);
 app.use('/submit', submit);
-// app.use('/list_entries', list_entries);
-// app.use('/verify', verify);
-// app.use('/mylist', mylist);
+app.use('/instate', instate);
+app.use('/list_entries', list_entries);
+app.use('/mylist', mylist);
+app.use('/remove', remove);
 // app.use('/search', search);
 // app.use('/medicine', single);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

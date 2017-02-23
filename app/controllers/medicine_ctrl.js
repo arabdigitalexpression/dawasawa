@@ -4,8 +4,8 @@ module.exports.findAll = () => {
 	/*
 	 * returns all the entries from the database ( This medthod will not be used in the app. )
 	 */
-	return new Promise(function(resolve, reject) {
-		Medicine.find(function(err, meds) {
+	return new Promise((resolve, reject) => {
+		Medicine.find((err, meds) => {
 			if(err)
 				reject(err)
 			else
@@ -19,12 +19,12 @@ module.exports.findWithId = (_id) => {
 	 * returns the entry that matches the submitted id
 	 * @param {String} _id - Object_id
 	 */
-	return new Promise(function(resolve, reject) {
-		Medicine.find({ _id }, function(err, meds) {
+	return new Promise((resolve, reject) => {
+		Medicine.find({ _id }, (err, med) => {
 			if(err)
 				reject(err)
 			else
-				resolve(meds)
+				resolve(med)
 		})
 	})
 }
@@ -34,17 +34,25 @@ module.exports.findWithEmail = (email_address) => {
 	 * returns the entry that matches the submitted email_address ( Listing )
 	 * @param {String} email_address - the user's email address
 	 */
-	return new Promise(function(resolve, reject) {
-		var query = Item.find({
+	return new Promise((resolve, reject) => {
+		var query = Medicine.find({
 		    'contact.email_address': email_address,
 		    instated: true
-		})
+		}).lean()
 
-		query.exec(function(err, meds) {
-			if(err)
+		query.exec((err, meds) => {
+			if(err){
 				reject(err)
-			else
+			}
+			else {
+				if(meds.length == 0) {
+					reject({
+						"code": "404",
+						"message" : "This Email has no entries or entries that are not verified"
+					})
+				}
 				resolve(meds)
+			}
 		})
 	})
 }
@@ -56,9 +64,10 @@ module.exports.filter = (name, gov) => {
 	 * @param {String} gov - the medicine governorate
 	 */
 	name = name.toLowerCase()
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		if (gov === "كلّ المحافظات") {
-			Medicine.find({ "latin_name": name, "instated": true }, function(err, items) {
+			let query = Medicine.find({ "latin_name": name, "instated": true }).select('-contact').lean()
+			query.exec((err, items) => {
 				if(err)
 					reject(err)
 				else {
@@ -66,7 +75,8 @@ module.exports.filter = (name, gov) => {
 				}
 			})
 		} else {
-			Medicine.find({ "latin_name": name, "governorate": gov, "instated": true }, function(err, items) {
+			let query = Medicine.find({ "latin_name": name, "governorate": gov, "instated": true }).select('-contact').lean()
+			query.exec((err, items) => {
 				if(err)
 					reject(err)
 				else {
@@ -84,7 +94,7 @@ module.exports.add = (medicine) => {
 	 * @param {Object} medicine - medicine object
 	 */
 	var now = Date()
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		var med = new Medicine()
 		med.latin_name = medicine.latin_name
 		med.governorate = medicine.governorate
@@ -102,7 +112,7 @@ module.exports.add = (medicine) => {
 		if( medicine.contact.phone != undefined)
 			med.contact.phone = medicine.contact.phone
 
-		med.save(function(err, med) {
+		med.save((err, med) => {
 			if(err) {
 				reject(err)
 			}
@@ -112,19 +122,27 @@ module.exports.add = (medicine) => {
 	})
 }
 
-module.exports.instate = (medicine) => {
+module.exports.instate = (_id) => {
 	/*
 	 * update existing entry ( instate )
-	 * @param {Object} medicine - medicine object
+	 * @param {String} _id - medicine Object_id
 	 */
-	medicine.instated = true
-	medicine.save(function(err) {
-			if(err) {
-				reject(err)
-			}
-			else
-				resolve()
+	return new Promise((resolve, reject) => {
+		Medicine.findOneAndUpdate({ _id }, { $set: { instated: true } }, { new: true }, (err, med) => {
+			if(err)
+		 		reject(err)
+		 	else {
+		 		if( med == null) {
+		 			reject({
+		 				"code" : "404",
+		 				"message" : "This medicine is deleted by you"
+		 			})
+		 		} else {
+		 			resolve(med)
+		 		}
+		 	}
 		})
+	})
 }
 
 module.exports.removeMedicine = (_id) => {
@@ -132,8 +150,9 @@ module.exports.removeMedicine = (_id) => {
 	 * delete an entry
 	 * @param {String} _id - Object_id
 	 */
-	return new Promise(function(resolve, reject) {
-		medicine.remove({ _id }, function(err) {
+	return new Promise((resolve, reject) => {
+		console.log(_id)
+		Medicine.findOneAndRemove({ _id }, (err) => {
 			if(err)
 				reject(err)
 			else
