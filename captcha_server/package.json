@@ -1,0 +1,21 @@
+{
+  "name": "captcha_server",
+  "version": "1.0.0",
+  "description": "A server that generates captchas and checks for matched captchas in database, This server is a part of dawasawa app",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.4",
+    "nodemon": "^1.11.0",
+    "svg-captcha": "^1.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

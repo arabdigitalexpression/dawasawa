@@ -1,0 +1,14 @@
+{
+  "name": "reaper",
+  "version": "1.0.0",
+  "description": "This program clean the database from old or unconfirmed entries ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohamed Gundour",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^4.8.3"
+  }
+}

@@ -27,16 +27,21 @@ var search = require('./routes/search');
 // start the app
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
-app.use("/public", express.static(path.join(__dirname, 'public')));
 
-
+// generate cookies to store session_id
+app.use((req, res, next) => {
+	let cookie = req.cookies.cookieName
+	if(cookie === undefined) {
+		let randomNumber=Math.random().toString()
+		randomNumber=randomNumber.substring(2,randomNumber.length)
+		res.cookie('session_id',randomNumber, { maxAge: 3600000, httpOnly: true })
+		console.log('cookie not existed')
+	}
+	next()
+})
 
 // application routes
 app.use('/', index);
@@ -46,28 +51,6 @@ app.use('/list_entries', list_entries);
 app.use('/mylist', mylist);
 app.use('/remove', remove);
 app.use('/search', search);
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  // render the error page
-  res.status(err.status);
-  res.redirect('/404');
-});
-
-
-
-
 
 // start the server
 var server = http.createServer(app);

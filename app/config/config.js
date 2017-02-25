@@ -5,6 +5,8 @@ config.site_url = 'https://dawasawa.online';
 config.email_address_from = 'robot@dawasawa.online';
 config.email_address_writeus = 'webmaster@dawasawa.online';
 
+config.captcha_app_uri = 'http://172.17.0.x:4000/captcha' //change the IP in production
+
 // app config
 config.app_name = 'دواسوا';
 config.app_port = '3000';
@@ -27,6 +29,7 @@ if (process.env.NODE_ENV == 'Development' ) {
 		config.email_address_from = 'gundourtesting@gmail.com';
 		config.email_address_writeus = 'gundourtesting@gmail.com'
 		config.encryption_cipher = 'aes128';
+		config.captcha_app_uri = 'http://localhost:4000/captcha'
 }
 
 module.exports = config;

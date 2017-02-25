@@ -93,12 +93,13 @@ const express = require('express'),
 	  MedicineCtrl = require('../controllers/medicine_ctrl'),
 	  Validator = require('../middleware/validator'),
 	  Token = require('../controllers/token_gen'),
-	  Encrypter = require('../controllers/encrypter')
+	  Encrypter = require('../controllers/encrypter'),
+	  CaptchaClient = require('../middleware/captcha_client')
 
 
 let router = express.Router()
 
-router.post('/', Validator.validateMedicineObject, (req, res) => {
+router.post('/', CaptchaClient.validateCaptcha, Validator.validateMedicineObject, (req, res) => {
 	MedicineCtrl.add(req.body).then((med) => {
 		return Token.generateToken(med._id)
 	}).then((token) => {

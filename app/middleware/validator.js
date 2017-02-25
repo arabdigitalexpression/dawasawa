@@ -1,11 +1,6 @@
 const Joi = require('joi'),
 	  Config = require('../config/config')
 
-// let date = new Date()
-// let checkDate = new Date(date.setTime( 
-// 	date.getTime() - (Config.insertion_challenge_grace * 60 * 60 * 1000)))
-// console.log(checkDate)
-
 let Validator = {}
 
 const medicineSchema = Joi.object().max(8).keys({
@@ -42,7 +37,7 @@ Validator.validateMedicineObject = (req, res, next) => {
 	/*
 	 * validate the submitted medicine object
 	 */
-	Joi.validate(req.body, medicineSchema, (err, value) => {
+	Joi.validate(req.body.medicine, medicineSchema, (err, value) => {
 		if(err) {
 			return res.status(400).json({
 				"error": err.name,
@@ -70,8 +65,8 @@ Validator.validateId = (req, res, next) => {
 
 Validator.validateEmail = (req, res, next) => {
 	/*
-	 * validate the submitted ID
-	 */
+	 * validate the submitted email for "list_entries" page
+ 	 */
 	Joi.validate(req.body.email_address, email_address, (err, value) => {
 		if(err) {
 			return res.status(400).json({
@@ -86,9 +81,9 @@ Validator.validateEmail = (req, res, next) => {
 
 Validator.validateContactSchema = (req, res, next) => {
 	/*
-	 * validate the submitted ID
+	 * validate the submitted contact info and message for "emailus" page
 	 */
-	Joi.validate(req.body, contactSchema, (err, value) => {
+	Joi.validate(req.body.contact, contactSchema, (err, value) => {
 		if(err) {
 			return res.status(400).json({
 				"error": err.name,
