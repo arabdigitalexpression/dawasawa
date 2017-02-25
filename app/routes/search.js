@@ -1,49 +1,74 @@
-var express = require('express');
-var Methods =  require('../data/methods');
-var router = express.Router();
-var static_data = require('../data/static_data');
-var governorates = static_data.governorates;
+const express = require('express'),
+	  MedicineCtrl = require('../controllers/medicine_ctrl'),
+	  Token = require('../controllers/token_gen')
 
 
-	function renderResults (req, res) {
-		res.render('./results', { 
-			governorates: governorates, 
-			results: req.results,
-			length: req.results.length,
-			searched_term: req.term,
-			searched_gov: req.governorate
-		});
+let router = express.Router()
+
+router.get('/', (req, res) => {
+	if(req.query.name == undefined)
+		/*
+		 * validate the request 
+		 * The app will not search the database if the medicine name is undefined
+		 */
+		res.sendStatus(400) 
+	else {
+		/*
+		 * The app will search the database for a matched name and governorate
+		 */
+		MedicineCtrl.filter(req.query.name, req.query.gov).then((results) => {
+			// return the result if found
+			return Token.generateAccessToken(results, "GET")
+		}).then((results) => {
+			res.send(results)
+		}).catch((err) => {
+			if(err){
+				console.log(err)
+				if(err.code == 404) {
+					// return 404 if not found
+					res.status(404).send(err.message)
+				} else {
+					// return 500 for any server error
+					res.sendStatus(500)
+				}
+			}
+		})
 	}
-function findResults (req, res, next) {		
-	Methods.findMedicine(req.query.term, req.query.governorate).then(function(items) {
-		if(items.length != 0) {
-			items.forEach((item) => {
-				var mydate = new Date(item.expire_date);
-				var m = mydate.getMonth() + 1;
-				var y = mydate.getFullYear();
-				item.expire_month = m;
-				item.expire_year = y;
-			});
-			req.results = items;
-			req.term = req.query.term;
-			req.governorate = req.query.governorate;
-			return next();
-		} else {
-			res.render('./results', { 
-				governorates: governorates, 
-				results: 0,
-				length: 0,
-				searched_term: req.query.term,
-				searched_gov: req.query.governorate
-			});
-		}
-	}, function(err) {
-		res.status(500);
-	});
-	}
+})
 
-// render the home page
-router.get('/', findResults, renderResults);
+module.exports = router
 
 
-module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

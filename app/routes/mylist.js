@@ -111,7 +111,7 @@ let router = express.Router()
 
 router.get('/:token', Validator.validateToken , Encrypter.decrypt ,(req, res) => {
 	MedicineCtrl.findWithEmail(req.token.f).then((meds) => {
-		return Token.generateRemoveToken(meds)
+		return Token.generateAccessToken(meds, "DELETE")
 	}).then((meds) => {
 		res.send(meds)
 	}).catch((err) => {

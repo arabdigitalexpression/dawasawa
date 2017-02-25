@@ -22,8 +22,7 @@ var instate = require('./routes/instate');
 var list_entries = require('./routes/list_entries');
 var mylist = require('./routes/mylist');
 var remove = require('./routes/remove');
-// var search = require('./routes/search');
-// var single = require('./routes/single');
+var search = require('./routes/search');
 
 // start the app
 var app = express();
@@ -46,8 +45,7 @@ app.use('/instate', instate);
 app.use('/list_entries', list_entries);
 app.use('/mylist', mylist);
 app.use('/remove', remove);
-// app.use('/search', search);
-// app.use('/medicine', single);
+app.use('/search', search);
 
 
 // catch 404 and forward to error handler

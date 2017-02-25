@@ -7,11 +7,14 @@ let router = express.Router()
 
 router.get('/:token', Validator.validateToken, Encrypter.decrypt, (req, res) => {
 	console.log('field : ' +  req.token.f)
-	MedicineCtrl.removeMedicine(req.token.f).then(() => {
-		res.send('removed')
-	}).catch((err) => {
-		res.status(500).send(err)
-	})
+	if( req.token.m == "DELETE") {
+		MedicineCtrl.removeMedicine(req.token.f).then(() => {
+			res.send('DELETE')
+		}).catch((err) => {
+			res.status(500).send(err)
+		})
+	} else
+		res.sendStatus(400)
 })
 
 module.exports = router

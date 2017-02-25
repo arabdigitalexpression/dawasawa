@@ -103,7 +103,6 @@ Validator.validateToken = (req, res, next) => {
 	/*
 	 * validate the submitted token
 	 */
-	 console.log(req.params)
 	Joi.validate(req.params.token, token, (err, value) => {
 		if(err) {
 			return res.status(400).json({

@@ -30,6 +30,11 @@ module.exports.encrypt = (value) => {
 			resolve(base62Data)
 		})
 		
+		cipher.on('error', (err) => {
+			res.sendStatus(500)
+			console.error(err)
+		})
+
 		cipher.write(value)
 		cipher.end()
 	})
@@ -41,7 +46,7 @@ module.exports.decrypt = (req, res, next) => {
 	let base16Data = bs16.encode(binaryData)
 
 	if(req.params.token == undefined){
-		res.status(404)
+		res.sendStatus(404)
 	} else {
 		const decipher = crypto.createDecipher(Config.encryption_cipher, Config.token_secret_key)
 		let decrypted = ''
@@ -54,7 +59,13 @@ module.exports.decrypt = (req, res, next) => {
 		decipher.on('end', () => {
 			let token = JSON.parse(decrypted)
 			req.token = token
+			console.log(req.token)
 			next()
+		})
+
+		decipher.on('error', (err) => {
+			res.sendStatus(400)
+			console.error(err)
 		})
 
 		decipher.write(base16Data, 'hex')

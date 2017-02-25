@@ -8,8 +8,7 @@ module.exports.findAll = () => {
 		Medicine.find((err, meds) => {
 			if(err)
 				reject(err)
-			else
-				resolve(meds)
+			resolve(meds)
 		})
 	})
 }
@@ -23,8 +22,7 @@ module.exports.findWithId = (_id) => {
 		Medicine.find({ _id }, (err, med) => {
 			if(err)
 				reject(err)
-			else
-				resolve(med)
+			resolve(med)
 		})
 	})
 }
@@ -44,15 +42,13 @@ module.exports.findWithEmail = (email_address) => {
 			if(err){
 				reject(err)
 			}
-			else {
-				if(meds.length == 0) {
-					reject({
-						"code": "404",
-						"message" : "This Email has no entries or entries that are not verified"
-					})
-				}
-				resolve(meds)
+			if(meds.length == 0) {
+				reject({
+					"code": "404",
+					"message" : "This Email has no entries or entries that are not verified"
+				})
 			}
+			resolve(meds)
 		})
 	})
 }
@@ -63,25 +59,38 @@ module.exports.filter = (name, gov) => {
 	 * @param {String} name - the medicine name
 	 * @param {String} gov - the medicine governorate
 	 */
-	name = name.toLowerCase()
+	name = name.toLowerCase() // convert all letters to lowercase before search
 	return new Promise((resolve, reject) => {
-		if (gov === "كلّ المحافظات") {
+		// the user didn't enter a specific governorate
+		if (gov === "كلّ المحافظات" || gov == undefined) {
+			// the query select the all matched results except contact info.
 			let query = Medicine.find({ "latin_name": name, "instated": true }).select('-contact').lean()
-			query.exec((err, items) => {
-				if(err)
+			query.exec((err, meds) => {
+				if(err) {
 					reject(err)
-				else {
-					resolve(items)
 				}
+				if(meds.length == 0) {
+					reject({
+						"code": "404",
+						"message" : "No Results found"
+					})
+				}
+				resolve(meds)
 			})
 		} else {
+			// the query select the all matched results except contact info.
 			let query = Medicine.find({ "latin_name": name, "governorate": gov, "instated": true }).select('-contact').lean()
-			query.exec((err, items) => {
-				if(err)
+			query.exec((err, meds) => {
+				if(err) {
 					reject(err)
-				else {
-					resolve(items)
 				}
+				if(meds.length == 0) {
+					reject({
+						"code": "404",
+						"message" : "No Results found"
+					})
+				}
+				resolve(meds)
 			})
 		}
 	})
@@ -95,8 +104,9 @@ module.exports.add = (medicine) => {
 	 */
 	var now = Date()
 	return new Promise((resolve, reject) => {
+		// create a new object and save this object
 		var med = new Medicine()
-		med.latin_name = medicine.latin_name
+		med.latin_name = medicine.latin_name.toLowerCase() // convert all letters to lowercase befor save
 		med.governorate = medicine.governorate
 		med.submission_date = now
 		med.expiry_date = medicine.expiry_date
@@ -113,11 +123,9 @@ module.exports.add = (medicine) => {
 			med.contact.phone = medicine.contact.phone
 
 		med.save((err, med) => {
-			if(err) {
+			if(err)
 				reject(err)
-			}
-			else
-				resolve(med)
+			resolve(med)
 		})
 	})
 }
@@ -128,19 +136,17 @@ module.exports.instate = (_id) => {
 	 * @param {String} _id - medicine Object_id
 	 */
 	return new Promise((resolve, reject) => {
+		// find the matched object and update
 		Medicine.findOneAndUpdate({ _id }, { $set: { instated: true } }, { new: true }, (err, med) => {
 			if(err)
 		 		reject(err)
-		 	else {
-		 		if( med == null) {
-		 			reject({
-		 				"code" : "404",
-		 				"message" : "This medicine is deleted by you"
-		 			})
-		 		} else {
-		 			resolve(med)
-		 		}
-		 	}
+	 		if( med == null) {
+	 			reject({
+	 				"code" : "404",
+	 				"message" : "This medicine is deleted by you"
+	 			})
+	 		}
+	 		resolve(med)
 		})
 	})
 }
@@ -151,12 +157,10 @@ module.exports.removeMedicine = (_id) => {
 	 * @param {String} _id - Object_id
 	 */
 	return new Promise((resolve, reject) => {
-		console.log(_id)
 		Medicine.findOneAndRemove({ _id }, (err) => {
 			if(err)
 				reject(err)
-			else
-				resolve()
+			resolve()
 		})
 	})
 }

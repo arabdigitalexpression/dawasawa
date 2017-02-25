@@ -15,23 +15,40 @@ module.exports.generateToken = (field) => {
 	})
 }
 
-module.exports.generateRemoveToken = (meds) => {
+module.exports.generateAccessToken = (meds, method) => {
 	/* 
 	 * @param {Array} meds - array of medicine
 	 * generates remove links to allow users to remove their entries
 	 */
+	 console.log(meds)
 	return new Promise((resolve, reject) => {
 		meds.forEach((medicine) => {
-			medicine['removeToken'] = JSON.stringify({ "f": medicine._id, "d": Date() }) // f: token field, d: token date
-			Encrypter.encrypt(medicine.removeToken).then((encrypted) => {
-				medicine.removeToken = encrypted
+			/*
+			 * add a new field to the returned results
+			 * [accessToken] - the new field 
+			 * "m" : "the request method"
+			 * "f" : medicine_id
+			 * "d" : request date ( current date )
+ 			 */
+			medicine['accessToken'] = JSON.stringify({ "m": method ,"f": medicine._id, "d": Date() }) 
+			Encrypter.encrypt(medicine.accessToken).then((encrypted) => {
+				medicine.accessToken = encrypted
 			}).catch((err) => {
 				reject(err)
 			})
 		})
 		setTimeout(function() {
+			console.log(meds)
 			resolve(meds)
-		}, 1000)
+		}, 100)
 		
 	})
 }
+
+
+
+
+
+
+
+
