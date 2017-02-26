@@ -44,13 +44,13 @@ app.use((req, res, next) => {
 })
 
 // application routes
-app.use('/', index);
-app.use('/submit', submit);
-app.use('/instate', instate);
-app.use('/list_entries', list_entries);
-app.use('/mylist', mylist);
-app.use('/remove', remove);
-app.use('/search', search);
+app.use('/api', index);
+app.use('/api/submit', submit);
+app.use('/api/instate', instate);
+app.use('/api/list_entries', list_entries);
+app.use('/api/mylist', mylist);
+app.use('/api/remove', remove);
+app.use('/api/search', search);
 
 // start the server
 var server = http.createServer(app);

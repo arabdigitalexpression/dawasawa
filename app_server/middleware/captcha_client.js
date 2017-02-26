@@ -6,7 +6,7 @@ let CaptchaClient = {}
 CaptchaClient.validateCaptcha = function(req, res, next) {
 	request({
 			method: 'POST',
-			uri: Config.captcha_app_uri,
+			uri: Config.captcha_server_uri,
 			body: req.body.captcha,
 			cookies : req.cookies
 		},

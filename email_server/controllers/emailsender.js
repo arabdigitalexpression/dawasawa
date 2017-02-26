@@ -8,7 +8,7 @@ const sendmail = require('sendmail') ({
 
 
 // Sends token ladden email messages to confrm actions
-module.exports.sendEmail = function(fromAddress, toAddress, subject, data) {
+module.exports.sendmail = function(fromAddress, toAddress, subject, data) {
 	return new Promise(function(resolve, reject) {
 		sendmail({
 			from: fromAddress,

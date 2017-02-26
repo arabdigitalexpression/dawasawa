@@ -1,10 +1,8 @@
 const http = require('http'),
 	  express = require('express'),
 	  bodyParser = require('body-parser'),
-	  EmailSender = require('./controllers/emailsender'),
-	  Config = require('./config/config')
-
-
+	  EmailSender = require('./controllers/node_mailer_sender'),
+	  Config = require('./Config/Config')
 
 // start the app
 var app = express();
@@ -14,19 +12,19 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 
 // Sends token ladden email messages to confrm actions
-app.get('/submit_email', (req, res) => {
+app.post('/submit_email', (req, res) => {
 	let site_url = Config.site_url
-	let insertion_challenge_grace = config.insertion_challenge_grace
+	let insertion_challenge_grace = Config.insertion_challenge_grace
 	let encrypted = req.body.encrypted
 
 	let email_data = {
 			html : '<div align="right">'
-					+ '<p align="right">أهلاً ' + req.body.user_name + '</p>'
+					+ '<p align="right">أهلاً ' + req.body.medicine.user_name + '</p>'
 					+ '<p align="right">شكرًا لوضعك طلب إدراج في دواسوا </p>'
 					+ '<p align="right">بيانات الإدراج الذي وضعته هي</p>'
-					+ '<p align="right"><span style="float: right">اسم الدواء </span>'+ req.body.latin_name +'</p>'
-					+ '<p align="right"><span style="float: right">نهاية الصلاحية </span>'+ req.body.expiry_month + ' - ' + req.body.expiry_year +'</p>'
-					+ '<p align="right"><span style="float: right"> المحافظة </span>'+ req.body.governorate +'</p>'
+					+ '<p align="right"><span style="float: right">اسم الدواء </span>'+ req.body.medicine.latin_name +'</p>'
+					+ '<p align="right"><span style="float: right">نهاية الصلاحية </span>'+ req.body.medicine.expiry_month + ' - ' + req.body.medicine.expiry_year +'</p>'
+					+ '<p align="right"><span style="float: right"> المحافظة </span>'+ req.body.medicine.governorate +'</p>'
 					+ '<p align="right">لمنع إساءة الاستخدام فلن يظهر الإدراج في نتائج البحث للطالبين إلا بعد اتّباعك الرابط التالي لإتمام إجراء توكيد الإدراج</p>'
 					+ '<a href="' + site_url + '/verify/' + encrypted + '">' + site_url + '/verify/' + encrypted + '</a>'
 					+ '<p align="right">يجب إتمام هذا الإجراء في غضون ' + insertion_challenge_grace + ' ساعة، و إلا فسيُحذف الطّلب</p>'
@@ -34,17 +32,19 @@ app.get('/submit_email', (req, res) => {
 					+ '<span align="right" style="float: right">المزيد عن خدمة تبادل الأدوية في </span><a href="' + site_url + '">' + site_url + '</a>'
 					+ '</div>'
 		}
-	EmailSender.sendmail(config.email_address_from, req.body.contact.user_email, 'دواسوا: توكيد طلب إدراج', email_data).then((reply) => {
-		console.log(reply)
+	EmailSender.sendmail(Config.email_address_from, req.body.email_address, 'دواسوا: توكيد طلب إدراج', email_data).then((reply) => {
+		res.send(reply)
 	}).catch((err)=> {
 		console.log(err)
+		res.send(err)
 	})
 })
 
 // Sends token ladden email messages to confrm actions
-app.get('/listing_email', (req, res) => {
+app.post('/listing_email', (req, res) => {
+	console.log(req.body)
 	let site_url = Config.site_url
-	let listings_challenge_grace = config.listings_challenge_grace
+	let listings_challenge_grace = Config.listings_challenge_grace
 	let encrypted = req.body.encrypted
 
 	let email_data = {
@@ -55,16 +55,17 @@ app.get('/listing_email', (req, res) => {
 				+ '<a href="' + site_url + '/mylist/' + encrypted + '">' + site_url + '/mylist/' + encrypted + '</a>'
 				+ '</div>'
 		}
-	Emailsender.sendEmail(config.email_address_from, req.body.user_email, 'دواسوا: قائمة إدراجات', email_data).then((reply) => {
-		console.log(reply)
+	EmailSender.sendmail(Config.email_address_from, req.body.email_address, 'دواسوا: قائمة إدراجات', email_data).then((reply) => {
+		res.send(reply)
 	}).catch((err)=> {
 		console.log(err)
+		res.send(err)
 	})
 })
 
-
 // Sends email through /emailus form to a specified address
-app.get('/contact_email', (req, res) => {
+app.post('/contact_email', (req, res) => {
+	console.log(req.body)
 	let email_data = {
 		html :  '<div align="right">'
 					+ '<p align="right">بيانات المرسل</p>'
@@ -74,15 +75,16 @@ app.get('/contact_email', (req, res) => {
 					+ '<p align="right">' + req.body.user_message + '</p>'
 					+ '</div>'
 		}
-	Emailsender.sendEmail(config.email_address_writeus, config.email_address_writeus, 'استمارة الاتّصال', email_data).then((reply) => {
-		console.log(reply)
+	EmailSender.sendmail(Config.email_address_writeus, Config.email_address_writeus, 'استمارة الاتّصال', email_data).then((reply) => {
+		res.send(reply)
 	}).catch((err)=> {
 		console.log(err)
+		res.send(err)
 	})
 })
 
 // start the server
 var server = http.createServer(app);
 server.listen(Config.app_port, function() {
-	console.log('Email Server is running on port: %s in %s mode', Config.app_port, process.env.NODE_ENV);
+	console.log('Email Server is running on port: %s', Config.app_port);
 });
