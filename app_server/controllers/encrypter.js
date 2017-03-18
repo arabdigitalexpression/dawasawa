@@ -40,14 +40,51 @@ module.exports.encrypt = (value) => {
 	})
 }
 
+// decryptCookie is a middleware function
+module.exports.decryptAuth = (req, res, next) => {
+	if(req.cookies.authenticated_human == undefined){
+		res.sendStatus(401) // unauthorized request ( cookies.authenticated_human is not sent )
+	} else {
+		let binaryData = bs62.decode(req.cookies.authenticated_human)
+		let base16Data = bs16.encode(binaryData)
+
+		let authTag = bs16.decode(req.cookies.auth_tag)
+
+		const decipher = crypto.createDecipher('aes-128-gcm', 'ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l')
+		let decrypted = ''
+
+
+		decipher.setAuthTag(authTag)
+
+		decipher.on('readable', () => {
+		  const data = decipher.read()
+		  if (data)
+		    decrypted += data.toString('utf8')
+		})
+
+		decipher.on('end', () => {
+			next()
+		})
+
+		decipher.on('error', (err) => {
+			console.error(err)
+			res.sendStatus(400)
+		})
+
+		decipher.write(base16Data, 'hex')
+		decipher.end()
+	}	
+}
+
+
+
 // decrypt is a middleware function
 module.exports.decrypt = (req, res, next) => {
-	let binaryData = bs62.decode(req.params.token)
-	let base16Data = bs16.encode(binaryData)
-
 	if(req.params.token == undefined){
 		res.sendStatus(404)
 	} else {
+		let binaryData = bs62.decode(req.params.token)
+		let base16Data = bs16.encode(binaryData)
 		const decipher = crypto.createDecipher(Config.encryption_cipher, Config.token_secret_key)
 		let decrypted = ''
 		decipher.on('readable', () => {
@@ -64,13 +101,11 @@ module.exports.decrypt = (req, res, next) => {
 		})
 
 		decipher.on('error', (err) => {
-			res.sendStatus(400)
 			console.error(err)
+			res.sendStatus(400)
 		})
 
 		decipher.write(base16Data, 'hex')
 		decipher.end()
-	}
-		
-	
+	}	
 }

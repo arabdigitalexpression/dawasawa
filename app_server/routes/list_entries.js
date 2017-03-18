@@ -3,13 +3,12 @@ const express = require('express'),
 	  Validator = require('../middleware/validator'),
 	  Token = require('../controllers/token_gen'),
 	  Encrypter = require('../controllers/encrypter'),
-	  CaptchaClient = require('../middleware/captcha_client'),
 	  EmailSender = require('../controllers/emailsender')
 
 
 let router = express.Router()
-router.post('/', Validator.validateEmail ,(req, res) => {
-//router.post('/', CaptchaClient.validateCaptcha, Validator.validateEmail ,(req, res) => {
+router.post('/', Encrypter.decryptAuth, Validator.validateEmail ,(req, res) => {
+
 	console.log('validated')
 	MedicineCtrl.findWithEmail(req.body.email_address).then((meds) => {
 		if(meds.length > 0) {

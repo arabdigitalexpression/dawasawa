@@ -14,9 +14,9 @@ const medicineSchema = Joi.object().max(8).keys({
 		name: Joi.string().required(),
 		email_address: Joi.string().email().required(),
 		phone: Joi.string(),
-		email_visible: Joi.boolean()
+		email_invisible: Joi.boolean()
 	}),
-	terms_accepted: Joi.any().valid('y', 'true', 'checked')
+	terms_accepted: Joi.any().valid('y', true, 'checked')
 })
 
 const idSchema = Joi.object().max(1).keys({
@@ -37,9 +37,10 @@ Validator.validateMedicineObject = (req, res, next) => {
 	/*
 	 * validate the submitted medicine object
 	 */
-	Joi.validate(req.body.medicine, medicineSchema, (err, value) => {
+	Joi.validate(req.body, medicineSchema, (err, value) => {
 		if(err) {
-			return res.status(400).json({
+			console.log(err)
+			return res.status(406).json({
 				"error": err.name,
 				"details": err.details 
 			})
@@ -54,7 +55,8 @@ Validator.validateId = (req, res, next) => {
 	 */
 	Joi.validate(req.body, idSchema, (err, value) => {
 		if(err) {
-			return res.status(400).json({
+			console.log(err)
+			return res.status(406).json({
 				"error": err.name,
 				"details": err.details 
 			})
@@ -69,7 +71,7 @@ Validator.validateEmail = (req, res, next) => {
  	 */
 	Joi.validate(req.body.email_address, email_address, (err, value) => {
 		if(err) {
-			return res.status(400).json({
+			return res.status(406).json({
 				"error": err.name,
 				"details": err.details 
 			})
@@ -85,7 +87,7 @@ Validator.validateContactSchema = (req, res, next) => {
 	 */
 	Joi.validate(req.body.contact, contactSchema, (err, value) => {
 		if(err) {
-			return res.status(400).json({
+			return res.status(406).json({
 				"error": err.name,
 				"details": err.details 
 			})
@@ -100,7 +102,7 @@ Validator.validateToken = (req, res, next) => {
 	 */
 	Joi.validate(req.params.token, token, (err, value) => {
 		if(err) {
-			return res.status(400).json({
+			return res.status(406).json({
 				"error": err.name,
 				"details": err.details 
 			})

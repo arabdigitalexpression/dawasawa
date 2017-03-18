@@ -1,3 +1,5 @@
+// this module is not being used by the app
+
 const request = require('request'),
 	  Config = require('../config/config')
 

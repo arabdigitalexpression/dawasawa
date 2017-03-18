@@ -16,7 +16,7 @@ const medicineSchema =  new Schema({
 		name: { type: String, required: true },
 		email_address: { type: String, required: true, index: true },
 		phone: String,
-		email_visible: { type: Boolean, default: true }
+		email_invisible: { type: Boolean, default: false }
 	},
 	instated: { type: Boolean, default: false }
 });

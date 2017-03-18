@@ -20,7 +20,6 @@ module.exports.generateAccessToken = (meds, method) => {
 	 * @param {Array} meds - array of medicine
 	 * generates remove links to allow users to remove their entries
 	 */
-	 console.log(meds)
 	return new Promise((resolve, reject) => {
 		meds.forEach((medicine) => {
 			/*

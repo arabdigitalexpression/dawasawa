@@ -117,8 +117,8 @@ module.exports.add = (medicine) => {
 			med.notes = medicine.notes
 		med.contact.name = medicine.contact.name
 		med.contact.email_address = medicine.contact.email_address
-		if( medicine.contact.email_visible != undefined )
-			med.contact.email_visible = medicine.contact.email_visible
+		if( medicine.contact.email_invisible != undefined )
+			med.contact.email_invisible = medicine.contact.email_invisible
 		if( medicine.contact.phone != undefined)
 			med.contact.phone = medicine.contact.phone
 

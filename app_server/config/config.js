@@ -23,7 +23,7 @@ config.expiry_removal_threshold = 30		// (days) listings are removed from our in
 //Changing this during operation will invalidate all verification tokens
 config.token_secret_key = 'ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l+47Q'	//CHANGE FOR PRODUCTION
 config.encryption_cipher = 'aes-128-gcm'		//Changing this during operation will invalidate all verification tokens
-
+//config.encryption_cipher = 'aes192'		//Changing this during operation will invalidate all verification tokens
 
 if (process.env.NODE_ENV == 'Development' ) {
 //		development overriding settings
@@ -31,7 +31,7 @@ if (process.env.NODE_ENV == 'Development' ) {
 		config.site_url = 'http://localhost:3000'
 		config.email_address_from = 'gundourtesting@gmail.com'
 		config.email_address_writeus = 'gundourtesting@gmail.com'
-		config.encryption_cipher = 'aes128'
+		config.encryption_cipher = 'aes192'
 		config.captcha_server_uri = 'http://localhost:4000/captcha'
 		config.email_server_uri = 'http://localhost:5000'
 }

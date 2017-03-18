@@ -5,11 +5,11 @@ const express = require('express'),
 
 let router = express.Router()
 
-router.get('/:token', Validator.validateToken, Encrypter.decrypt, (req, res) => {
+router.get('/:token', Encrypter.decrypt, (req, res) => {
 	console.log('field : ' +  req.token.f)
 	if( req.token.m == "DELETE") {
 		MedicineCtrl.removeMedicine(req.token.f).then(() => {
-			res.send('DELETE')
+			res.status(200).redirect(req.headers.referer)
 		}).catch((err) => {
 			res.status(500).send(err)
 		})
