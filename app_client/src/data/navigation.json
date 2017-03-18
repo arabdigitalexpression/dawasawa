@@ -1,0 +1,36 @@
+{
+	"home": {
+		"name" : "الرئيسية",
+		"route" : "/"
+	},
+	"submit": {
+		"name" : "تبرع بدواء",
+		"route" : "/submit"
+	},
+	"about": {
+		"name" : "عن الخدمة",
+		"route" : "/about"
+	},
+	"emailus": {
+		"name" : "راسلنا",
+		"route" : "/emailus"
+	},
+	"request_entries": {
+		"name" : "ادراجاتى",
+		"route" : "/list_entries"
+	},
+	"my_entries": {
+		"name" : "ادراجاتى",
+		"route" : "/mylist"
+	},
+	"results": {
+		"name" : "نتائج البحث",
+		"route" : "/results"
+	},
+	"info": {
+		"route" : "/info"
+	},
+	"404": {
+		"route" : "/404"
+	}
+}
