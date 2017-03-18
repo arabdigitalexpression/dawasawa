@@ -4,6 +4,7 @@
   "description": "A server that generates captchas and checks for matched captchas in database, This server is a part of dawasawa app",
   "main": "server.js",
   "dependencies": {
+    "base-x-bytearray": "^0.1.0",
     "body-parser": "^1.16.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.1",

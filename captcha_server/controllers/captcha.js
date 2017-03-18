@@ -22,6 +22,8 @@ module.exports.findCaptcha = function(value, session_id) {
 		Captcha.findOne({ value: value, session_id: session_id }, function(err, cap) {
 			if(err) {
 				reject(err);
+			} else if(cap == null) {
+				reject('cap not found');
 			} else 
 				resolve(cap);
 		});
