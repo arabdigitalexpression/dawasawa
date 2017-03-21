@@ -30,7 +30,7 @@ const routes = [
   { path: '/mylist', component: MyEntriesPage, props: true},
   { path: '/results', component: ResultsPage},
   { path: '/verified', component: Verified},
-  { path: '/404', component: Page404}
+  { path: '/*', component: Page404}
 ]
 
 let base = '/'

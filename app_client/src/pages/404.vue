@@ -1,7 +1,11 @@
 <template>
-	<div>
-		
-		404
+	<div class="">
+		<ds-nav :pagename="pagename"></ds-nav>
+		<br>
+		<div class="error-message">
+			<h1>404</h1>
+			<p>عفواً المحتوى المطلوب غير متاح على الموقع</p>
+		</div>
 	</div>
 </template>
 
@@ -14,7 +18,9 @@
 	export default {
 		data() {
 			return {
-				pagename: navigation.submit.name
+				pagename: navigation.submit.name,
+
+				navigation
 			}
 		},
 		components: {
@@ -28,5 +34,7 @@
 </script>
 
 <style>
-	
+	.error-message {
+		text-align: center;
+	}
 </style>
