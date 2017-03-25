@@ -23,6 +23,8 @@ var list_entries = require('./routes/list_entries');
 var mylist = require('./routes/mylist');
 var remove = require('./routes/remove');
 var search = require('./routes/search');
+var emailus = require('./routes/emailus');
+var medicine = require('./routes/medicine');
 
 // start the app
 var app = express();
@@ -51,6 +53,8 @@ app.use('/api/list_entries', list_entries);
 app.use('/api/mylist', mylist);
 app.use('/api/remove', remove);
 app.use('/api/search', search);
+app.use('/api/emailus', emailus);
+app.use('/api/medicine',medicine);
 
 // start the server
 var server = http.createServer(app);

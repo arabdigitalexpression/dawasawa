@@ -19,9 +19,13 @@ module.exports.findWithId = (_id) => {
 	 * @param {String} _id - Object_id
 	 */
 	return new Promise((resolve, reject) => {
-		Medicine.find({ _id }, (err, med) => {
+		let query = Medicine.findOne({ _id }).lean()
+		query.exec((err, med) => {
 			if(err)
 				reject(err)
+			if(med.contact.email_invisible === true)
+				med.contact.email_address = ""
+			console.log(med.contact)
 			resolve(med)
 		})
 	})
@@ -53,7 +57,7 @@ module.exports.findWithEmail = (email_address) => {
 	})
 }
 
-module.exports.filter = (name, gov) => {
+module.exports.filter = (name, gov, page) => {
 	/*
 	 * returns the entry that matches the name and governorate ( Search )
 	 * @param {String} name - the medicine name
@@ -62,9 +66,9 @@ module.exports.filter = (name, gov) => {
 	name = name.toLowerCase() // convert all letters to lowercase before search
 	return new Promise((resolve, reject) => {
 		// the user didn't enter a specific governorate
-		if (gov === "كلّ المحافظات" || gov == undefined) {
+		if (gov === "كلّ المحافظات" || gov === undefined) {
 			// the query select the all matched results except contact info.
-			let query = Medicine.find({ "latin_name": name, "instated": true }).select('-contact').lean()
+			let query = Medicine.find({ "latin_name": name, "instated": true }).select('-contact -submission_date').lean()
 			query.exec((err, meds) => {
 				if(err) {
 					reject(err)
