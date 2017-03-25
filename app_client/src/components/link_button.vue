@@ -20,7 +20,6 @@
 		color: #fff;
 		cursor: pointer;
 		transition: all 0.3s linear;
-		box-shadow: 1px 1px 10px #333;
 	}
 	a {
 		text-decoration: none;

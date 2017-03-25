@@ -11,8 +11,12 @@
 			</div>
 			<div class="uk-navbar-left">
 				<ul class="uk-iconnav icons-list">
-				    <li><router-link :to="navigation.emailus.route" uk-icon="icon: mail; ratio: 1.5"></router-link></li>
-				    <li style="margin-top: 1px;"><router-link :to="navigation.about.route" class="y-flip" uk-icon="icon: question; ratio: 1.3"></router-link></li>
+				    <li><!-- <router-link :to="navigation.emailus.route" uk-icon="icon: mail; ratio: 1.5"></router-link> -->
+				    	<router-link :to="navigation.emailus.route"> {{navigation.emailus.name}} </router-link>
+				    </li>
+				    <li style="margin-right: 10px;"><!-- <router-link :to="navigation.about.route" class="y-flip" uk-icon="icon: question; ratio: 1.3"></router-link> -->
+				    	<router-link :to="navigation.about.route"> {{navigation.about.name}} </router-link>
+				    </li>
 				</ul>
 			</div>
 		</nav>
@@ -25,18 +29,18 @@
 		<div class="search-area">
 			<p class="encouraging-text">ابحث عن دواء</p>
 			<span v-if="validationErrors.latinName.error" class="form-error"> {{ searchError }} </span>
-			<form v-on:submit="submitSearch" id="search-form">
+			<form v-on:submit.prevent="submitSearch" id="search-form">
 				<input v-model="searchKey" class="uk-input" type="text" placeholder="البحث بالأحرف اللاتينية فقط">
+				<p class="hint">
+					نقلا عن العبوة أو الوصفة مع مراعاة 	الدقة، مثال: Augmentine
+				</p>
+				<button class="uk-button-primary search-button">ابحث</button>
 			</form>
-			<p class="hint">
-				نقلا عن العبوة أو الوصفة مع مراعاة 	الدقة، مثال: Augmentine
-			</p>
-			
 		</div>
 
 		<div class="donation-aria">
 			<p class="encouraging-text">أو يمكنك التبرع بالدواء الفائض عن حاجتك من هنا</p>
-			<ds-link-button :name="navigation.submit.name" :route="navigation.submit.route"></ds-link-button>
+			<router-link class="main-button" :to="navigation.submit.route"> {{navigation.submit.name}} </router-link>
 		</div>
 	</div>
 </template>
@@ -81,12 +85,15 @@
 					$('#search-form > input').removeClass('uk-form-danger')
 				}
 			},
-			submitSearch(event) {
-				event.preventDefault()
+			submitSearch() {
 				this.validateLatinName()
-				if(this.searchKey != "") {
-					// submit search
-					alert(this.searchKey)
+
+				if(this.validationErrors.latinName.error === false) {
+					if(this.searchKey != "") {
+						// submit search
+						//alert(this.searchKey)
+						this.$router.push({ path: 'search', query: { name: this.searchKey } })
+					}
 				}
 			}
 		},
@@ -136,12 +143,12 @@
 		margin: 0 auto;
 	}
 	.hero h1 {
-		font-size: 2rem;
+		font-size: 1.6rem;
 		line-height: 2;
 	}
 
 	.hero p {
-		color: #e84c3d;
+		color: #AbAbAb;
 	}
 	.search-area {
 		width: 100%;
@@ -156,6 +163,7 @@
 		margin-top: 5px;
 		color: rgba(0,0,0,0.53);
 		font-size: 0.8rem;
+		margin-bottom: 0;
 	}
 	.encouraging-text {
 		color: #e84c3d;
@@ -164,18 +172,53 @@
 	}
 
 	.donation-aria {
+		text-align: center;
 		width: 600px;
 		margin: 0 auto;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		height: 60px;
-		margin-bottom: 40px;
+		margin-bottom: 80px;
 	}
 
 	.donation-aria p {
 		margin-left: 20px;
 		margin-top: 10px;
+	}
+
+	.main-button {
+		padding: 15px 30px 15px 30px;
+		margin: 0;
+		text-align: center;
+		font-size: 1.2rem;
+		background-color: #e84c3d;
+		color: #FFF;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+		display: block;
+		/*width: 300px;*/
+	}
+	.main-button:hover {
+		text-decoration: none;
+		color: #FFF;
+		background-color: #d42720;
+		box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.24);
+	}
+	
+	.search-button {
+		margin-top: 8px;
+		padding: 10px 30px;
+		font-size: 1rem;
+		cursor: pointer;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+	}
+
+	.search-button:hover {
+		box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.24);
+		background-color: #d42720;
+		box-shadow: 0px
 	}
 
 	@media screen and (max-width: 640px) {
@@ -217,6 +260,9 @@
 			flex-direction: column;
 			padding: 20px;
 			text-align: center;
+		}
+		.search-button {
+			width: 200px;
 		}
 	}
 

@@ -233,6 +233,17 @@
 			'ds-terms-modal': TermsModal
 		},
 		methods: {
+			cleanErrorFlags() {
+				// cleans all the error flags
+				this.validationErrors.latinName.error = false
+				this.validationErrors.arabicName.error = false
+				this.validationErrors.expireDate.error = false
+				this.validationErrors.expireDate.error = false
+				this.validationErrors.expireDate.error = false
+				this.validationErrors.required.error = false
+				this.validationErrors.email.error = false
+				this.validationErrors.phone.error = false
+			},
 			showContactForm(event) {
 				event.preventDefault()
 
@@ -606,13 +617,16 @@
 					this.submitRequest()
 				}
 			}
+		},
+		mounted() {
+			this.cleanErrorFlags()
 		}
 	}
 </script>
 
 <style>
 	.page-wrapper {
-		padding: 20px;
+		padding: 40px;
 	}
 	.tabs-wrapper {
 		margin-top: 30px;
@@ -670,6 +684,9 @@
 		cursor: pointer;
 	}
 	@media screen and (max-width: 640px) {
+		.page-wrapper {
+			padding: 5px 20px;
+		}
 		.tabs-wrapper {
 			margin-top: -30px;
 		}

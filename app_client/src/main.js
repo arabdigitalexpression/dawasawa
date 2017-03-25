@@ -28,7 +28,7 @@ const routes = [
   { path: '/about', component: Aboutpage},
   { path: '/list_entries', component: RequestEntriesPage},
   { path: '/mylist', component: MyEntriesPage, props: true},
-  { path: '/results', component: ResultsPage},
+  { path: '/search', component: ResultsPage},
   { path: '/verified', component: Verified},
   { path: '/*', component: Page404}
 ]

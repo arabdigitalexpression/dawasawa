@@ -47,7 +47,7 @@ export default {
 		font-family: 'Cairo', sans-serif; 
 	}
 
-	h1,h2,h3,h4,h5,h6,p,a,input {
+	h1,h2,h3,h4,h5,h6,p,a,input, button {
 		font-family: 'Cairo', sans-serif !important;
 	}
 	.uk-button-primary {
