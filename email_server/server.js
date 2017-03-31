@@ -1,8 +1,7 @@
 const http = require('http'),
 	  express = require('express'),
 	  bodyParser = require('body-parser'),
-//	  EmailSender = require('./controllers/emailsernder'),
-	  EmailSender = require('./controllers/node_mailer_sender'),
+	  EmailSender = require('./controllers/emailsernder'),
 	  Config = require('./Config/Config')
 
 // start the app
