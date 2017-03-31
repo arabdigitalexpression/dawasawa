@@ -30,7 +30,10 @@
 			<p class="encouraging-text">ابحث عن دواء</p>
 			<span v-if="validationErrors.latinName.error" class="form-error"> {{ searchError }} </span>
 			<form v-on:submit.prevent="submitSearch" id="search-form">
-				<input v-model="searchKey" class="uk-input" type="text" placeholder="البحث بالأحرف اللاتينية فقط">
+				<input v-model="searchKey" class="uk-input" type="text" placeholder="البحث بالأحرف اللاتينية فقط" list="matchlist">
+			 	<datalist id="matchlist">
+			 		<option v-for="key in keywords" :value="key"></option>
+			 	</datalist>
 				<p class="hint">
 					نقلا عن العبوة أو الوصفة مع مراعاة 	الدقة، مثال: Augmentine
 				</p>
@@ -60,6 +63,8 @@
 				navigation,
 
 				validationErrors, 
+
+				keywords: [],
 
 				searchKey: "", // search keyword
 
@@ -91,7 +96,6 @@
 				if(this.validationErrors.latinName.error === false) {
 					if(this.searchKey != "") {
 						// submit search
-						//alert(this.searchKey)
 						this.$router.push({ path: 'search', query: { name: this.searchKey } })
 					}
 				}
@@ -99,7 +103,17 @@
 		},
 		watch: {
 			searchKey: function() {
-				this.validateLatinName()
+				let url = 'http://localhost/api/suggest/'
+				if(this.searchKey.length > 2) {
+					url = url + this.searchKey
+					this.$http.get(url, { "credentials": true }).then(response=> {
+						this.keywords = response.data
+					}, response => {
+						this.keywords = []
+					})
+				} else {
+					this.keywords = []
+				}
 			}
 		}
 	}

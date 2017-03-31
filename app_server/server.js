@@ -25,6 +25,7 @@ var remove = require('./routes/remove');
 var search = require('./routes/search');
 var emailus = require('./routes/emailus');
 var medicine = require('./routes/medicine');
+var suggest = require('./routes/suggest');
 
 // start the app
 var app = express();
@@ -55,6 +56,7 @@ app.use('/api/remove', remove);
 app.use('/api/search', search);
 app.use('/api/emailus', emailus);
 app.use('/api/medicine',medicine);
+app.use('/api/suggest', suggest);
 
 // start the server
 var server = http.createServer(app);

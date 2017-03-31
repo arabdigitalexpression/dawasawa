@@ -70,10 +70,10 @@ app.post('/contact_email', (req, res) => {
 	let email_data = {
 		html :  '<div align="right">'
 					+ '<p align="right">بيانات المرسل</p>'
-					+ '<p align="right">' + req.body.user_name + '&lt;' + req.body.user_email + '&gt;' + '</p>'
+					+ '<p align="right">' + req.body.username + '&lt;' + req.body.email + '&gt;' + '</p>'
 					+ '<br>'
 					+ '<p align="right">الرسالة</p>'
-					+ '<p align="right">' + req.body.user_message + '</p>'
+					+ '<p align="right">' + req.body.message + '</p>'
 					+ '</div>'
 		}
 	EmailSender.sendmail(Config.email_address_writeus, Config.email_address_writeus, 'استمارة الاتّصال', email_data).then((reply) => {

@@ -5,7 +5,7 @@ const express = require('express'),
 
 let router = express.Router()
 
-router.get('/:token', Validator.validateToken , Encrypter.decrypt ,(req, res) => {
+router.get('/:token' , Encrypter.decrypt ,(req, res) => {
 	MedicineCtrl.findWithEmail(req.token.f).then((meds) => {
 		return Token.generateAccessToken(meds, "DELETE")
 	}).then((meds) => {

@@ -8,7 +8,10 @@
 			</div>
 			<div class="search-aria">
 				<form v-on:submit.prevent="submitSearch" id="search-page-form">
-					<input type="text" v-model="searchKey" class="uk-input">
+				 	<input type="text" v-model="searchKey" class="uk-input" list="matchlist"> 
+				 	<datalist id="matchlist">
+				 		<option v-for="key in keywords" :value="key"></option>
+				 	</datalist>
 					<select v-model="governorate" id="governorate" class="uk-select">
 						<option>كلّ المحافظات</option>
 		            	<option v-for="gov in governorates" :value="gov">
@@ -23,7 +26,7 @@
 				<!-- empty result -->
 				<div v-if="isempty">{{ emptyResult }}</div>
 				<!-- medicine results -->
-				<div v-else="isempty" v-for="med in results" class="medicine-container card-1 hoverable">
+				<div v-else="isempty" v-for="med in display" class="medicine-container card-1 hoverable">
 					<div class="medicine-col">
 						<h4 class="medicine-name">{{ med.latin_name }}</h4>
 						<h4 class="medicine-name">{{ med.arabic_name }}</h4>
@@ -32,12 +35,40 @@
 						<p class="medicine-data">المحافظة : {{med.governorate}}</p>
 					</div>
 					<div class="medicine-col">
-						<a @click.prevent="showInfo(medicineUrl + med.accessToken)" v-bind:href="medicineUrl + med.accessToken" class="uk-button-primary contact-button" uk-icon="icon: phone">بيانات الإتصال</a>
+						<a @click.prevent="showInfo(medicineUrl + med.accessToken)" uk-toggle=" target: #medicine-modal" v-bind:href="medicineUrl + med.accessToken" class="uk-button-primary contact-button" uk-icon="icon: phone">بيانات الإتصال</a>
+					</div>
+				</div>
+			</div>
+			<br>
+			<ul class="uk-pagination uk-flex-center">
+				<li><a @click.prevent="previousPage()" href="#"><span uk-pagination-previous></span></a></li>
+				<li v-for="n in pages(count)"><a @click.prevent="showPage(n)" href="#">{{ n }}</a></li>
+				<li><a @click.prevent="nextPage()" href="#"><span uk-pagination-next></span></a></li>
+			</ul>
+		</div>
+		<div v-if="pageLoading" uk-spinner></div>
+
+		<div id="medicine-modal" uk-modal>
+			<div class="uk-modal-dialog uk-modal-body">
+				<button v-on:click="clearMedicine" class="uk-modal-close-default" type="button" uk-close></button>
+				<h2 class="uk-modal-title">بيانات الدواء</h2>
+				<div class="medicine-info">
+					<div><span>الإسم باللاتينية:</span><span>{{ medLatinName }}</span></div>
+					<div><span>الإسم بالعربية:</span><span>{{ medArabicName }}</span></div>
+					<div><span>تاريخ إنتهاء الصلاحية:</span><span>{{ medExpireDate }}</span></div>
+					<div><span>حالة العبوه:</span><span>{{ medPackageState }}</span></div>
+					<div><span>المحافظة:</span><span>{{ medGovernorate }}</span></div>
+					<div><span>ملاحظات:</span><span>{{ medNotes }}</span></div>
+					<div>
+						<h4>بيانات الإتصال</h4>
+						<div><span>الإسم:</span><span>{{ medUsername }}</span></div>
+						<div><span>البريد الإلكترونى:</span><span>{{ medEmail }}</span></div>
+						<div><span>رقم الهاتف:</span><span>{{ medPhone }}</span></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div v-if="pageLoading" uk-spinner></div>
+
 		<div v-if="captchaRequested" class="captcha-container">
 			<p>إنسان ام روبوت</p>
 			<br>
@@ -57,12 +88,17 @@
 <script>
 	import Navbar from '../components/nav_bar.vue'
 	import Alert from '../components/alert.vue'
+	import validator from 'validator'
+	import vSelect from "vue-select"
 
 	import responseError from '../notifications/response_error.json'
 
 	const navigation = require('../data/navigation.json')
 	const governorates = require('../data/governorates.json')
 	const config = require('../config.json')
+
+	let validationErrors = require('../data/validation_errors.json')
+
 
 	export default {
 		data() {
@@ -73,8 +109,13 @@
 				searchKey: "",
 				governorate: "",
 
+				keywords: [],
+
 				//notifications
 				responseError,
+
+				// validation errors
+				validationErrors, 
 
 				// loading indicator
 				pageLoading: false,
@@ -84,21 +125,24 @@
 				isempty: false,
 
 				medicineUrl: config.server_url + "/api/medicine/",
+				currentUrl: "",
 
 				// medicine results
-				results: [],
-				count: "",
+				results: [], // returned results
+				display: [], // currently displayed results
+				count: "", // number of total results
+				page: "", // current page number
 
 				// medicine
-				latinName: "",			// medicine latin name
-				arabicName: "",			// medicine arabic name
-				expireDate: "",			// medicine expire date
-				packageState: "",		// medicine package state
-				governorate: "",		// medicine governorate
-				notes: "",				// medicine notes
-				username: "",			// user name
-				email: "",				// user email
-				phone: "",				// user phone
+				medLatinName: "",			// medicine latin name
+				medArabicName: "",			// medicine arabic name
+				medExpireDate: "",			// medicine expire date
+				medPackageState: "",		// medicine package state
+				medGovernorate: "",		// medicine governorate
+				medNotes: "",				// medicine notes
+				medUsername: "",			// user name
+				medEmail: "",				// user email
+				medPhone: "",				// user phone
 
 
 				// captcha
@@ -114,6 +158,32 @@
 			'ds-alert': Alert
 		},
 		methods: {
+			validateLatinName() {
+				let result = validator.isAscii(this.searchKey)
+
+				if (result === false && this.searchKey != "") {
+					// latin name is written with non latin letters
+					this.validationErrors.latinName.error = true
+					this.searchError = this.validationErrors.latinName.msg
+					$('#search-form > input').addClass('uk-form-danger')
+				} else {
+					// latin name is valid
+					this.validationErrors.latinName.error = false
+					this.searchError = ""
+					$('#search-form > input').removeClass('uk-form-danger')
+				}
+			},
+			submitSearch() {
+				this.validateLatinName()
+
+				if(this.validationErrors.latinName.error === false) {
+					if(this.searchKey != "") {
+						// submit search
+						this.$router.push({ path: 'search', query: { name: this.searchKey, gov: this.governorate } })
+						location.reload()
+					}
+				}
+			},
 			search(name, gov) {
 				this.pageLoading = true
 				// set request QueryString and Url
@@ -126,6 +196,7 @@
 					this.isempty = false
 					this.count = response.data.length
 					this.results = response.data
+					this.page = 1
 				}, response => {
 					// error
 					this.pageLoading = false
@@ -141,16 +212,45 @@
 					}
 				})
 			},
+			pages(count) {
+				return Math.ceil( count/10 )
+			},
+			showPage(page) {
+				this.page = page
+			},
+			previousPage() {
+				if(this.page != 1) {
+					this.page--
+				}
+			},
+			nextPage() {
+				if(this.page != Math.ceil( this.count/10 )) {
+					this.page++
+				}
+			},
 			showInfo(url) {
 				this.pageLoading = true
+				this.currentUrl = url 
 				this.$http.get(url, { "credentials": true }).then(response=> {
 					// success
 					this.pageLoading = false
 
-					
+					// medicine
+					this.medLatinName = response.data.latin_name						// medicine latin name
+					this.medArabicName = response.data.arabic_name || "غير متاح"		// medicine arabic name
+					this.medExpireDate = response.data.expiry_date						// medicine expire date
+					this.medPackageState = response.data.package_state					// medicine package state
+					this.medGovernorate = response.data.governorate					// medicine governorate
+					this.medNotes = response.data.notes || "غير متاح"					// medicine notes
+					this.medUsername = response.data.contact.name					// user name
+					this.medEmail = response.data.contact.email_address || "غير متاح"			// user email
+					this.medPhone = response.data.contact.phone || "غير متاح"			// user phone
 
 				}, response => {
 					this.pageLoading = false
+
+					$('#medicine-modal').hide()
+
 					if(response.status === 401) {
 						// unautorized
 						// user is not recognized as a human
@@ -197,7 +297,6 @@
 					"value" : value
 				}
 				this.$http.post(url, body, { "credentials": true }).then(response=> {
-					console.log(response.status)
 					if(response.status == 200) {
 						this.captchaTrue = true
 						this.captchaLoading = false
@@ -205,12 +304,23 @@
 						$('#captcha-value').addClass('uk-form-success')
 					}
 				}, response=> {
-					console.log(response.status)
 					this.captchaTrue = false
 					this.captchaLoading = false
 					$('#captcha-value').addClass('uk-form-danger')
 					$('#captcha-value').removeClass('uk-form-success')
 				})
+			},
+			clearMedicine() {
+				// medicine
+				this.medLatinName = ""						// medicine latin name
+				this.medArabicName = ""		// medicine arabic name
+				this.medExpireDate = ""						// medicine expire date
+				this.medPackageState = ""					// medicine package state
+				this.medGovernorate = ""				// medicine governorate
+				this.medNotes = ""					// medicine notes
+				this.medUsername = ""					// user name
+				this.medEmail = ""			// user email
+				this.medPhone = ""			// user phone
 			}
 		},
 		mounted() {
@@ -219,6 +329,19 @@
 			this.search(this.searchKey, this.governorate)
 		},
 		watch: {
+			searchKey: function() {
+				let url = 'http://localhost/api/suggest/'
+				if(this.searchKey.length > 2) {
+					url = url + this.searchKey
+					this.$http.get(url, { "credentials": true }).then(response=> {
+						this.keywords = response.data
+					}, response => {
+						this.keywords = []
+					})
+				} else {
+					this.keywords = []
+				}
+			},
 			captchaValue: function() {
 				$('#captcha-value').removeClass('uk-form-danger')
 				$('#captcha-value').removeClass('uk-form-success')
@@ -229,8 +352,31 @@
 				}		
 			},
 			captchaTrue: function() {
-				if(this.captchaTrue == true) {
+				if(this.captchaTrue === true) {
 					this.captchaRequested = false
+					location.reload()
+				}
+			},
+			page: function() {
+				let startIndex = ( this.page - 1 ) * 10
+				if(this.page == 1) {
+					 if(this.count < 10) {
+						$('.uk-pagination-previous').addClass('uk-hidden')
+						$('.uk-pagination-next').addClass('uk-hidden')
+						this.display = this.results.slice(startIndex, ( startIndex + ( this.count % 10 ) ) )
+					} else {
+						$('.uk-pagination-previous').addClass('uk-hidden')
+						$('.uk-pagination-next').removeClass('uk-hidden')
+						this.display = this.results.slice(startIndex, (startIndex + 10) )
+					}
+				} else if (this.page == Math.ceil( this.count/10 )) {
+					$('.uk-pagination-previous').removeClass('uk-hidden')
+					$('.uk-pagination-next').addClass('uk-hidden')
+					this.display = this.results.slice(startIndex, ( startIndex + ( this.count % 10 ) ) )
+				} else {
+					$('.uk-pagination-next').removeClass('uk-hidden')
+					$('.uk-pagination-previous').removeClass('uk-hidden')
+					this.display = this.results.slice(startIndex, (startIndex + 10) )
 				}
 			}
 		}
@@ -272,6 +418,19 @@
 		margin-right: 10px;
 	}
 
+	.uk-pagination li a {
+		font-size: 1.3rem;
+	}
+
+	.medicine-info span {
+		color: #000;
+		margin-right: 10px;
+		font-size: 0.9rem;
+	}
+
+	.medicine-info div {
+		margin-bottom: 10px;
+	}
 	@media screen and (max-width: 640px) {
 		#search-page-form {
 			margin-top: 0;

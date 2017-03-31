@@ -67,7 +67,6 @@
 			logToken() {
 				let token = this.$route.query.accesstoken
 				let t = token.split("/")
-				console.log(t[1])
 			},
 			getMyEntries() {
 				this.pageLoading = true
@@ -81,7 +80,6 @@
 					// success
 					this.pageLoading = false
 					this.results = response.data
-					console.log(this.results[1])
 				}, response=> {
 					// error
 					this.pageLoading = false

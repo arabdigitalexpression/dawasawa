@@ -86,6 +86,7 @@ module.exports.decrypt = (req, res, next) => {
 		let binaryData = bs62.decode(req.params.token)
 		let base16Data = bs16.encode(binaryData)
 		const decipher = crypto.createDecipher(Config.encryption_cipher, Config.token_secret_key)
+
 		let decrypted = ''
 		decipher.on('readable', () => {
 		  const data = decipher.read()

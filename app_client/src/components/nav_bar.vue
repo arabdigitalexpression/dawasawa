@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<nav uk-navbar style="z-index: 980;">
+		<nav uk-sticky uk-navbar style="z-index: 980;">
 			<div class="uk-navbar-right">
 				<ul class="uk-navbar-nav uk-visible@s">
 					<li><router-link :to="navigation.home.route"> {{ navigation.home.name }} </router-link></li>
@@ -59,7 +59,7 @@
 
 <style scoped>
 	nav {
-		padding: 0 20px;
+		padding: 0 30px 0 40px;
 		box-shadow: 1px 1px 6px #ccc;
 		background-color: #FFF;
 	}
@@ -82,13 +82,20 @@
 	.uk-navbar-nav li{
 
 	}
+	.header-logo {
+		width: 150px;
+	}
 	.small-logo {
-		height: 45px;
+		height: 35px;
 	}
 	.uk-offcanvas-bar {
 		padding: 0;
 		padding-top: 60px; 
 	}
+	a.logo-container:hover {
+		background: transparent; 
+	}
+
 	#offcanvas-slide li a{
 		padding: 20px;
 		border-bottom: 1px solid #333; 

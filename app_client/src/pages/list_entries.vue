@@ -203,7 +203,6 @@
 					"value" : value
 				}
 				this.$http.post(url, body, { "credentials": true }).then(response=> {
-					console.log(response.status)
 					if(response.status == 200) {
 						this.captchaTrue = true
 						this.captchaLoading = false
@@ -211,7 +210,6 @@
 						$('#captcha-value').addClass('uk-form-success')
 					}
 				}, response=> {
-					console.log(response.status)
 					this.captchaTrue = false
 					this.captchaLoading = false
 					$('#captcha-value').addClass('uk-form-danger')

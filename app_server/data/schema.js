@@ -21,7 +21,6 @@ const medicineSchema =  new Schema({
 	instated: { type: Boolean, default: false }
 });
 
-
 const Medicine = mongoose.model('Medicine', medicineSchema);
 
 module.exports = Medicine;

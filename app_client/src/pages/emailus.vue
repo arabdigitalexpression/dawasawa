@@ -110,18 +110,15 @@
 			validateEmail() {
 				if(this.email === "") {
 					// email is empty
-					console.log('email is empty')
 					this.validationErrors.email.error = true
 					this.emailError = this.validationErrors.email.msg2
 				} else {
 					let result = validator.isEmail(this.email)
 					if(result === false) {
-						console.log('email is not valid')
 						// email is not valid
 						this.validationErrors.email.error = true
 						this.emailError = this.validationErrors.email.msg1
 					} else {
-						console.log('email is valid')
 						// email is valid
 						this.validationErrors.email.error = false
 						this.emailError = ""

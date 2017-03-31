@@ -25,7 +25,6 @@ module.exports.findWithId = (_id) => {
 				reject(err)
 			if(med.contact.email_invisible === true)
 				med.contact.email_address = ""
-			console.log(med.contact)
 			resolve(med)
 		})
 	})
@@ -56,6 +55,19 @@ module.exports.findWithEmail = (email_address) => {
 		})
 	})
 }
+
+// returns at most four suggestions
+module.exports.suggest = (subtring) => {
+	return new Promise((resolve, reject) => {
+		let query = Medicine.find({ "latin_name": { "$regex": "^" + subtring, "$options": "i" } }, ' latin_name -_id').limit(4)
+		query.exec((err, meds) => {
+			if(err)
+				reject(err)
+			resolve(meds)
+		})
+	})
+}
+
 
 module.exports.filter = (name, gov, page) => {
 	/*
