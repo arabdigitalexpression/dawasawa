@@ -68,7 +68,7 @@ app.post('/listing_email', (req, res) => {
 				+'أهلا!'
 				+ '<p align="right"><span style="float: right"> شخص ما قد طلب معاينة قائمة الإدراجات المرتبطة بعنوان البريد هذا في </span><span> dawasawa.online</span></p>'
 				+ '<p align="right">تمكنك معاينة إدراجاتك باتّباع الرابط التالي في غضون ' + listings_challenge_grace + ' ساعة، وإلا فتجاهل هذه الرّسالة.</p>'
-				+ '<a href="' + site_url + '/mylist?accesstoken=/' + encrypted + '">' + site_url + '/mylist?accesstoken=/' + encrypted + '</a>'
+				+ '<a href="' + site_url + '/mylist?accesstoken=' + encrypted + '">' + site_url + '/mylist?accesstoken=' + encrypted + '</a>'
 				+ '</div>'
 		}
 	EmailSender.sendmail(config.EMAIL_FROM, req.body.email_address, 'دواسوا: قائمة إدراجات', email_data).then((reply) => {

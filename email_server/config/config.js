@@ -18,9 +18,9 @@ config.DB_NAME = "dawasawa"
 
 
 // email config
-config.EMAIL_FROM = ""				// sender email
-config.EMAIL_TO = ""				// write us email
-config.EMAIL_USER = ""				// email user
+config.EMAIL_FROM = "example@example.com"				// sender email
+config.EMAIL_TO = "example@example.com"				// write us email
+config.EMAIL_USER = "example@example.com"				// email user
 config.EMAIL_PASS = ""							// email password
 config.EMAIL_SERVICE = "gmail" 								// development email
 config.DKIM_PRIVATE_KEY = "" 								// production email
