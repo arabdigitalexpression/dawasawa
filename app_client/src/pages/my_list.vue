@@ -30,6 +30,10 @@
 	</div>
 </template>
 
+
+
+
+
 <script>
 	import Navbar from '../components/nav_bar.vue';
 
@@ -71,9 +75,10 @@
 			getMyEntries() {
 				this.pageLoading = true
 				let token = this.$route.query.accesstoken
-				let t = token.split("/")
 
-				let url = config.server_url + '/api/mylist/' + t[1] 
+				//let t = token.split("/")
+
+				let url = config.server_url + '/api/mylist/' + token
 
 				// request my list
 				this.$http.get(url, { "credentials": true }).then(response=> {
@@ -85,6 +90,10 @@
 					this.pageLoading = false
 					if(response.status == 404) {
 						this.isempty = true
+						emptyResult: "لم يتم العثور على أى إدراجات"
+					} else if(response.status == 403) {
+						this.isempty = true
+						this.emptyResult = response.body
 					} else {
 						UIkit.notification({
 							message: this.responseError.message,
@@ -105,6 +114,9 @@
 		}
 	}
 </script>
+
+
+
 
 <style>
 	.results {
@@ -198,3 +210,6 @@
 	}
 
 </style>
+
+
+
