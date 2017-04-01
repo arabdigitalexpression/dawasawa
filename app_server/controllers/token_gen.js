@@ -37,7 +37,6 @@ module.exports.generateAccessToken = (meds, method) => {
 			})
 		})
 		setTimeout(function() {
-			console.log(meds)
 			resolve(meds)
 		}, 100)
 		

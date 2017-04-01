@@ -5,14 +5,11 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
-// define the environment
-process.env.NODE_ENV = 'Development';
-
 // load the config file
-var app_config = require('./config/config');
+var config = require('./config/config');
 
 // Connect to mongodb
-var db = mongoose.connect(app_config.database_uri);
+var db = mongoose.connect(config.DB_HOST + ":" + config.DB_PORT + "/" + config.DB_NAME)
 
 
 // load local dependencies
@@ -41,7 +38,6 @@ app.use((req, res, next) => {
 		let randomNumber=Math.random().toString()
 		randomNumber=randomNumber.substring(2,randomNumber.length)
 		res.cookie('session_id',randomNumber, { httpOnly: true })
-		console.log('cookie not existed')
 	}
 	next()
 })
@@ -60,6 +56,6 @@ app.use('/api/suggest', suggest);
 
 // start the server
 var server = http.createServer(app);
-server.listen(app_config.app_port, function() {
-	console.log('server is running on port: %s in %s mode', app_config.app_port, process.env.NODE_ENV);
+server.listen(config.PORT, function() {
+	console.log('%s is running on port: %s', config.NAME, config.PORT);
 });

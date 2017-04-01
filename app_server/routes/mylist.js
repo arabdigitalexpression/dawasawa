@@ -1,11 +1,24 @@
 const express = require('express'),
 	  MedicineCtrl = require('../controllers/medicine_ctrl')
 	  Validator = require('../middleware/validator'),
-	  Encrypter = require('../controllers/encrypter')
+	  Encrypter = require('../controllers/encrypter'),
+	  config = require('../config/config')
 
 let router = express.Router()
 
-router.get('/:token' , Encrypter.decrypt ,(req, res) => {
+router.get('/:token', Encrypter.decrypt ,(req, res) => {
+
+	let submitedDate = new Date(req.token.d)
+	submitedDate = submitedDate.getTime()
+	let date = new Date()
+
+	let checkDate = new Date(
+		date.setTime( date.getTime() )
+	)
+
+	if( ( checkDate.getTime() - submitedDate ) >= (config.LISTING_CHALLENGE_GRACE * 60 * 60 * 1000) )
+	 	return res.status(403).send("إنتهى الوقت المحدد للطلب")
+
 	MedicineCtrl.findWithEmail(req.token.f).then((meds) => {
 		return Token.generateAccessToken(meds, "DELETE")
 	}).then((meds) => {

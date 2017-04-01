@@ -1,40 +1,60 @@
 let config = {}
 
-config.database_uri = 'mongodb://172.17.0.2:27017/dawasawa'
-config.site_url = 'https://dawasawa.online'
-config.email_address_from = 'robot@dawasawa.online'
-config.email_address_writeus = 'webmaster@dawasawa.online'
+// server config
+config.NAME = "application server"
+config.SITE_URL = "http://localhost"
+config.PORT = 3000
+config.VERSION = "1.0.0"
+
+// email service url
+config.EMAIL_SERVER_URL = "http://localhost:5000"
+
+// database config
+config.DB_HOST = "mongodb://localhost"
+config.DB_USER = ""
+config.DB_PASS = ""
+config.DB_PORT = "27017"
+config.DB_NAME = "dawasawa"
 
 
-// services
-config.captcha_server_uri = 'http://172.17.0.x:4000/captcha' //change the IP in production
-config.email_server_uri = 'http://172.17.0.x:5000/captcha' //change the IP in production
+// email config
+config.EMAIL_FROM = ""				// sender email
+config.EMAIL_TO = ""				// write us email
+config.EMAIL_USER = ""				// email user
+config.EMAIL_PASS = ""							// email password
+config.EMAIL_SERVICE = "gmail" 								// development email
+config.DKIM_PRIVATE_KEY = "" 								// production email
+config.DKIM_KEY_SELECTOR = ""								// production email
 
-// app config
-config.app_name = 'دواسوا'
-config.app_port = '3000'
+// crypto config
+config.ENCRYPTION_TYPE = "aes-128-gcm"
+config.ENCRYPTION_SECRET = "ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l47Q" // Change in production
 
-config.insertion_challenge_grace = 48		// (hours) the entry is removed from the system if not confirmed by this period 
-config.listings_challenge_grace = 48		// (hours) the entry is removed from the system if not confirmed by this period 
-config.expiry_acceptance_threshold = 60	// (days) no listig can be accepted if it expires sooner than this number of days
-config.expiry_removal_threshold = 30		// (days) listings are removed from our index when there remains this number of days until they expire
+// application params
+config.INSERTION_CHALLENGE_GRACE = 48		// (hours) the entry removed from the system if not confirmed in 48 hours.
+config.LISTING_CHALLENGE_GRACE = 48 			// (hours) the token link is not accepted after 48 hours
+config.EXPIRY_REMOVAL_THRESHOLD = 30			// (days)  entries are removed if it expires in 30 days
 
-//a long random string, possible teh result of openssl rand 32 -hex
-//Changing this during operation will invalidate all verification tokens
-config.token_secret_key = 'ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l+47Q'	//CHANGE FOR PRODUCTION
-config.encryption_cipher = 'aes-128-gcm'		//Changing this during operation will invalidate all verification tokens
-//config.encryption_cipher = 'aes192'		//Changing this during operation will invalidate all verification tokens
 
-if (process.env.NODE_ENV == 'Development' ) {
-//		development overriding settings
-		config.database_uri = 'mongodb://localhost:27017/dawasawa'
-		config.site_url = 'http://localhost:3000'
-		config.email_address_from = 'gundourtesting@gmail.com'
-		config.email_address_writeus = 'gundourtesting@gmail.com'
-		config.encryption_cipher = 'aes192'
-		config.captcha_server_uri = 'http://localhost:4000/captcha'
-		config.email_server_uri = 'http://localhost:5000'
-}
+// captcha params
+config.CAPTCHA_SIZE = "4" 	// nubmer of characters in captcha
+config.CAPTCHA_NOISE = "2"	// number of noise lines in the captcha image
+config.captcha_expiration_period = '1h' // The captcha expires after 1h
+
 
 module.exports = config
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

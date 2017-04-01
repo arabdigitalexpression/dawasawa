@@ -9,7 +9,6 @@ const express = require('express'),
 let router = express.Router()
 router.post('/', Encrypter.decryptAuth, Validator.validateEmail ,(req, res) => {
 
-	console.log('validated')
 	MedicineCtrl.findWithEmail(req.body.email_address).then((meds) => {
 		if(meds.length > 0) {
 			return Token.generateToken(req.body.email_address)

@@ -1,5 +1,5 @@
 const request = require('request'),
-	  Config = require('../config/config')
+	  config = require('../config/config')
 
 module.exports.sendmail = function(action, data) {
 	/*
@@ -8,7 +8,7 @@ module.exports.sendmail = function(action, data) {
 	console.log(data)
 	request({
 			method: 'POST',
-			uri: Config.email_server_uri + action,
+			uri: config.EMAIL_SERVER_URL + action,
 			json: true,
 			body: data
 		},

@@ -4,7 +4,6 @@ const express = require('express'),
 let router = express.Router()
 
 router.get('/:key', (req, res)=> {
-	console.log(req.params)
 	MedicineCtrl.suggest(req.params.key).then((meds) => {
 		let results = []
 		meds.forEach(function(med) {

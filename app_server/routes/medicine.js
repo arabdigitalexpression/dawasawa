@@ -4,6 +4,7 @@ const express = require('express'),
 let router = express.Router()
 
 router.get('/:token', Encrypter.decryptAuth, Encrypter.decrypt, (req, res)=> {
+
 	MedicineCtrl.findWithId(req.token.f).then((med)=> {
 
 		let expire_month = med.expiry_date.getMonth() 

@@ -1,4 +1,4 @@
-const Config = require('../config/config')
+const config = require('../config/config')
 const BaseX = require('base-x-bytearray')
 const crypto = require('crypto')
 
@@ -13,7 +13,7 @@ module.exports.encrypt = (value) => {
 		if(value == undefined)
 			reject()
 
-		const cipher = crypto.createCipher(Config.encryption_cipher, Config.token_secret_key)
+		const cipher = crypto.createCipher('aes192', config.ENCRYPTION_SECRET)
 
 		let encrypted = ''
 
@@ -50,8 +50,8 @@ module.exports.decryptAuth = (req, res, next) => {
 
 		let authTag = bs16.decode(req.cookies.auth_tag)
 
-		const decipher = crypto.createDecipher('aes-128-gcm', 'ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l')
-		let decrypted = ''
+		const decipher = crypto.createDecipher(config.ENCRYPTION_TYPE, config.ENCRYPTION_SECRET)
+		let decryptedAuth = ''
 
 
 		decipher.setAuthTag(authTag)
@@ -59,10 +59,11 @@ module.exports.decryptAuth = (req, res, next) => {
 		decipher.on('readable', () => {
 		  const data = decipher.read()
 		  if (data)
-		    decrypted += data.toString('utf8')
+		    decryptedAuth += data.toString('utf8')
 		})
 
 		decipher.on('end', () => {
+			req.decryptedAuth = JSON.parse(decryptedAuth)
 			next()
 		})
 
@@ -80,12 +81,12 @@ module.exports.decryptAuth = (req, res, next) => {
 
 // decrypt is a middleware function
 module.exports.decrypt = (req, res, next) => {
-	if(req.params.token == undefined){
+	if(req.params.token === undefined){
 		res.sendStatus(404)
 	} else {
 		let binaryData = bs62.decode(req.params.token)
 		let base16Data = bs16.encode(binaryData)
-		const decipher = crypto.createDecipher(Config.encryption_cipher, Config.token_secret_key)
+		const decipher = crypto.createDecipher('aes192', config.ENCRYPTION_SECRET)
 
 		let decrypted = ''
 		decipher.on('readable', () => {
@@ -97,7 +98,6 @@ module.exports.decrypt = (req, res, next) => {
 		decipher.on('end', () => {
 			let token = JSON.parse(decrypted)
 			req.token = token
-			console.log(req.token)
 			next()
 		})
 
