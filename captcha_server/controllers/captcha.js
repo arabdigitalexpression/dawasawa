@@ -1,5 +1,18 @@
 const Captcha = require('../data/schema')
 
+module.exports.removeCaptcha = (session_id) => {
+	/*
+	 * removes an existing captcha that is related to the session
+	 */
+
+	return new Promise((resolve, reject) => {
+		Captcha.remove({ session_id }, (err) => {
+			reject(err)
+		})
+		resolve()
+	})
+}
+
 module.exports.addCaptcha = (session_id, value) => {
 	/*
 	 * adds a new captcha to the user session

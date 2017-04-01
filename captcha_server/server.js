@@ -6,14 +6,11 @@ const http = require('http'),
 	  mongoose = require('mongoose'),
 	  svgCaptcha = require('svg-captcha'),
 	  CaptchaCtrl = require('./controllers/captcha'),
-	  Config = require('./config/config')
+	  config = require('./config/config')
 	  Encrypter = require('./controllers/encrypter')
 
-// define the environment
-process.env.NODE_ENV = 'Development'
-
 // Connect to mongodb
-var db = mongoose.connect(Config.database_uri)
+var db = mongoose.connect(config.DB_HOST + ":" + config.DB_PORT + "/" + config.DB_NAME)
 
 // start the app
 var app = express()
@@ -30,23 +27,33 @@ app.use((req, res, next) => {
 	next()
 })
 
+// health check
+app.get('/', (req, res)=> {
+	res.sendStatus(200)
+})
+
+// get new captcha
 app.get('/captcha', (req, res) => {
 	let captcha = svgCaptcha.create({
-		size: 4,
-		noise: 2,
+		size: config.CAPTCHA_SIZE,
+		noise: config.CAPTCHA_NOISE,
 		color: true,
 		background: '#FFF'
 	})
-	CaptchaCtrl.addCaptcha(req.cookies.session_id, captcha.text).then(function() {
-		//res.set('Content-Type', 'image/svg+xml')
-		console.log(captcha.text)
+
+	CaptchaCtrl.removeCaptcha(req.cookies.session_id).then(() => {
+		return CaptchaCtrl.addCaptcha(req.cookies.session_id, captcha.text)
+	}).then(() => {
+		res.set('Content-Type', 'image/svg+xml')
     	res.send(captcha.data)
-	}, function(err) {
+	}, (err) => {
 		console.log(err)
 		res.status(500).send('error getting captcha')
 	})
 })
 
+
+// post captcha answer
 app.post('/captcha', (req, res) => {
 	CaptchaCtrl.findCaptcha(req.body.value, req.cookies.session_id).then((cap) => {
 		let auth = {
@@ -55,7 +62,6 @@ app.post('/captcha', (req, res) => {
 		}
 		return Encrypter.encrypt( JSON.stringify(auth) )
 	}).then((encryptedAuth) => {
-		console.log('token encrypted')
 		res.cookie('authenticated_human', encryptedAuth.base62Data , { httpOnly: true })
 		res.cookie('auth_tag', encryptedAuth.encodedAuthTag , { httpOnly: true })
 		res.sendStatus(200)
@@ -71,6 +77,6 @@ app.post('/captcha', (req, res) => {
 
 // start the server
 var server = http.createServer(app)
-server.listen(Config.app_port, function() {
-	console.log('%s is running on port: %s in %s mode',Config.app_name, Config.app_port, process.env.NODE_ENV)
+server.listen(config.PORT, () => {
+	console.log('%s is running on port: %s',config.NAME, config.PORT)
 })
