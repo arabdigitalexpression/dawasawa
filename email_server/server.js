@@ -1,8 +1,10 @@
 const http = require('http'),
 	  express = require('express'),
 	  bodyParser = require('body-parser'),
-	  EmailSender = require('./controllers/emailsernder'),
-	  Config = require('./Config/Config')
+	  config = require('./config/config')
+
+if( process.env.NODE_ENV === "dev" ) EmailSender = require('./controllers/nodemailer_sender')
+else EmailSender = require('./controllers/emailsernder')
 
 // start the app
 var app = express();
@@ -11,10 +13,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
 
+// health check
+app.get('/', (req, res) => {
+	res.sendStatus(200)
+})
+
 // Sends token ladden email messages to confrm actions
 app.post('/submit_email', (req, res) => {
-	let site_url = Config.site_url
-	let insertion_challenge_grace = Config.insertion_challenge_grace
+	// validate request
+	if(req.body.contact.name === undefined || req.body.email_address === undefined || req.body.encrypted === undefined ) {
+		return res.sendStatus(406)
+	}
+
+	let site_url = config.SITE_URL
+	let insertion_challenge_grace = config.INSERTION_CHALLENGE_GRACE
 	let encrypted = req.body.encrypted
 
 	let email_data = {
@@ -32,19 +44,23 @@ app.post('/submit_email', (req, res) => {
 					+ '<span align="right" style="float: right; padding: 0 0 0 5px;">المزيد عن خدمة تبادل الأدوية في </span><a href="' + site_url + '">' + site_url + '</a>'
 					+ '</div>'
 		}
-	EmailSender.sendmail(Config.email_address_from, req.body.email_address, 'دواسوا: توكيد طلب إدراج', email_data).then((reply) => {
+	EmailSender.sendmail(config.EMAIL_FROM, req.body.email_address, 'دواسوا: توكيد طلب إدراج', email_data).then((reply) => {
 		res.send(reply)
 	}).catch((err)=> {
-		console.log(err)
-		res.send(err)
+		//console.log(err)
+		res.sendStatus(500)
 	})
 })
 
 // Sends token ladden email messages to confrm actions
 app.post('/listing_email', (req, res) => {
-	console.log(req.body)
-	let site_url = Config.site_url
-	let listings_challenge_grace = Config.listings_challenge_grace
+	// validate request
+	if(req.body.email_address === undefined || req.body.encrypted === undefined ) {
+		return res.sendStatus(406)
+	}
+
+	let site_url = config.SITE_URL
+	let listings_challenge_grace = config.LISTING_CHALLENGE_GRACE
 	let encrypted = req.body.encrypted
 
 	let email_data = {
@@ -55,7 +71,7 @@ app.post('/listing_email', (req, res) => {
 				+ '<a href="' + site_url + '/mylist?accesstoken=/' + encrypted + '">' + site_url + '/mylist?accesstoken=/' + encrypted + '</a>'
 				+ '</div>'
 		}
-	EmailSender.sendmail(Config.email_address_from, req.body.email_address, 'دواسوا: قائمة إدراجات', email_data).then((reply) => {
+	EmailSender.sendmail(config.EMAIL_FROM, req.body.email_address, 'دواسوا: قائمة إدراجات', email_data).then((reply) => {
 		res.send(reply)
 	}).catch((err)=> {
 		console.log(err)
@@ -65,7 +81,11 @@ app.post('/listing_email', (req, res) => {
 
 // Sends email through /emailus form to a specified address
 app.post('/contact_email', (req, res) => {
-	console.log(req.body)
+	// validate request
+	if(req.body.email === undefined || req.body.username === undefined || req.body.message === undefined ) {
+		return res.sendStatus(406)
+	}
+	
 	let email_data = {
 		html :  '<div align="right">'
 					+ '<p align="right">بيانات المرسل</p>'
@@ -75,7 +95,7 @@ app.post('/contact_email', (req, res) => {
 					+ '<p align="right">' + req.body.message + '</p>'
 					+ '</div>'
 		}
-	EmailSender.sendmail(Config.email_address_writeus, Config.email_address_writeus, 'استمارة الاتّصال', email_data).then((reply) => {
+	EmailSender.sendmail(config.EMAIL_FROM, config.EMAIL_TO, 'استمارة الاتّصال', email_data).then((reply) => {
 		res.send(reply)
 	}).catch((err)=> {
 		console.log(err)
@@ -84,7 +104,8 @@ app.post('/contact_email', (req, res) => {
 })
 
 // start the server
-var server = http.createServer(app);
-server.listen(Config.app_port, function() {
-	console.log('Email Server is running on port: %s', Config.app_port);
+var server = http.createServer(app)
+
+server.listen(config.PORT, ()=> {
+	console.log('%s is running on port: %s', config.NAME , config.PORT);
 });

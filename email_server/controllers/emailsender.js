@@ -1,8 +1,10 @@
+const config = require('./config/config')
+
 const sendmail = require('sendmail') ({
 	silent: true,
 	dkim: {
-    privateKey: ``,
-    keySelector: ''
+    privateKey: config.DKIM_PRIVATE_KEY,
+    keySelector: config.DKIM_KEY_SELECTOR
   }
 })
 
