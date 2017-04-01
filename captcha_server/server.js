@@ -44,7 +44,7 @@ app.get('/captcha', (req, res) => {
 	CaptchaCtrl.removeCaptcha(req.cookies.session_id).then(() => {
 		return CaptchaCtrl.addCaptcha(req.cookies.session_id, captcha.text)
 	}).then(() => {
-		res.set('Content-Type', 'image/svg+xml')
+		//res.set('Content-Type', 'image/svg+xml')
     	res.send(captcha.data)
 	}, (err) => {
 		console.log(err)
