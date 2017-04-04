@@ -89,7 +89,6 @@
 	import Navbar from '../components/nav_bar.vue'
 	import Alert from '../components/alert.vue'
 	import validator from 'validator'
-	import vSelect from "vue-select"
 
 	import responseError from '../notifications/response_error.json'
 
