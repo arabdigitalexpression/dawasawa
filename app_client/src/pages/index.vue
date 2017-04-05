@@ -103,7 +103,7 @@
 		},
 		watch: {
 			searchKey: function() {
-				let url = 'http://localhost/api/suggest/'
+				let url = config.server_url + '/api/suggest/'
 				if(this.searchKey.length > 2) {
 					url = url + this.searchKey
 					this.$http.get(url, { "credentials": true }).then(response=> {
