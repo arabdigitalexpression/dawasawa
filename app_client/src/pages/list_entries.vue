@@ -198,7 +198,7 @@
 				})
 			},
 			postCaptcha(value) {
-				let url = 'http://localhost/captcha'
+				let url = config.server_url + '/captcha'
 				let body = {
 					"value" : value
 				}

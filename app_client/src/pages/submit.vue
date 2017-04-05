@@ -166,12 +166,6 @@
 	let validationErrors = require('../data/validation_errors.json')
 	const config = require('../config.json')
 
-	$(function() {
-      var now = Date()
-      $( "#expire-date").datepicker({ minDate: 30 });
-      $("#expire-date").datepicker("option", "dateFormat", "mm/dd/yy");
-    })
-
 	function validateDate(date) {
 		let bits = date.split('/');
 		let d = new Date(bits[2], bits[0] , bits[1] - 1);
@@ -548,7 +542,7 @@
 				})
 			},
 			postCaptcha(value) {
-				let url = 'http://localhost/captcha'
+				let url = config.server_url + '/captcha'
 				let body = {
 					"value" : value
 				}
@@ -617,7 +611,11 @@
 			}
 		},
 		mounted() {
-			console.log('mounted')
+			$(function() {
+		      var now = Date()
+		      $( "#expire-date").datepicker({ minDate: 30 });
+		      $("#expire-date").datepicker("option", "dateFormat", "mm/dd/yy");
+		    })
 			this.cleanErrorFlags()
 		}
 	}
