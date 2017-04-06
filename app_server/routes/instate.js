@@ -19,7 +19,7 @@ router.get('/:token', Validator.validateToken , Encrypter.decrypt ,(req, res) =>
 	)
 
 	if( ( checkDate.getTime() - submitedDate ) >= (config.INSERTION_CHALLENGE_GRACE * 60 * 60 * 1000) )
-	 	return res.status(403).send("إنتهى الوقت المحدد للطلب")
+	 	return res.status(403).send("انتهت صلاحية طلب الإيداع هذا و&nbsp;يمكن توكيده.")
 
 	MedicineCtrl.instate(req.token.f).then((med) => {
 		res.status(200).redirect('/verified')

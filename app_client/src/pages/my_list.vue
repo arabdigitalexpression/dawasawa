@@ -15,13 +15,13 @@
 					<div class="medicine-col">
 						<h4 class="medicine-name">{{ med.latin_name }}</h4>
 						<h4 class="medicine-name">{{ med.arabic_name }}</h4>
-						<p class="medicine-date">تاريخ إنتهاء الصلاحية : {{med.expiry_date}}</p>
-						<p class="medicine-date">تاريخ الإدراج : {{med.submission_date}}</p>
-						<p class="medicine-data">حالة العبوه : {{med.package_state}}</p>
-						<p class="medicine-data">المحافظة : {{med.governorate}}</p>
+						<p class="medicine-date">تاريخ انتهاء الصلاحية: {{med.expiry_date}}</p>
+						<p class="medicine-date">تاريخ الإدراج: {{med.submission_date}}</p>
+						<p class="medicine-data">حالة العبوه: {{med.package_state}}</p>
+						<p class="medicine-data">المحافظة: {{med.governorate}}</p>
 					</div>
 					<div class="medicine-col">
-						<a @click="removeMedicine" v-bind:href="removeUrl + med.accessToken" class="uk-button-primary delete-button" uk-icon="icon: trash">حذف</a>
+						<a @click="removeMedicine" v-bind:href="removeUrl + med.accessToken" class="uk-button-primary delete-button" uk-icon="icon: trash">احذف</a>
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				results: [], // the returned results
 
 				// empty result
-				emptyResult: "لم يتم العثور على أى إدراجات",
+				emptyResult: "لا توجد إدراجات مطابقة",
 				isempty: false,
 
 				// remove url
@@ -90,7 +90,7 @@
 					this.pageLoading = false
 					if(response.status == 404) {
 						this.isempty = true
-						emptyResult: "لم يتم العثور على أى إدراجات"
+						emptyResult: "لا توجد إدراجات مطابقة"
 					} else if(response.status == 403) {
 						this.isempty = true
 						this.emptyResult = response.body

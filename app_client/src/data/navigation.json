@@ -4,7 +4,7 @@
 		"route" : "/"
 	},
 	"submit": {
-		"name" : "تبرع بدواء",
+		"name" : "تبرّع بدواء",
 		"route" : "/submit"
 	},
 	"about": {
@@ -16,11 +16,11 @@
 		"route" : "/emailus"
 	},
 	"request_entries": {
-		"name" : "ادراجاتى",
+		"name" : "إدراجاتى",
 		"route" : "/list_entries"
 	},
 	"my_entries": {
-		"name" : "ادراجاتى",
+		"name" : "إدراجاتى",
 		"route" : "/mylist"
 	},
 	"results": {

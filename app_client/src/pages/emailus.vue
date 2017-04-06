@@ -20,7 +20,7 @@
 					<div class="uk-margin">
 						<label class="uk-form-label" for="email">عنوان البريد الإلكتروني</label>
 						<div class="uk-form-controls uk-inline">
-				            <input class="uk-input" id="email" v-model="email" type="email" placeholder="عنوان بريدك الإلكتروني مطلوب لنتمكن من الردّ عليك إذا لزم الأمر">
+				            <input class="uk-input" id="email" v-model="email" type="email" placeholder="عنوان بريدك الإلكتروني مطلوب لنتمكن من الردّ عليك إذا لزم الأمر، و&nbsp;لن يُستعمل لغرض غير ذلك.">
 				        	<div v-if="validationErrors.email.error" class="form-error">
 				            	{{ emailError }}
 				            </div>

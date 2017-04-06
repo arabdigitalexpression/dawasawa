@@ -9,7 +9,7 @@
 			<div class="tabs-wrapper">
 				<ul id="submit-tabs" class="tab-toggle" uk-tab>
 					<li id="medicine-form-toggle"><a href="#">بيانات الدواء</a></li>
-					<li id="contact-form-toggle"><a href="#">بيانات الإتصال</a></li>
+					<li id="contact-form-toggle"><a href="#">بيانات الاتصال</a></li>
 				</ul>
 				<ul id="submit-forms" class="uk-switcher">
 					<li id="medicine-form">
@@ -76,7 +76,7 @@
 						        </div>
 							</div>
 							<br>
-							<button v-on:click="showContactForm" class="uk-button uk-button-primary">بيانات الإتصال</button>				
+							<button v-on:click="showContactForm" class="uk-button uk-button-primary">التالي</button>				
 						</form>
 					</li>
 					<li id="contact-form">
@@ -119,13 +119,13 @@
 							</div>
 							<br>
 							<div class="uk-margin">
-								<label class="uk-form-label" for="terms-agreed">أوافق على <a href="#terms-modal" uk-toggle>شروط الخدمة</a></label>
+								<label class="uk-form-label" for="terms-agreed">قرأت <a href="#terms-modal" uk-toggle>شروط الخدمة</a> و&nbsp;فهمتها و&nbsp;أقبلها</label>
 								<div class="uk-form-controls uk-inline"> 
 					            	<input v-model="agreedOnTerms" class="uk-checkbox" id="terms-agreed" type="checkbox">
 					        	</div>
 					        </div>
 					       
-							<button v-on:click.stop="submitMedicineForm" :disabled="!agreedOnTerms" id="#submit-button" class="uk-button uk-button-primary">إدخال</button>	
+							<button v-on:click.stop="submitMedicineForm" :disabled="!agreedOnTerms" id="#submit-button" class="uk-button uk-button-primary">أدرج</button>	
 						</form>
 					</li>
 				</ul>
@@ -134,13 +134,13 @@
 		<div v-if="pageLoading" uk-spinner></div>
 		<ds-terms-modal></ds-terms-modal>
 		<div v-if="captchaRequested" class="captcha-container">
-			<p>إنسان ام روبوت</p>
+			<p>إنسان أم روبوت</p>
 			<br>
 			<div v-html="captcha" class="captcha-data"></div>
 			<div class="captcha-solution">
 				<form>
-					<button v-on:click.stop.prevent="requestCaptcha" class="uk-button-primary" >صعبة ! إطلب غيرها</button>
-					<input v-model="captchaValue" type="text" id="captcha-value" placeholder="انقل الرموز السابقة">
+					<button v-on:click.stop.prevent="requestCaptcha" class="uk-button-primary" >صعبة ! أظهر غيرها</button>
+					<input v-model="captchaValue" type="text" id="captcha-value" placeholder="أدخل في الحقل النّصي المحارف التي تراها في الصورة">
 					<div v-if="captchaLoading" uk-spinner></div>
 					<span v-if="captchaTrue" style="color: green;" uk-icon="icon: check; ratio: 1.4"></span>
 				</form>

@@ -30,12 +30,12 @@
 					<div class="medicine-col">
 						<h4 class="medicine-name">{{ med.latin_name }}</h4>
 						<h4 class="medicine-name">{{ med.arabic_name }}</h4>
-						<p class="medicine-date">تاريخ إنتهاء الصلاحية : {{med.expiry_date}}</p>
-						<p class="medicine-data">حالة العبوه : {{med.package_state}}</p>
-						<p class="medicine-data">المحافظة : {{med.governorate}}</p>
+						<p class="medicine-date">تاريخ انتهاء الصلاحية: {{med.expiry_date}}</p>
+						<p class="medicine-data">حالة العبوة: {{med.package_state}}</p>
+						<p class="medicine-data">المحافظة: {{med.governorate}}</p>
 					</div>
 					<div class="medicine-col">
-						<a @click.prevent="showInfo(medicineUrl + med.accessToken)" uk-toggle=" target: #medicine-modal" v-bind:href="medicineUrl + med.accessToken" class="uk-button-primary contact-button" uk-icon="icon: phone">بيانات الإتصال</a>
+						<a @click.prevent="showInfo(medicineUrl + med.accessToken)" uk-toggle=" target: #medicine-modal" v-bind:href="medicineUrl + med.accessToken" class="uk-button-primary contact-button" uk-icon="icon: phone">بيانات الاتصال</a>
 					</div>
 				</div>
 			</div>
@@ -53,15 +53,15 @@
 				<button v-on:click="clearMedicine" class="uk-modal-close-default" type="button" uk-close></button>
 				<h2 class="uk-modal-title">بيانات الدواء</h2>
 				<div class="medicine-info">
-					<div><span>الإسم باللاتينية:</span><span>{{ medLatinName }}</span></div>
-					<div><span>الإسم بالعربية:</span><span>{{ medArabicName }}</span></div>
-					<div><span>تاريخ إنتهاء الصلاحية:</span><span>{{ medExpireDate }}</span></div>
-					<div><span>حالة العبوه:</span><span>{{ medPackageState }}</span></div>
+					<div><span>الاسم باللاتينية:</span><span>{{ medLatinName }}</span></div>
+					<div><span>الاسم بالعربية:</span><span>{{ medArabicName }}</span></div>
+					<div><span>تاريخ انتهاء الصلاحية:</span><span>{{ medExpireDate }}</span></div>
+					<div><span>حالة العبوة:</span><span>{{ medPackageState }}</span></div>
 					<div><span>المحافظة:</span><span>{{ medGovernorate }}</span></div>
 					<div><span>ملاحظات:</span><span>{{ medNotes }}</span></div>
 					<div>
-						<h4>بيانات الإتصال</h4>
-						<div><span>الإسم:</span><span>{{ medUsername }}</span></div>
+						<h4>بيانات الاتصال</h4>
+						<div><span>الاسم:</span><span>{{ medUsername }}</span></div>
 						<div><span>البريد الإلكترونى:</span><span>{{ medEmail }}</span></div>
 						<div><span>رقم الهاتف:</span><span>{{ medPhone }}</span></div>
 					</div>
@@ -70,13 +70,13 @@
 		</div>
 
 		<div v-if="captchaRequested" class="captcha-container">
-			<p>إنسان ام روبوت</p>
+			<p>إنسان أم روبوت</p>
 			<br>
 			<div v-html="captcha" class="captcha-data"></div>
 			<div class="captcha-solution">
 				<form>
-					<button v-on:click.stop.prevent="requestCaptcha" class="uk-button-primary" >صعبة ! إطلب غيرها</button>
-					<input v-model="captchaValue" type="text" id="captcha-value" placeholder="انقل الرموز السابقة">
+					<button v-on:click.stop.prevent="requestCaptcha" class="uk-button-primary" >صعبة ! أظهر غيرها</button>
+					<input v-model="captchaValue" type="text" id="captcha-value" placeholder="أدخل في الحقل النّصي المحارف التي تراها في الصورة">
 					<div v-if="captchaLoading" uk-spinner></div>
 					<span v-if="captchaTrue" style="color: green;" uk-icon="icon: check; ratio: 1.4"></span>
 				</form>
@@ -120,7 +120,7 @@
 				pageLoading: false,
 
 				// empty result
-				emptyResult: "لم يتم العثور على نتائج",
+				emptyResult: "لا توجد إدراجات مطابقة",
 				isempty: false,
 
 				medicineUrl: config.server_url + "/api/medicine/",

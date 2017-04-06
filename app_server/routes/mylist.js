@@ -17,7 +17,7 @@ router.get('/:token', Encrypter.decrypt ,(req, res) => {
 	)
 
 	if( ( checkDate.getTime() - submitedDate ) >= (config.LISTING_CHALLENGE_GRACE * 60 * 60 * 1000) )
-	 	return res.status(403).send("إنتهى الوقت المحدد للطلب")
+	 	return res.status(403).send("انتهت صلاحية هذا التصريح. يمكنك إيداع طلب جديد لمطالعة إدراجاتك.")
 
 	MedicineCtrl.findWithEmail(req.token.f).then((meds) => {
 		return Token.generateAccessToken(meds, "DELETE")
@@ -44,12 +44,4 @@ router.get('/:token', Encrypter.decrypt ,(req, res) => {
 })
 
 module.exports = router
-
-
-
-
-
-
-
-
 

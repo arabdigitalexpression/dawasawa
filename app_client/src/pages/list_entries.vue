@@ -8,7 +8,7 @@
 			</div>
 			<br class="uk-visible@s">
 			<p class="info">
-				إذا وُجدت إدراجات مرتبطة بعنوان البريد الذي أدخلته فسوف تُرسل إليك رسالة تحوي معلومات عن تلك الإدراجات.
+إذا وُجدت إدراجات مرتبطة بعنوان البريد الذي أدخلته فسوف تُرسل إليك رسالة تحوي معلومات عن تلك الإدراجات.
 			</p>
 
 			<form id="my-entries-form" class="uk-form-stacked">
@@ -26,13 +26,13 @@
 		</div>
 		<div v-if="pageLoading" uk-spinner></div>
 		<div v-if="captchaRequested" class="captcha-container">
-			<p>إنسان ام روبوت</p>
+			<p>إنسان أم روبوت</p>
 			<br>
 			<div v-html="captcha" class="captcha-data"></div>
 			<div class="captcha-solution">
 				<form>
-					<button v-on:click.stop.prevent="requestCaptcha" class="uk-button-primary" >صعبة ! إطلب غيرها</button>
-					<input v-model="captchaValue" type="text" id="captcha-value" placeholder="انقل الرموز السابقة">
+					<button v-on:click.stop.prevent="requestCaptcha" class="uk-button-primary" >صعبة ! أظهر غيرها</button>
+					<input v-model="captchaValue" type="text" id="captcha-value" placeholder="أدخل في الحقل النّصي المحارف التي تراها في الصورة">
 					<div v-if="captchaLoading" uk-spinner></div>
 					<span v-if="captchaTrue" style="color: green;" uk-icon="icon: check; ratio: 1.4"></span>
 				</form>

@@ -6,7 +6,7 @@
 			<p class="uk-text-center uk-text-success">
 				شكرا لك! سيظهر هذا الإدراج في نتائج البحث بعد قليل. نرجو أن يجد هذا الدواءَ من يحتاجُه.
 			</p>
-			<p class="uk-text-center">لمطالعة إدراجاتك الأخرى - إنْ وُجدت - و إدارتها اتّبع الإرشادات في قسم 	
+			<p class="uk-text-center">لمطالعة إدراجاتك الأخرى - إنْ وُجدت - و&nbsp;إدارتها اتّبع الإرشادات في قسم 	
 				<router-link :to="navigation.request_entries.route">إدراجاتي</router-link>
 			</p>
 		</div>

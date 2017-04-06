@@ -22,8 +22,8 @@
 		</nav>
 
 		<div class="hero">
-			<h1>خدمة تعاونية لتسهيل إيجاد الأدوية غير المتوافرة بطريق توصيل من لديهم فائض من أدوية يحبّون التبرّع بها و من هم يحتاجون تلك الأدوية</h1>
-			<p>هذه الخدمة مجّانية لا يُدفع مقابل عيني و لا مادّي لاستخدامها</p>
+			<h1>خدمة تعاونية لتسهيل إيجاد الأدوية غير المتوفّرة بتوصيل المتبرعين بها بمن يحتاجونها</h1>
+			<p>هذه الخدمة مجّانية لا يُدفع مقابل عيني و&nbsp;لا مادّي لاستخدامها</p>
 		</div>
 
 		<div class="search-area">
@@ -35,14 +35,14 @@
 			 		<option v-for="key in keywords" :value="key"></option>
 			 	</datalist>
 				<p class="hint">
-					نقلا عن العبوة أو الوصفة مع مراعاة 	الدقة، مثال: Augmentine
+					نقلا عن العبوة أو الوصفة مع مراعاة الدقة، مثل: Augmentine
 				</p>
 				<button class="uk-button-primary search-button">ابحث</button>
 			</form>
 		</div>
 
 		<div class="donation-aria">
-			<p class="encouraging-text">أو يمكنك التبرع بالدواء الفائض عن حاجتك من هنا</p>
+			<p class="encouraging-text">يمكنك إدراج الدواء الفائض عن حاجتك</p>
 			<router-link class="main-button" :to="navigation.submit.route"> {{navigation.submit.name}} </router-link>
 		</div>
 	</div>

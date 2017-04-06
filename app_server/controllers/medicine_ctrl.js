@@ -182,19 +182,3 @@ module.exports.removeMedicine = (_id) => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
