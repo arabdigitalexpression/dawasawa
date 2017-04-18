@@ -1,0 +1,22 @@
+{
+  "name": "email_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "1.16.1",
+    "express": "4.14.1",
+    "nodemon": "1.11.0",
+    "sendmail": "1.1.1"
+  },
+  "devDependencies": {
+    "nodemailer": "3.1.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=dev nodemon server.js",
+    "pro": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
