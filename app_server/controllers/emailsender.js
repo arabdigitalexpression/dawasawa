@@ -5,7 +5,6 @@ module.exports.sendmail = function(action, data) {
 	/*
 	 * sends request to email server with email info
 	 */
-	console.log(data)
 	request({
 			method: 'POST',
 			uri: config.EMAIL_SERVER_URL + action,
@@ -14,11 +13,7 @@ module.exports.sendmail = function(action, data) {
 		},
 		function(error, response, body) {
 			if(error)
-				return console.log(error)
-			else{
-				console.log(response.statusCode)
-				console.log(body)
-			}
+				return console.log(error, "email not sent")
 		}
 	)
 }

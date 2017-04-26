@@ -8,8 +8,8 @@ const express = require('express'),
 let router = express.Router()
 
 
-router.get('/:token', Validator.validateToken , Encrypter.decrypt ,(req, res) => {
-	
+router.get('/:token', Encrypter.decrypt ,(req, res) => {
+	console.log(req.token)
 	let submitedDate = new Date(req.token.d)
 	submitedDate = submitedDate.getTime()
 	let date = new Date()
@@ -22,7 +22,7 @@ router.get('/:token', Validator.validateToken , Encrypter.decrypt ,(req, res) =>
 	 	return res.status(403).send("انتهت صلاحية طلب الإيداع هذا و&nbsp;يمكن توكيده.")
 
 	MedicineCtrl.instate(req.token.f).then((med) => {
-		res.status(200).redirect('/verified')
+		res.sendStatus(200)
 	}).catch((err) => {
 		console.log(err)
 		res.status(500).send('Internal server error')

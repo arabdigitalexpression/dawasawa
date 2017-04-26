@@ -8,10 +8,6 @@ var mongoose = require('mongoose');
 // load the config file
 var config = require('./config/config');
 
-// Connect to mongodb
-var db = mongoose.connect(config.DB_HOST + ":" + config.DB_PORT + "/" + config.DB_NAME)
-
-
 // load local dependencies
 var index = require('./routes/index');
 var submit = require('./routes/submit');
@@ -35,6 +31,7 @@ app.use(cookieParser());
 app.use((req, res, next) => {
 	let cookie = req.cookies.session_id
 	if(cookie === undefined) {
+
 		let randomNumber=Math.random().toString()
 		randomNumber=randomNumber.substring(2,randomNumber.length)
 		res.cookie('session_id',randomNumber, { httpOnly: true })
@@ -58,4 +55,14 @@ app.use('/api/suggest', suggest);
 var server = http.createServer(app);
 server.listen(config.PORT, function() {
 	console.log('%s is running on port: %s', config.NAME, config.PORT);
+	// Connect to mongodb
+	mongoose.connect(config.DB_HOST + ":" + config.DB_PORT + "/" + config.DB_NAME)
+	mongoose.connection.on('error', function(err) {
+        console.log('error', err);
+        process.exit(1);
+    });
+    mongoose.connection.once('open', function(callback) {
+        console.log('Connected to Database!');
+    })
+
 });

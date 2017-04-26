@@ -27,7 +27,7 @@ config.DKIM_PRIVATE_KEY = "" 								// production email
 config.DKIM_KEY_SELECTOR = ""								// production email
 
 // crypto config
-config.ENCRYPTION_TYPE = "aes-128-gcm"
+config.ENCRYPTION_TYPE = "aes-256-ctr"
 config.ENCRYPTION_SECRET = "ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l47Q" // Change in production
 
 // application params

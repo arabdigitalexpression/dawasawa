@@ -128,9 +128,9 @@ module.exports.add = (medicine) => {
 		med.expiry_date = medicine.expiry_date
 		med.package_state = medicine.package_state
 		if(medicine.arabic_name != undefined)
-			med.arabic_name = medicine.arabic_name
+			med.arabic_name = medicine.arabic_name || null
 		if(medicine.notes != undefined)
-			med.notes = medicine.notes
+			med.notes = medicine.notes || null
 		med.contact.name = medicine.contact.name
 		med.contact.email_address = medicine.contact.email_address
 		if( medicine.contact.email_invisible != undefined )

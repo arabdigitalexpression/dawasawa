@@ -1,4 +1,5 @@
 const express = require('express'),
+	  async = require('async'),
 	  MedicineCtrl = require('../controllers/medicine_ctrl'),
 	  Token = require('../controllers/token_gen')
 
@@ -20,16 +21,15 @@ router.get('/', (req, res) => {
 			// return the result if found
 			return Token.generateAccessToken(results, "GET")
 		}).then((results) => {
-
-			results.forEach((med)=> {
+			console.log(results)
+			async.each(results, function(med, cb) {
 				let expire_month = med.expiry_date.getMonth() 
 				let expire_year = med.expiry_date.getFullYear()
 				med.expiry_date = expire_month + "-" + expire_year
-			})
-
-			setTimeout(()=> {
+				cb()
+			}, function() {
 				res.send(results)
-			}, 1000)
+			})
 		}).catch((err) => {
 			if(err){
 				console.log(err)
