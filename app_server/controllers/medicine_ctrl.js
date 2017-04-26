@@ -1,18 +1,5 @@
 const Medicine = require('../data/schema')
 
-module.exports.findAll = () => {
-	/*
-	 * returns all the entries from the database ( This medthod will not be used in the app. )
-	 */
-	return new Promise((resolve, reject) => {
-		Medicine.find((err, meds) => {
-			if(err)
-				reject(err)
-			resolve(meds)
-		})
-	})
-}
-
 module.exports.findWithId = (_id) => {
 	/*
 	 * returns the entry that matches the submitted id
