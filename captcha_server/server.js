@@ -6,11 +6,8 @@ const http = require('http'),
 	  mongoose = require('mongoose'),
 	  svgCaptcha = require('svg-captcha'),
 	  CaptchaCtrl = require('./controllers/captcha'),
-	  config = require('./config/config')
+	  config = require('./config/config'),
 	  Encrypter = require('./controllers/encrypter')
-
-// Connect to mongodb
-var db = mongoose.connect(config.DB_HOST + ":" + config.DB_PORT + "/" + config.DB_NAME)
 
 // start the app
 var app = express()
@@ -44,7 +41,7 @@ app.get('/captcha', (req, res) => {
 	CaptchaCtrl.removeCaptcha(req.cookies.session_id).then(() => {
 		return CaptchaCtrl.addCaptcha(req.cookies.session_id, captcha.text)
 	}).then(() => {
-		//res.set('Content-Type', 'image/svg+xml')
+		res.set('Content-Type', 'image/svg+xml')
     	res.send(captcha.data)
 	}, (err) => {
 		console.log(err)
@@ -55,6 +52,7 @@ app.get('/captcha', (req, res) => {
 
 // post captcha answer
 app.post('/captcha', (req, res) => {
+	console.log(req.cookies.session_id);
 	CaptchaCtrl.findCaptcha(req.body.value, req.cookies.session_id).then((cap) => {
 		let auth = {
 			"auth": true,
@@ -62,8 +60,7 @@ app.post('/captcha', (req, res) => {
 		}
 		return Encrypter.encrypt( JSON.stringify(auth) )
 	}).then((encryptedAuth) => {
-		res.cookie('authenticated_human', encryptedAuth.base62Data , { httpOnly: true })
-		res.cookie('auth_tag', encryptedAuth.encodedAuthTag , { httpOnly: true })
+		res.cookie('authenticated_human', encryptedAuth , { httpOnly: true })
 		res.sendStatus(200)
 	}).catch((err) => {
 		console.log(err)
@@ -79,4 +76,13 @@ app.post('/captcha', (req, res) => {
 var server = http.createServer(app)
 server.listen(config.PORT, () => {
 	console.log('%s is running on port: %s',config.NAME, config.PORT)
+	// Connect to mongodb
+	mongoose.connect(config.DB_HOST + ":" + config.DB_PORT + "/" + config.DB_NAME)
+	mongoose.connection.on('error', function(err) {
+        console.log('error', err);
+        process.exit(1);
+    });
+    mongoose.connection.once('open', function(callback) {
+        console.log('Connected to Database!');
+    })
 })
