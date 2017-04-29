@@ -35,7 +35,7 @@
 							</div>
 							
 							<div class="uk-margin">
-								<label class="uk-form-label" for="expire-date">*تاريخ انتهاء الصلاحية</label>
+								<label class="uk-form-label" for="expire-date">*تاريخ انتهاء الصلاحية (لا يُقبل دواء صلاحيته أقل من <span>{{ minExpirey }}</span> يوماً)</label>
 								<div class="uk-form-controls">
 						            <input type="text" id="expire-date">
 						            <div v-if="validationErrors.expireDate.error" class="form-error">
@@ -184,6 +184,8 @@
 				formError,
 				responseError,
 
+				minExpirey: config.minimum_accepted_expirey,
+
 				validationErrors,		// form error messages
 
 				// form fields
@@ -292,15 +294,17 @@
 				}
 			},
 			validateArabicName() {
-				let result = validator.isAlphanumeric(this.arabicName, 'ar-EG')
-				if(this.arabicName != "" && result === false) {
-					// arabic name is written with latin characters
-					this.arabicNameError = this.validationErrors.arabicName.msg
-					this.validationErrors.arabicName.error = true
-				} else {
-					// arabic name is valid
-					this.arabicNameError = ""
-					this.validationErrors.arabicName.error = false
+				let arregex = /[\u0621-\u064A0-9]/
+				for(let i = 0; i< this.arabicName.length; i++) {
+					if(arregex.test(this.arabicName[i]) == false) {
+						if(this.arabicName[i] != " ") {
+							this.arabicNameError = this.validationErrors.arabicName.msg
+							this.validationErrors.arabicName.error = true
+						}
+					} else {
+						this.arabicNameError = ""
+						this.validationErrors.arabicName.error = false
+					}
 				}
 			},
 			validateExpireDate() {
@@ -375,7 +379,7 @@
 			},
 			validatePhone() {
 				let isNumberResult = validator.isNumeric(this.phone)
-				let isPhoneResult = validator.isLength(this.phone, { min: 0, max: 15 })
+				let isPhoneResult = validator.isLength(this.phone, { min: 7, max: 15 })
 				let isAlphanumeric = validator.isAlphanumeric(this.phone, 'ar-EG')
 				let isAlpha = validator.isAlpha(this.phone, 'ar-EG')
 
@@ -577,7 +581,12 @@
 				this.validateLatinName()	
 			},
 			arabicName: function() {
-				this.validateArabicName()
+				if(this.arabicName.length > 0)
+					this.validateArabicName()
+				else {
+					this.arabicNameError = ""
+					this.validationErrors.arabicName.error = false
+				}
 			},
 			packageState: function() {
 				this.validatePackageState()
@@ -591,8 +600,13 @@
 			email: function() {
 				this.validateEmail()
 			},
-			phone: function() {
-				this.validatePhone()
+			phone: function() {				
+				if(this.phone.toString().length > 0) 
+					this.validatePhone()
+				else {
+					this.phoneError = ""
+					this.validationErrors.phone.error = false
+				}
 			},
 			captchaValue: function() {
 				$('#captcha-value').removeClass('uk-form-danger')
@@ -613,7 +627,7 @@
 		mounted() {
 			$(function() {
 		      var now = Date()
-		      $( "#expire-date").datepicker({ minDate: 30 });
+		      $( "#expire-date").datepicker({ minDate: config.minimum_accepted_expirey });
 		      $("#expire-date").datepicker("option", "dateFormat", "mm/dd/yy");
 		    })
 			this.cleanErrorFlags()

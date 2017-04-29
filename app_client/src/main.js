@@ -14,6 +14,7 @@ import Aboutpage from './pages/about.vue'
 import ResultsPage from './pages/results.vue'
 import Verified from './pages/verified.vue'
 import Page404 from './pages/404.vue'
+import Page500 from './pages/500.vue'
 
 
 
@@ -30,6 +31,7 @@ const routes = [
   { path: '/mylist', component: MyEntriesPage, props: true},
   { path: '/search', component: ResultsPage},
   { path: '/verified', component: Verified},
+  { path: '/error', component: Page500 },
   { path: '/*', component: Page404}
 ]
 

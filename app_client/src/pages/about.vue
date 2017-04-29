@@ -6,6 +6,7 @@
 				<h1 class="page-name"> {{ pagename }} </h1>
 				<div class="page-name-border" style="width: 100px;"></div>	
 			</div>
+			<div class="spacing"></div>
 			<div uk-grid>
 				<div class="uk-width-small@m">
 			        <ul class="side-list uk-nav uk-nav-default" uk-switcher="connect: #component-nav; animation: uk-animation-fade; toggle: > :not(.uk-nav-header)">
@@ -159,14 +160,21 @@
 	.uk-nav-default>li.uk-active>a {
 		color: #e84c3d;
 	}
+	.spacing {
+		height: 30px;
+	}
 	#component-nav p {
 		font-size: 1.2rem;
+		font-family: 'Scheherazade', serif !important;
 		line-height: 2;
 		word-spacing: 0.2rem;
 		text-align: justify;
 		max-width: 1200px;
 	}
 	@media screen and (max-width: 640px) {
+		.spacing {
+			height: 0;
+		}
 		#component-nav p {
 			font-size: 1rem;
 			line-height: 1.8;
