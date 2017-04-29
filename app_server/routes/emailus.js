@@ -1,6 +1,5 @@
 const express = require('express'),
 	  Validator = require('../middleware/validator'),
-	  CaptchaClient = require('../middleware/captcha_client')
 	  EmailSender = require('../controllers/emailsender')
 
 let router = express.Router();
