@@ -32,11 +32,10 @@ router.post('/', Encrypter.decryptAuth ,(req, res) => {
 		req.body.email_address = req.body.contact.email_address
 		// call email sender to send mail to user with the verification token
 		EmailSender.sendmail('/submit_email', req.body)
-		console.log(encrypted)
 		res.sendStatus(200)
 	}).catch((err) => {
 		// an error is found
-		res.status(500).send('Internal server error')
+		res.sendStatus(500)
 	})
 })
 module.exports = router

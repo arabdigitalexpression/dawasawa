@@ -10,10 +10,10 @@ router.get('/:token', Encrypter.decrypt, (req, res) => {
 
 	if( req.token.m == "DELETE") {
 		MedicineCtrl.removeMedicine(req.token.f).then(() => {
-			res.sendStatus(200)
+			return res.status(200).redirect(req.headers.referer)
 		}).catch((err) => {
 			console.log(err)
-			res.status(500).send(err)
+			res.sendStatus(500)
 		})
 	} else
 		res.sendStatus(400)

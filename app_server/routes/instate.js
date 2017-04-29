@@ -22,10 +22,10 @@ router.get('/:token', Encrypter.decrypt ,(req, res) => {
 	 	return res.status(403).send("انتهت صلاحية طلب الإيداع هذا و&nbsp;يمكن توكيده.")
 
 	MedicineCtrl.instate(req.token.f).then((med) => {
-		res.sendStatus(200)
+		return res.status(200).redirect('/verified')
 	}).catch((err) => {
 		console.log(err)
-		res.status(500).send('Internal server error')
+		res.status(500).redirect('/error')
 	})
 })
 

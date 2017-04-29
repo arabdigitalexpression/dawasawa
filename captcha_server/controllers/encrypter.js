@@ -15,6 +15,8 @@ module.exports.encrypt = (value) => {
 		let cipher = crypto.createCipher(config.ENCRYPTION_TYPE,config.ENCRYPTION_SECRET)
 		let crypted = cipher.update(value,'utf8','hex')
 		crypted += cipher.final('hex')
+		let binaryData = bs16.decode(crypted)
+		let base62Data = bs62.encode(binaryData)
 		resolve(crypted)
 	})
 }
