@@ -33,8 +33,10 @@ module.exports.decryptAuth = (req, res, next) => {
 			dec += decipher.final('utf8')
 			req.decryptedAuth = JSON.parse(dec)
 		} catch(err) {
-			if(err)
+			if(err){
+				console.log(err)
 				return res.redirect('/error')
+			}
 		}
 		next()
 	}
@@ -54,8 +56,10 @@ module.exports.decrypt = (req, res, next) => {
 			dec += decipher.final('utf8')
 			req.token = JSON.parse(dec)
 		} catch(err) {
-			if(err)
+			if(err){
+				console.log(err)
 				return res.redirect('/error')
+			}
 		}
 		next()
 	}	

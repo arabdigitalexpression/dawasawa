@@ -34,6 +34,7 @@ router.post('/', Encrypter.decryptAuth ,(req, res) => {
 		EmailSender.sendmail('/submit_email', req.body)
 		res.sendStatus(200)
 	}).catch((err) => {
+		console.log(err)
 		// an error is found
 		res.sendStatus(500)
 	})
