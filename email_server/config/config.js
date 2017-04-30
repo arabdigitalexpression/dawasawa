@@ -28,7 +28,7 @@ config.DKIM_KEY_SELECTOR = ""								// production email
 
 // crypto config
 config.ENCRYPTION_TYPE = "aes-128-gcm"
-config.ENCRYPTION_SECRET = "ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l+47Q" // Change in production
+config.ENCRYPTION_SECRET = "ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l47Q" // Change in production
 
 // application params
 config.INSERTION_CHALLENGE_GRACE = 48		// (hours) the entry removed from the system if not confirmed in 48 hours.
