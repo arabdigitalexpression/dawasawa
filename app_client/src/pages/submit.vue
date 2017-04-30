@@ -378,43 +378,44 @@
 				}
 			},
 			validatePhone() {
-				let isNumberResult = validator.isNumeric(this.phone)
-				let isPhoneResult = validator.isLength(this.phone, { min: 7, max: 15 })
-				let isAlphanumeric = validator.isAlphanumeric(this.phone, 'ar-EG')
-				let isAlpha = validator.isAlpha(this.phone, 'ar-EG')
+				if(this.emailInvisible == true) {
+					let isNumberResult = validator.isNumeric(this.phone)
+					let isPhoneResult = validator.isLength(this.phone, { min: 7, max: 15 })
+					let isAlphanumeric = validator.isAlphanumeric(this.phone, 'ar-EG')
+					let isAlpha = validator.isAlpha(this.phone, 'ar-EG')
 
-				if(this.emailInvisible === true && this.phone === "") {
+					if(this.emailInvisible == true && this.phone === "") {
 					// phone is required
 					this.validationErrors.phone.error = true
 					this.phoneError = this.validationErrors.phone.msg1
 					return
-					
-				} else {
-					// phone is not required
-					this.validationErrors.phone.error = false
-					this.phoneError = ""
-				}
+						
+					} else {
+						// phone is not required
+						this.validationErrors.phone.error = false
+						this.phoneError = ""
+					}
+					if(isNumberResult === false && this.phone != "") {
+						// phone number contain characters
+						this.validationErrors.phone.error = true
+						this.phoneError = this.validationErrors.phone.msg2
+						return
+					} else {
+						this.validationErrors.phone.error = false
+						this.phoneError = ""
+					}
 
-				if(isNumberResult === false && this.phone != "") {
-					// phone number contain characters
-					this.validationErrors.phone.error = true
-					this.phoneError = this.validationErrors.phone.msg2
-					return
-				} else {
-					this.validationErrors.phone.error = false
-					this.phoneError = ""
-				}
-
-				if (isPhoneResult === false) {
-					// phone number is too long > 15 
-					this.validationErrors.phone.error = true
-					this.phoneError = this.validationErrors.phone.msg2
-					return
-				} else {
-					// phone number is valid
-					this.validationErrors.phone.error = false
-					this.phoneError = ""
-				}	
+					if (isPhoneResult === false) {
+						// phone number is too long > 15 
+						this.validationErrors.phone.error = true
+						this.phoneError = this.validationErrors.phone.msg2
+						return
+					} else {
+						// phone number is valid
+						this.validationErrors.phone.error = false
+						this.phoneError = ""
+					}	
+				}				
 			},
 			checkForErrors() {
 				/*
@@ -600,13 +601,15 @@
 			email: function() {
 				this.validateEmail()
 			},
-			phone: function() {				
-				if(this.phone.toString().length > 0) 
-					this.validatePhone()
-				else {
-					this.phoneError = ""
-					this.validationErrors.phone.error = false
-				}
+			phone: function() {		
+				if(this.emailInvisible == true) {
+					if(this.phone.toString().length > 0) 
+						this.validatePhone()
+					else {
+						this.phoneError = ""
+						this.validationErrors.phone.error = false
+					}
+				}		
 			},
 			captchaValue: function() {
 				$('#captcha-value').removeClass('uk-form-danger')

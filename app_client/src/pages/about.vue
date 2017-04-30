@@ -164,12 +164,14 @@
 		height: 30px;
 	}
 	#component-nav p {
-		font-size: 1.2rem;
+		font-size: 1.3rem;
 		font-family: 'Scheherazade', serif !important;
-		line-height: 2;
-		word-spacing: 0.2rem;
 		text-align: justify;
 		max-width: 1200px;
+	}
+	#component-nav li {
+		font-size: 1.1rem;
+		font-family: 'Scheherazade', serif !important;
 	}
 	@media screen and (max-width: 640px) {
 		.spacing {
