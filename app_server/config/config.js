@@ -7,7 +7,8 @@ config.PORT = 3000
 config.VERSION = "1.0.0"
 
 // email service url
-config.EMAIL_SERVER_URL = "http://localhost:5000"
+config.EMAIL_SERVER_URL = "http://localhost"
+config.EMAIL_SERVER_PORT = "5000"
 
 // database config
 config.DB_HOST = "mongodb://localhost"
