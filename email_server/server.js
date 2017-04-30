@@ -4,7 +4,7 @@ const http = require('http'),
 	  config = require('./config/config')
 
 if( process.env.NODE_ENV === "dev" ) EmailSender = require('./controllers/nodemailer_sender')
-else EmailSender = require('./controllers/emailsernder')
+else EmailSender = require('./controllers/emailsender')
 
 // start the app
 var app = express();
