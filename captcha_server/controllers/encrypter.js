@@ -3,7 +3,7 @@ const BaseX = require('base-x-bytearray')
 const crypto = require('crypto')
 
 const BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-const BASE16 = '0123456789ABCDEF'
+const BASE16 = '0123456789abcdef'
 
 let bs62 = BaseX(BASE62)
 let bs16 = BaseX(BASE16)
@@ -17,7 +17,7 @@ module.exports.encrypt = (value) => {
 		crypted += cipher.final('hex')
 		let binaryData = bs16.decode(crypted)
 		let base62Data = bs62.encode(binaryData)
-		resolve(crypted)
+		resolve(base62Data)
 	})
 }
 
