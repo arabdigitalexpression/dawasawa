@@ -28,16 +28,16 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
 // generate cookies to store session_id
-// app.use((req, res, next) => {
-// 	let cookie = req.cookies.session_id
-// 	if(cookie === undefined) {
+app.use((req, res, next) => {
+	let cookie = req.cookies.session_id
+	if(cookie === undefined) {
 
-// 		let randomNumber=Math.random().toString()
-// 		randomNumber=randomNumber.substring(2,randomNumber.length)
-// 		res.cookie('session_id',randomNumber, { httpOnly: true })
-// 	}
-// 	next()
-// })
+		let randomNumber=Math.random().toString()
+		randomNumber=randomNumber.substring(2,randomNumber.length)
+		res.cookie('session_id',randomNumber, { httpOnly: true })
+	}
+	next()
+})
 
 // application routes
 app.use('/api', index);
