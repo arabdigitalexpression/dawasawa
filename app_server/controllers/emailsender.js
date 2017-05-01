@@ -7,7 +7,7 @@ module.exports.sendmail = function(action, data) {
 	 */
 	request({
 			method: 'POST',
-			uri: config.EMAIL_SERVER_URL + ":" + config.EMAIL_SERVER_PORT + "/" + action,
+			uri: config.EMAIL_SERVER_URL + ":" + config.EMAIL_SERVER_PORT + action,
 			json: true,
 			body: data
 		},
