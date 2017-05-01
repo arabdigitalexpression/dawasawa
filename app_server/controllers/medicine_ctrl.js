@@ -46,10 +46,10 @@ module.exports.findWithEmail = (email_address) => {
 // returns at most four suggestions
 module.exports.suggest = (subtring) => {
 	return new Promise((resolve, reject) => {
-		let query = Medicine.find({ "latin_name": { "$regex": "^" + subtring, "$options": "i" } }, ' latin_name -_id').limit(4)
+		let query = Medicine.find({ "latin_name": { "$regex": "^" + subtring, "$options": "i" } }, ' latin_name -_id').limit(10)
 		query.exec((err, meds) => {
 			if(err)
-				reject(err)
+				return reject(err)
 			resolve(meds)
 		})
 	})
