@@ -148,12 +148,13 @@
 				this.$http.post(url, body, { "credentials": true }).then(response=> {
 					// request success
 					this.pageLoading = false
-					UIkit.notification({
-						message: this.listEntriesSuccess.message,
-						status: 'success',
-						pos: 'top-center',
-						timeout: 10000
-					})
+					this.$router.push({ path: 'email_sent', query: { type: 1 } })
+					// UIkit.notification({
+					// 	message: this.listEntriesSuccess.message,
+					// 	status: 'success',
+					// 	pos: 'top-center',
+					// 	timeout: 10000
+					// })
 				}, response=> {
 					if(response.status == 401) {
 						this.pageLoading = false

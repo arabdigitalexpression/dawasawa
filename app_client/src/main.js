@@ -15,6 +15,7 @@ import ResultsPage from './pages/results.vue'
 import Verified from './pages/verified.vue'
 import Page404 from './pages/404.vue'
 import Page500 from './pages/500.vue'
+import EmailSent from './pages/email_sent.vue'
 
 
 
@@ -32,6 +33,7 @@ const routes = [
   { path: '/search', component: ResultsPage},
   { path: '/verified', component: Verified},
   { path: '/error', component: Page500 },
+  { path: '/email_sent', component: EmailSent },
   { path: '/*', component: Page404}
 ]
 

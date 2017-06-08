@@ -18,9 +18,9 @@
 				        </div>
 					</div>
 					<div class="uk-margin">
-						<label class="uk-form-label" for="email">عنوان البريد الإلكتروني</label>
+						<label class="uk-form-label" for="email">عنوان بريدك الإلكتروني مطلوب لنتمكن من الردّ عليك إذا لزم الأمر، و&nbsp;لن يُستعمل لغرض غير ذلك.</label>
 						<div class="uk-form-controls uk-inline">
-				            <input class="uk-input" id="email" v-model="email" type="email" placeholder="عنوان بريدك الإلكتروني مطلوب لنتمكن من الردّ عليك إذا لزم الأمر، و&nbsp;لن يُستعمل لغرض غير ذلك.">
+				            <input class="uk-input" id="email" v-model="email" type="email" placeholder="عنوان بريدك الإلكتروني">
 				        	<div v-if="validationErrors.email.error" class="form-error">
 				            	{{ emailError }}
 				            </div>
@@ -167,12 +167,13 @@
 						// request success
 						if(response.status == 200) {
 							this.pageLoading = false
-							UIkit.notification({
-								message: this.emailusSuccess.message,
-								status: 'success',
-								pos: 'bottom-center',
-								timeout: 3000
-							})
+							this.$router.push({ path: 'email_sent', query: { type: 2 } })
+							// UIkit.notification({
+							// 	message: this.emailusSuccess.message,
+							// 	status: 'success',
+							// 	pos: 'bottom-center',
+							// 	timeout: 3000
+							// })
 						}	
 					}, response=> {
 						// response error
