@@ -11,6 +11,18 @@
 		"name" : "عن الخدمة",
 		"route" : "/about"
 	},
+	"terms_of_service": {
+		"name" : "شروط الخدمة",
+		"route" : "/terms_of_service"
+	},
+	"disclaimer": {
+		"name" : "إخلاء المسؤولية",
+		"route" : "/disclaimer"
+	},
+	"data_policy": {
+		"name" : "سياسة البيانات",
+		"route" : "/data_policy"	
+	},
 	"emailus": {
 		"name" : "راسلنا",
 		"route" : "/emailus"

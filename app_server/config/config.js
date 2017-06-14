@@ -19,10 +19,10 @@ config.DB_NAME = "dawasawa"
 
 
 // email config
-config.EMAIL_FROM = "example@example.com"				// sender email
-config.EMAIL_TO = "example@example.com"				// write us email
-config.EMAIL_USER = "example@example.com"				// email user
-config.EMAIL_PASS = ""							// email password
+config.EMAIL_FROM = "gundourtesting@gmail.com"				// sender email
+config.EMAIL_TO = "gundourtesting@gmail.com"				// write us email
+config.EMAIL_USER = "gundourtesting@gmail.com"				// email user
+config.EMAIL_PASS = "gundour1234"							// email password
 config.EMAIL_SERVICE = "gmail" 								// development email
 config.DKIM_PRIVATE_KEY = "" 								// production email
 config.DKIM_KEY_SELECTOR = ""								// production email

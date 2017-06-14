@@ -21,7 +21,7 @@
     "mongoose": "4.7.2",
     "nodemon": "1.11.0",
     "randomstring": "1.1.5",
-    "request": "2.79.0",
+    "request": "2.79.0"
   },
   "author": "Mohamed Gundour",
   "license": "ISC",

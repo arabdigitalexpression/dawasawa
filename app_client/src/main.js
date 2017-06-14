@@ -11,6 +11,9 @@ import EmailusPage from './pages/emailus.vue'
 import RequestEntriesPage from './pages/list_entries.vue'
 import MyEntriesPage from './pages/my_list.vue'
 import Aboutpage from './pages/about.vue'
+import Disclaimer from './pages/disclaimer.vue'
+import DataPolicy from './pages/data_policy.vue'
+import TermsOfService from './pages/terms_of_service.vue'
 import ResultsPage from './pages/results.vue'
 import Verified from './pages/verified.vue'
 import Page404 from './pages/404.vue'
@@ -28,6 +31,9 @@ const routes = [
   { path: '/submit', component: SubmitPage },
   { path: '/emailus', component: EmailusPage},
   { path: '/about', component: Aboutpage},
+  { path: '/terms_of_service', component: TermsOfService},
+  { path: '/disclaimer', component: Disclaimer},
+  { path: '/data_policy', component: DataPolicy},
   { path: '/list_entries', component: RequestEntriesPage},
   { path: '/mylist', component: MyEntriesPage, props: true},
   { path: '/search', component: ResultsPage},

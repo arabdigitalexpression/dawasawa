@@ -7,7 +7,7 @@
 					<li><router-link :to="navigation.submit.route"> {{ navigation.submit.name }} </router-link></li>
 					<li><router-link :to="navigation.request_entries.route"> {{ navigation.request_entries.name }} </router-link></li>
 					<li><router-link :to="navigation.emailus.route"> {{ navigation.emailus.name }} </router-link></li>
-					<li><router-link :to="navigation.about.route"> {{ navigation.about.name }} </router-link></li>
+					<li id="sub-nav"><router-link :to="navigation.about.route"> {{ navigation.about.name }} </router-link></li>
 				</ul>
 				<a href="#offcanvas-slide" uk-icon="icon: menu; ratio: 1.5" class="offcanvas-toggle uk-hidden@s" uk-toggle></a>
 			</div>
