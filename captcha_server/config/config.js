@@ -1,13 +1,14 @@
 let config = {}
 
 // server config
-config.NAME = "captcha server"
+config.NAME = "application server"
 config.SITE_URL = "http://localhost"
-config.PORT = 4000
+config.PORT = 3000
 config.VERSION = "1.0.0"
 
 // email service url
-config.EMAIL_SERVER_URL = "http://localhost:5000"
+config.EMAIL_SERVER_URL = "http://localhost"
+config.EMAIL_SERVER_PORT = "5000"
 
 // database config
 config.DB_HOST = "mongodb://localhost"
@@ -32,7 +33,7 @@ config.ENCRYPTION_SECRET = "ctIXAq9o3E81JWguImTDajqzk69LmYpUXIcyY3l47Q" // Chang
 
 // application params
 config.INSERTION_CHALLENGE_GRACE = 48		// (hours) the entry removed from the system if not confirmed in 48 hours.
-config.LISTING_CHALLENGE_GRACE = 48			// (hours) the token link is not accepted after 48 hours
+config.LISTING_CHALLENGE_GRACE = 48 			// (hours) the token link is not accepted after 48 hours
 config.EXPIRY_REMOVAL_THRESHOLD = 30			// (days)  entries are removed if it expires in 30 days
 
 
@@ -43,3 +44,18 @@ config.captcha_expiration_period = '1h' // The captcha expires after 1h
 
 
 module.exports = config
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

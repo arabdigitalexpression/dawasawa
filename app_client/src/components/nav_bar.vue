@@ -38,7 +38,10 @@
 					<li><router-link :to="navigation.submit.route"> {{ navigation.submit.name }} </router-link></li>
 					<li><router-link :to="navigation.request_entries.route"> {{ navigation.request_entries.name }} </router-link></li>
 					<li><router-link :to="navigation.emailus.route"> {{ navigation.emailus.name }} </router-link></li>
-					<li><router-link :to="navigation.about.route"> {{ navigation.about.name }} </router-link></li>
+					<li><router-link :to="navigation.about.route">{{ navigation.about.name }}</router-link></li>
+					<li><router-link :to="navigation.terms_of_service.route">{{ navigation.terms_of_service.name }}</router-link></li>
+					<li><router-link :to="navigation.disclaimer.route">{{ navigation.disclaimer.name }}</router-link></li>
+					<li><router-link :to="navigation.data_policy.route">{{ navigation.data_policy.name }}</router-link></li>
 			    </ul>
 
 			</div>
