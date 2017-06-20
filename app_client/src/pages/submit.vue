@@ -102,8 +102,8 @@
 							</div>
 
 							<div class="uk-margin">
-								<label class="uk-form-label" for="email_visible">لا أرغب في ظهور عنوان بريدي مع بيانات الإدراج و&nbsp;سأضع رقم هاتف </label>
 								<div class="uk-form-controls"> 
+									<label class="uk-form-label" for="email_visible">لا أرغب في ظهور عنوان بريدي مع بيانات الإدراج و&nbsp;سأضع رقم هاتف </label>
 						            <input v-model="emailInvisible" class="uk-checkbox" id="email_visible" type="checkbox">
 						        </div>
 							</div>
@@ -119,8 +119,8 @@
 							</div>
 							<br>
 							<div class="uk-margin">
-								<label class="uk-form-label" for="terms-agreed">قرأت <a href="#terms-modal" uk-toggle>شروط الخدمة</a> و&nbsp;فهمتها و&nbsp;أقبلها</label>
 								<div class="uk-form-controls uk-inline"> 
+									<label class="uk-form-label" for="terms-agreed">قرأت <a href="#terms-modal" uk-toggle>شروط الخدمة</a> و&nbsp;فهمتها و&nbsp;أقبلها</label>
 					            	<input v-model="agreedOnTerms" class="uk-checkbox" id="terms-agreed" type="checkbox">
 					        	</div>
 					        </div>
@@ -133,6 +133,8 @@
 		</div>
 		<div v-if="pageLoading" uk-spinner></div>
 		<ds-terms-modal></ds-terms-modal>
+		<ds-policy-modal></ds-policy-modal>
+		<ds-disclaimer-modal></ds-disclaimer-modal>
 		<div v-if="captchaRequested" class="captcha-container">
 			<p>إنسان أم روبوت</p>
 			<br>
@@ -153,6 +155,8 @@
 <script>
 	import Navbar from '../components/nav_bar.vue'
 	import TermsModal from '../components/terms_modal.vue'
+	import PolicyModal from '../components/data_policy_modal.vue'
+	import DisclaimerModal from '../components/disclaimer_modal.vue'
 	import validator from 'validator'
 
 	// notifications
@@ -226,7 +230,9 @@
 		},
 		components: {
 			'ds-nav': Navbar,
-			'ds-terms-modal': TermsModal
+			'ds-terms-modal': TermsModal,
+			'ds-policy-modal': PolicyModal,
+			'ds-disclaimer-modal': DisclaimerModal,
 		},
 		methods: {
 			cleanErrorFlags() {
@@ -645,7 +651,6 @@
 	.tabs-wrapper {
 		margin-top: 30px;
 	}
-
 	.tab-toggle {
 		width: 240px;
 	}	
@@ -655,6 +660,11 @@
 
 	.uk-tab a:hover, .uk-tab>.uk-active>a {
 		color: #e84c3d;
+	}
+
+	.uk-checkbox {
+		margin-top: 1px;
+		margin-right: 10px;	
 	}
 
 	.uk-tab>.uk-active>a {
