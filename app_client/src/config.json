@@ -2,6 +2,6 @@
 	"app_name": "دواسوا",
 	"app_version": "1.0.0",
 	"app_author": "Mohamed Gundour",
-	"server_url" : "",
+	"server_url" : "https://dawasawa.online",
 	"minimum_accepted_expirey": 30
 }
