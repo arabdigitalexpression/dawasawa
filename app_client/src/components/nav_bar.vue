@@ -7,7 +7,11 @@
 					<li><router-link :to="navigation.submit.route"> {{ navigation.submit.name }} </router-link></li>
 					<li><router-link :to="navigation.request_entries.route"> {{ navigation.request_entries.name }} </router-link></li>
 					<li><router-link :to="navigation.emailus.route"> {{ navigation.emailus.name }} </router-link></li>
-					<li id="sub-nav"><router-link :to="navigation.about.route"> {{ navigation.about.name }} </router-link></li>
+					<!-- <li id="sub-nav"><router-link :to="navigation.emailus.route"> {{ navigation.about.name }}</router-link></li> -->
+					<li class="dropdown">
+						<div class="drp-btn">{{ navigation.about.name }}</div>
+						<sub-nav></sub-nav>
+					</li>
 				</ul>
 				<a href="#offcanvas-slide" uk-icon="icon: menu; ratio: 1.5" class="offcanvas-toggle uk-hidden@s" uk-toggle></a>
 			</div>
@@ -45,6 +49,9 @@
 
 <script>
 	const navigation = require('../data/navigation.json');
+
+	import SubNav from './sub_nav.vue';
+
 	export default {
 		props: [
 			'pagename'
@@ -53,6 +60,9 @@
 			return {
 				navigation
 			}
+		},
+		components: {
+			'sub-nav': SubNav
 		}
 	}
 </script>
@@ -100,6 +110,13 @@
 		padding: 20px;
 		border-bottom: 1px solid #333; 
 		border-top: 1px solid #333;
+	}
+	.drp-btn {
+		color: #e84c3d;
+		margin-top: 30px;
+		margin-right: 10px;
+		font-size: 14px;
+		cursor: pointer;
 	}
 	@media screen and (max-width: 640px) {
 		nav {

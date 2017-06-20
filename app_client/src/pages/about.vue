@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<ds-nav :pagename="pagename"></ds-nav>
-		<sub-nav></sub-nav>
 		<div class="page-wrapper">
 			<div class="page-info uk-visible@s">
 				<h1 class="page-name"> {{ pagename }} </h1>
@@ -10,15 +9,15 @@
 			<div class="spacing"></div>
 			<div class="about-container">
 	    		<p>هذه الخدمة مُقدَّمة بغرض تيسير التّعاون بين النّاس بتسهيل إيجاد الأدوية غير المتوافرة في محيط بعضهم أو هي أغلى من قدرتهم الماديّة بطريق التّوصيل ما بين من لديهم فائض من أدوية يرغبون في التّبرُّع بها و&nbsp;من يطلبون تلك الأدوية.</p>
-				<p>هذه الخدمة مجّانية لا يُدفع مقابل عينيّ و&nbsp;لا مادّي لاستخدامها، و&nbsp;لا تقدِّم مشورة صيدليّة، و&nbsp;لا يُقصد بها الاتّجار في الأدوية. و استخدامها يُعدُّ موافقة ضمنيّة على <a @click.stop="showTerms()">شروط الخدمة</a>.</p>
+				<p>هذه الخدمة مجّانية لا يُدفع مقابل عينيّ و&nbsp;لا مادّي لاستخدامها، و&nbsp;لا تقدِّم مشورة صيدليّة، و&nbsp;لا يُقصد بها الاتّجار في الأدوية. و استخدامها يُعدُّ موافقة ضمنيّة على <router-link :to="navigation.terms_of_service.route">شروط الخدمة</router-link>.</p>
 				<p>لعرض دواء زائد عن حاجتك ينبغي ألّا تقلّ المدّة الباقية على انتهاء صلاحيّته عن المدّة المبيّنة في استمارة الإدخال، كما تنبغي مراعاة الدّقة عند إدخال بيانات الدّواء.</p>
 				<p>
 				تُحذف إدراجات الأدوية تلقائيا بانتهاء صلاحيّتها أو بطلب المستخدم الذي أدرجها.
 				</p>
-				<p>هذا النّظام لا يستعمل كلمات السّر! هذا آمَن و يعفيك من عناء تذكُّر كلمة سرّ أخرى. كلّ المعاملات تجري بطريق رسائل البريد الإلكتروني، فتنبغي مراعاة الدّقّة في إدخال عنوان البريد. النّظام لا يحفظ أيّة بيانات عن المستخدمين واضعي الإدراجات غير ما هو مبيّن في <a
-				@click.stop="showPolicy()">سياسة البيانات</a>، و&nbsp;لا يحفظ أيّة بيانات عن الطّالبين.</p>
+				<p>هذا النّظام لا يستعمل كلمات السّر! هذا آمَن و يعفيك من عناء تذكُّر كلمة سرّ أخرى. كلّ المعاملات تجري بطريق رسائل البريد الإلكتروني، فتنبغي مراعاة الدّقّة في إدخال عنوان البريد. النّظام لا يحفظ أيّة بيانات عن المستخدمين واضعي الإدراجات غير ما هو مبيّن في <router-link
+				:to="navigation.data_policy.route">سياسة البيانات</router-link>، و&nbsp;لا يحفظ أيّة بيانات عن الطّالبين.</p>
 				<p>
-					طالبو الأدوية مسؤولون عن التّحقّق من صلاحيتها و&nbsp;ملاءمتها لاحتياجاتهم، و&nbsp;عن أيّ تعامل بينهم و&nbsp;المانحين كما هو موضّح في <a @click.stop="showDisclaimer()">بيان إخلاء المسؤولية</a>.
+					طالبو الأدوية مسؤولون عن التّحقّق من صلاحيتها و&nbsp;ملاءمتها لاحتياجاتهم، و&nbsp;عن أيّ تعامل بينهم و&nbsp;المانحين كما هو موضّح في <router-link :to="navigation.disclaimer.route">بيان إخلاء المسؤولية</router-link>.
 				</p>
 				<p>هذه الخدمة أنشئت و&nbsp;تُشغّل بتبرّعات من أفراد مصريين كُرماء.</p>
 				<p>الاسم من ابتكار لميا :)</p>
@@ -29,7 +28,7 @@
 
 <script>
 	import Navbar from '../components/nav_bar.vue';
-	import SubNav from '../components/sub_nav.vue';
+	
 	import Alert from '../components/alert.vue';
 
 	const navigation = require('../data/navigation.json');
@@ -37,53 +36,17 @@
 	export default {
 		data() {
 			return {
-				pagename: "عن الخدمة"
+				pagename: "عن الخدمة",
+				navigation
 			}
 		},
 		components: {
 			'ds-nav': Navbar,
-			'sub-nav': SubNav,
 			'ds-alert': Alert
 		},
 		methods: {
 			setPagename(name) {
 				this.pagename = name
-			},
-			showPolicy() {
-				// remove visibility classes from all elements
-				$('.side-list li').attr("aria-expanded", function() {
-					return false
-				}).removeClass('uk-active')
-				$('#component-nav li').removeClass('uk-active')
-				// add visibility classes to the required elements
-				$('#policy-toggle').attr("aria-expanded", function() {
-					return true
-				}).addClass('uk-active')
-				$('#policy-section').addClass('uk-active')
-			},
-			showTerms() {
-				// remove visibility classes from all elements
-				$('.side-list li').attr("aria-expanded", function() {
-					return false
-				}).removeClass('uk-active')
-				$('#component-nav li').removeClass('uk-active')
-				// add visibility classes to the required elements
-				$('#terms-toggle').attr("aria-expanded", function() {
-					return true
-				}).addClass('uk-active')
-				$('#terms-section').addClass('uk-active')
-			},
-			showDisclaimer() {
-				// remove visibility classes from all elements
-				$('.side-list li').attr("aria-expanded", function() {
-					return false
-				}).removeClass('uk-active')
-				$('#component-nav li').removeClass('uk-active')
-				// add visibility classes to the required elements
-				$('#disclaimer-toggle').attr("aria-expanded", function() {
-					return true
-				}).addClass('uk-active')
-				$('#disclaimer-section').addClass('uk-active')
 			}
 		}
 	}
@@ -98,6 +61,7 @@
 		font-family: 'Lateef', serif !important;
 		text-align: justify;
 		max-width: 1200px;
+		font-weight: 300;
 	}
 	.about-container li {
 		font-size: 1.1rem;

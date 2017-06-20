@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<ul class="sub-nav">
-			<li><router-link :to="navigation.about.route">{{ navigation.about.name }}</router-link></li>
-			<li><router-link :to="navigation.terms_of_service.route">{{ navigation.terms_of_service.name }}</router-link></li>
-			<li><router-link :to="navigation.disclaimer.route">{{ navigation.disclaimer.name }}</router-link></li>
-			<li><router-link :to="navigation.data_policy.route">{{ navigation.data_policy.name }}</router-link></li>
-		</ul>
+		<div class="dropdown-elements">
+			<router-link :to="navigation.about.route">{{ navigation.about.name }}</router-link>
+			<router-link :to="navigation.terms_of_service.route">{{ navigation.terms_of_service.name }}</router-link>
+			<router-link :to="navigation.disclaimer.route">{{ navigation.disclaimer.name }}</router-link>
+			<router-link :to="navigation.data_policy.route">{{ navigation.data_policy.name }}</router-link>
+		</div>
 	</div>
 </template>
 <script>
@@ -22,13 +22,26 @@
 	}
 </script>
 <style>
-	ul.sub-nav {
-		background: #FFF;
-		margin-top: 20px;
-		list-style: none;	
+	.dropdown {
+		position: relative;
+		display: inline-block;
 	}
-	ul.sub-nav li {
-		display: inline;
-		margin-right: 30px;
+	.dropdown-elements {
+		margin-top: 30px;
+		display: none;
+    	position: absolute;
+    	background-color: #FFF;
+    	min-width: 160px;
+    	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    	z-index: 1;
+	}
+	.dropdown-elements a {
+		padding: 12px 16px;
+	    text-decoration: none;
+	    display: block;
+	}
+	.dropdown-elements a:hover {background-color: #f1f1f1}
+	.dropdown:hover .dropdown-elements {
+    	display: block;
 	}
 </style>
