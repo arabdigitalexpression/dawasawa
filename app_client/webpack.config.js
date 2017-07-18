@@ -5,7 +5,6 @@ module.exports = {
   entry: [
     './static/js/uikit.min.js',
     './static/js/uikit-icons.min.js',
-    './static/js/jquery-ui.js',
     './static/js/datepicker-ar.js',
     './src/main.js'
   ],
