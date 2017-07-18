@@ -202,12 +202,7 @@
 					if(response.status === 404) {
 						this.isempty = true
 					} else {
-						UIkit.notification({
-						    message: responseError.message,
-						    status: 'warning',
-						    pos: 'top-center',
-						    timeout: 3000
-						});
+						UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
 					}
 				})
 			},
@@ -255,12 +250,7 @@
 						// user is not recognized as a human
 						this.requestCaptcha()
 					} else {
-						UIkit.notification({
-							message: this.responseError.message,
-							status: 'danger',
-							pos: 'top-center',
-							timeout: 5000
-						})
+						UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
 					}
 				})
 			},
@@ -281,12 +271,7 @@
 					
 				}, response => {
 					//error
-					UIkit.notification({
-						message: this.responseError.message,
-						status: 'danger',
-						pos: 'top-center',
-						timeout: 5000
-					})
+					UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
 					this.captchaRequested = false
 				})
 			},

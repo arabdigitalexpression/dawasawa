@@ -123,12 +123,7 @@
 				let err = this.checkForErrors()
 				if(err === true) {
 					// display error alert
-					UIkit.notification({
-						message: this.formError.message,
-						status: 'danger',
-						pos: 'top-center',
-						timeout: 5000
-					})
+					UIkit.modal.dialog('<p class="alert-text">' + formError.message + '</p>')
 					return
 				} else {
 					// submit the form
@@ -149,12 +144,6 @@
 					// request success
 					this.pageLoading = false
 					this.$router.push({ path: 'email_sent', query: { type: 1 } })
-					// UIkit.notification({
-					// 	message: this.listEntriesSuccess.message,
-					// 	status: 'success',
-					// 	pos: 'top-center',
-					// 	timeout: 10000
-					// })
 				}, response=> {
 					if(response.status == 401) {
 						this.pageLoading = false
@@ -163,12 +152,7 @@
 					} else if(response.status != 200) {
 						this.pageLoading = false
 						// an error has occured
-						UIkit.notification({
-							message: this.responseError.message,
-							status: 'danger',
-							pos: 'top-center',
-							timeout: 5000
-						})
+						UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
 					}
 				})
 			},
@@ -189,12 +173,7 @@
 					
 				}, response => {
 					//error
-					UIkit.notification({
-						message: this.responseError.message,
-						status: 'danger',
-						pos: 'top-center',
-						timeout: 5000
-					})
+					UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
 					this.captchaRequested = false
 				})
 			},

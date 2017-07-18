@@ -20,7 +20,7 @@
 					<div class="uk-margin">
 						<label class="uk-form-label" for="email">عنوان بريدك الإلكتروني مطلوب لنتمكن من الردّ عليك إذا لزم الأمر، و&nbsp;لن يُستعمل لغرض غير ذلك.</label>
 						<div class="uk-form-controls uk-inline">
-				            <input class="uk-input" id="email" v-model="email" type="email" placeholder="عنوان بريدك الإلكتروني">
+				            <input class="uk-input" id="email" v-model="email" type="text" placeholder="عنوان بريدك الإلكتروني">
 				        	<div v-if="validationErrors.email.error" class="form-error">
 				            	{{ emailError }}
 				            </div>
@@ -142,12 +142,7 @@
 				let err = this.checkForErrors()
 				if(err === true) {
 					// found errors
-					UIkit.notification({
-						message: this.formError.message,
-						status: 'danger',
-						pos: 'top-center',
-						timeout: 3000
-					})
+					UIkit.modal.dialog('<p class="alert-text">' + formError.message + '</p>')
 					return
 				} else {
 					// no form errors
@@ -168,23 +163,12 @@
 						if(response.status == 200) {
 							this.pageLoading = false
 							this.$router.push({ path: 'email_sent', query: { type: 2 } })
-							// UIkit.notification({
-							// 	message: this.emailusSuccess.message,
-							// 	status: 'success',
-							// 	pos: 'bottom-center',
-							// 	timeout: 3000
-							// })
 						}	
 					}, response=> {
 						// response error
 						this.pageLoading = false
 						// an error has occured
-						UIkit.notification({
-							message: this.responseError.message,
-							status: 'danger',
-							pos: 'bottom-center',
-							timeout: 3000
-						})
+						UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
 					})
 				}
 			}

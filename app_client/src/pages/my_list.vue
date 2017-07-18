@@ -76,8 +76,6 @@
 				this.pageLoading = true
 				let token = this.$route.query.accesstoken
 
-				//let t = token.split("/")
-
 				let url = config.server_url + '/api/mylist/' + token
 
 				// request my list
@@ -95,12 +93,7 @@
 						this.isempty = true
 						this.emptyResult = response.body
 					} else {
-						UIkit.notification({
-							message: this.responseError.message,
-							status: 'danger',
-							pos: 'top-center',
-							timeout: 5000
-						})
+						UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
 					}
 				})
 			},

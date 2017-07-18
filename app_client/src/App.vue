@@ -24,12 +24,7 @@ export default {
 				// connected to the API and received a session id
 			}, response => {
 				// error
-				UIkit.notification({
-				    message: connectionError.message,
-				    status: 'warning',
-				    pos: 'top-center',
-				    timeout: 10000
-				});
+				UIkit.modal.dialog('<p class="alert-text">' + connectionError.message + '</p>')
 			})
 		}
 	},
@@ -67,5 +62,17 @@ export default {
 		height: 2px;
 		background-color: #333;
 		margin-top: -10px;
+	}
+
+	.uk-modal-dialog p {
+		color: red;
+		text-align: center;
+		padding: 10px;
+		font-size: 1.5rem;
+	}
+	@media screen and (max-width: 640px) {
+		.uk-modal-dialog p {
+			font-size: 1rem;
+		}
 	}
 </style>
