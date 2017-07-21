@@ -1,14 +1,13 @@
 FROM node:boron
 
-RUN mkdir -p /usr/src/dawasawa_app
-WORKDIR /usr/src/dawasawa_app
+RUN mkdir -p /usr/src/dawasawa_health
+WORKDIR /usr/src/dawasawa_health
 
-COPY package.json /usr/src/dawasawa_app/
+COPY package.json /usr/src/dawasawa_health/
 RUN npm install
 
-COPY . /usr/src/dawasawa_app
+COPY . /usr/src/dawasawa_health
 
-EXPOSE 5000
 CMD [ "npm", "start" ]
 
 
