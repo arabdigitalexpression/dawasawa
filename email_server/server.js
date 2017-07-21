@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 
 // health check
-app.get('/', (req, res) => {
-	res.sendStatus(200)
+app.get('/heartbeat', (req, res) => {
+	res.sendStatus(200);
 })
 
 // Sends token ladden email messages to confrm actions
