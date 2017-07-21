@@ -27,6 +27,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
+
+// health check
+app.get('/heartbeat', (req, res) => {
+	res.sendStatus(200);
+})
+
 // generate cookies to store session_id
 app.use((req, res, next) => {
 	let cookie = req.cookies.session_id
@@ -61,8 +67,12 @@ server.listen(config.PORT, function() {
         console.log('error', err);
         process.exit(1);
     });
-    mongoose.connection.once('open', function(callback) {
+    mongoose.connection.once('connected', () => {
         console.log('Connected to Database!');
     })
+    // mongoose.connection.on('disconnected', () => {
+    // 	console.log('Database connection error - trying to re-connect');
+    // 	mongoose.connect(config.DB_HOST + ":" + config.DB_PORT + "/" + config.DB_NAME)
+    // })
 
 });
