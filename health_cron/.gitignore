@@ -1,0 +1,11 @@
+# exclude everything from node_modules except the link
+/node_modules/*
+
+/npm-debug.log
+
+# Logs
+logs
+*.log
+
+# Debug log from npm
+npm-debug.log
