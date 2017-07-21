@@ -12,6 +12,11 @@ const http = require('http'),
 // start the app
 var app = express()
 
+// health check
+app.get('/heartbeat', (req, res)=> {
+	res.sendStatus(200)
+})
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(cookieParser())
@@ -22,11 +27,6 @@ app.use((req, res, next) => {
 		return res.sendStatus(401)
 	}
 	next()
-})
-
-// health check
-app.get('/', (req, res)=> {
-	res.sendStatus(200)
 })
 
 // get new captcha

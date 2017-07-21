@@ -44,18 +44,3 @@ config.captcha_expiration_period = '1h' // The captcha expires after 1h
 
 
 module.exports = config
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=dev nodemon server.js",
-    "pro": "nodemon server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC"
