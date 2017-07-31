@@ -93,7 +93,8 @@
 						this.isempty = true
 						this.emptyResult = response.body
 					} else {
-						UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
+						// redirect to error page
+						this.$router.push({ path: 'error'})
 					}
 				})
 			},
