@@ -153,7 +153,7 @@
 					if(response.status == 404) {
 						this.pageLoading = false;
 						UIkit.modal.dialog('<p class="alert-text">' + "لا توجد إدراجات لهذا البريد الإلكترونى" + '</p>')
-					} else if(response.status != 200) {
+					} else if(response.status == 500) {
 						this.pageLoading = false
 						// an error has occured
 						UIkit.modal.dialog('<p class="alert-text">' + responseError.message + '</p>')
