@@ -25,7 +25,7 @@ router.get('/:token', Encrypter.decrypt ,(req, res) => {
 		return res.status(200).redirect('/verified')
 	}).catch((err) => {
 		console.log(err)
-		res.status(500).redirect('/error')
+		res.redirect('/error')
 	})
 })
 

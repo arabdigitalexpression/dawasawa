@@ -8,7 +8,7 @@ const express = require('express'),
 let router = express.Router()
 
 router.get('/:token', Encrypter.decrypt ,(req, res) => {
-
+	console.log(req.token);
 	let submitedDate = new Date(req.token.d)
 	submitedDate = submitedDate.getTime()
 	let date = new Date()

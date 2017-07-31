@@ -35,7 +35,7 @@ module.exports.decryptAuth = (req, res, next) => {
 		} catch(err) {
 			if(err){
 				console.log(err)
-				return res.redirect('/error')
+				return res.sendStatus(500)
 			}
 		}
 		next()
@@ -58,7 +58,9 @@ module.exports.decrypt = (req, res, next) => {
 		} catch(err) {
 			if(err){
 				console.log(err)
-				return res.redirect('/error')
+				if(req.baseUrl == "/instate")
+					return res.redirect('/error')
+				return res.sendStatus(500)
 			}
 		}
 		next()
